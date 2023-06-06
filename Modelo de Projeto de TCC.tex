@@ -183,23 +183,20 @@ xx
 \newpage
 \section{Metodologia}
 
-OBS: Mathematical modeling in perspective of vector-borne viral infections: a review
-\href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9388993/pdf/43088\_2022\_Article\_282.pdf}{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9388993/pdf/43088\_2022\_Article\_282.pdf} - Aqui tem modelagem específica pra malária, desenvolvida por Sir Ronald Ross.
+Para a elaboração do trabalho, serão usados dados do dataset do Projeto Trajetórias, e serão abordados métodos de transmissão de doenças baseados em equações diferenciais ordinárias, como o SIR, e, partindo de uma modelagem simples, serão incluídos os fenômenos ambientais, como desmatamento e queimada, para ver como modificações no ecossistema irão interferir no modelo elaborado previamente.
 
-Para a elaboração do trabalho, serão usados dados do dataset do Projeto Trajetórias, e serão abordados métodos de transmissão de doenças baseados em equações diferenciais ordinárias, como o SIR e SEI, para hospedeiros e vetores, respectivamente, e, partindo de uma modelagem simples, serão incluídos os fenômenos ambientais, como desmatamento e queimada, para ver como modificações no ecossistema irão interferir no modelo elaborado previamente. (Se necessário, serão aplicados outros modelos que correspondam melhor à transmissão de cada doença.) 
+\subsection{Modelos}
 
-\subsection{Modelo SIR}
-
-Desenvolvido por W. O. Kermack e A. G. McKendrick em 1927, o SIR é um dos modelos mais usados para a modelagem de epidemias, levando em consideração três compartimentos:
+Descrevendo primeiramente SIR $^{[5], [6]}$, que pode ser considerado a base de modelos que serão usados ao longo do projeto, este foi desenvolvido por W. O. Kermack e A. G. McKendrick em 1927, sendo um dos modelos mais usados para a modelagem de epidemias, levando em consideração três compartimentos:
 
 \begin{gather*}
     S: \text{número de indivíduos suscetíveis} \\
     I: \text{número de indivíduos infectados} \\
     R: \text{número de indivíduos recuperados}
 \end{gather*}
-
+\\
 Nesse modelo, os indivíduos saudáveis na classe $S$ são suscetíveis ao contato com indivíduos da classe $I$, e são transferidos para esse compartimento caso contraiam a doença. Indivíduos infectados podem espalhar a doença por contato direto com indivíduos suscetíveis, mas também podem se tornar imunes ao longo do tempo, sendo transferidos para o compartimento $R$. Em geral, $R$ inclui o total de recuperados (imunes) e mortos em decorrência da doença, mas podemos assumir que o número de mortos é muito baixo em relação ao tamanho da população total, podendo ser ignorado. Consideramos também que indivíduos nessa categoria não voltarão a ser suscetíveis ou infecciosos.   
-
+\\\\
 Considerando uma epidemia em um espaço curto de tempo e que a doença não é fatal, podemos ignorar dinâmicas vitais de nascimento e morte. Com isso, podemos descrever o modelo SIR através do seguinte sistema de EDOs:
 
 \begin{gather*}
@@ -211,9 +208,9 @@ Considerando uma epidemia em um espaço curto de tempo e que a doença não é f
 \dfrac{dR}{dt} = \gamma I
 \end{cases}
 \end{gather*}
-
+\\
 No modelo, $N(t) = S(t)+I(t)+R(t)$, ou seja, a população total no tempo $t$, enquanto que $\beta$ é a taxa de infecção e $\gamma$ é a taxa de recuperação. Dado que $S+I+R$ é sempre constante se ignorarmos nascimento e morte, temos $\dfrac{dS}{dt}+\dfrac{dI}{dt}+\dfrac{dR}{dt} = 0$. 
-
+\\\\
 Para que a doença possa se espalhar, é fácil ver que $\dfrac{dI}{dt} = \dfrac{\beta SI}{N} - \gamma I > 0$. Assim, $\dfrac{\beta SI}{N} > \gamma I \Rightarrow \dfrac{\beta S}{N} > \gamma$. Supondo que estamos no início da infeccção, dado que queremos ver como se espalha, $I$ será muito pequeno e $S \approx N$. Concluímos então que $\dfrac{\beta N}{N} > \gamma \Rightarrow \dfrac{\beta}{\gamma} > 1$. É possível derivar esse valor adimensionalizando o modelo: sejam $y^* = \dfrac{S}{N}, \ x^* = \dfrac{I}{N}, \ z^* = \dfrac{R}{N}$ e $t^*=\dfrac{t}{1/\gamma} = \gamma t$, de forma que $y^*+x^*+z^*=1$. Substituindo o sistema de EDOs acima utilizando esses valores:
 
 \begin{gather*}
@@ -237,10 +234,34 @@ Agora, cancelando os fatores $N$ e $\gamma$ em ambos os lados das equações:
 \dfrac{d(z^*)}{d(t^*)} = x^*
 \end{cases}
 \end{gather*}
-
+\\
 Sendo assim temos um sistema dado apenas por $y^*$ e $x^*$ e o parâmetro $\dfrac{\beta}{\gamma}$, que podemos chamar de $R_0$.
- 
-\subsection{Modelo SEI}
+\\\\
+Como esse trabalho será focado principalmente na modelagem de malária, irei agora apresentar um modelo desenvolvido especialmente para essa doença, desenvolvido por Sir Ronald Ross em 1911 $^{[7]}$, que usa duas EDOs distintas das apresentadas acima:
+
+\begin{gather*}
+\begin{cases}
+\dfrac{dI}{dt} = bp'i\dfrac{N-I}{N} -aI\\
+\\
+\dfrac{di}{dt} = bp(n-i)\dfrac{I}{N} - mI
+\end{cases}
+\end{gather*}
+\\
+Nesse caso, $N$ é a população humana total, $I(t)$ é o número de humanos infectados no tempo $t$, $n$ é a população total de mosquitos, $i(t)$ é o número de mosquitos infectados no tempo $t$, $b$ é a taxa de mordidas, $p$ é a probabilidade de transmissão do humano para o mosquito por mordida, $p'$ é a probabilidade de transmissão do mosquito para o humano por mordida, $a$ é a taxa de recuperação da infecção de um humano e $m$ é a taxa de mortalidade dos mosquitos. $bp'i\dfrac{N-I}{N}dt -aIdt$ representam respectivamente o número de novos humanos infectados e o número de humanos recuperados no intervalo $dt$, enquanto que $bp(n-i)\dfrac{I}{N}dt - mIdt$ representam respectivamente o número de novos mosquitos infectados e o número de mosquitos que morrem nesse intervalo de tempo, assumindo que a infeccção não interfere na taxa de mortalidade dos mosquitos.
+\\\\
+Para esse modelo, Ross discutiu dois pontos de equilíbrio, em que $\dfrac{dI}{dt} = \dfrac{di}{dt} = 0$. Eles ocorrem quando $I=i=0$, que é o caso onde não existe malária, e, para $I, i > 0$, $I = N\dfrac{1-amN/(b^2pp'n)}{1+aN/(bp'n)}$ e $i = n\dfrac{1-amN/(b^2pp'n)}{1+m/(bp)}$. Ainda, para que a doença se estabeleça, $n$ deve ser maior que um valor limiar $n^* = \dfrac{amN}{b^2pp'}$. Nesse caso a doença se torna endêmica. Caso $n<n^*$, o equilíbrio estará em $I=i=0$ e a dença irá desaparecer.
+\\\\
+Dividindo as equações dos pontos de equilíbrio por $I \times i$, temos:
+
+\begin{gather*}
+\begin{cases}
+\dfrac{bp}{N} = \dfrac{bpn}{Ni} -\dfrac{m}{I} \\
+\\
+\dfrac{bp'}{N} = \dfrac{bp'}{I} -\dfrac{a}{i} 
+\end{cases}
+\end{gather*}
+\\
+O que transforma o problema em um sistema linear com dois desconhecidos, $I$ e $i$.
 
 \newpage
 \begin{figure}[H]
@@ -304,14 +325,20 @@ xx
 \newpage
 
 \section{Referências Cronológicas}
-
 [1] Pimenta et al. An overview of malaria transmission from the perspective of Amazon $\text{Anopheles vectors}$. Mem Inst Oswaldo Cruz, Rio de Janeiro, Vol. 110(1): 23-47, February 2015. https://doi.org/10.1590/0074-02760140266.  
 
-[2] Josling, G. A., Williamson, K. C., Llinás, M. Regulation of Sexual Commitment and Gametocytogenesis in Malaria Parasites. Annual Review of Microbiology 2018 72:1, 501-519. https://doi.org/10.1146/annurev-micro-090817-062712. 
+\noindent [2] Josling, G. A., Williamson, K. C., Llinás, M. Regulation of Sexual Commitment and Gametocytogenesis in Malaria Parasites. Annual Review of Microbiology 2018 72:1, 501-519. https://doi.org/10.1146/annurev-micro-090817-062712. 
 
-[3] Silva-Nunes, M., Codeço, C. T. et al. Malaria on the Amazonian Frontier: Transmission Dynamics, Risk Factors, Spatial Distribution, and Prospects for Control. Am J Trop Med Hyg. 2008 Oct;79(4):624-35. PMID: 18840755.
+\noindent [3] Silva-Nunes, M., Codeço, C. T. et al. Malaria on the Amazonian Frontier: Transmission Dynamics, Risk Factors, Spatial Distribution, and Prospects for Control. Am J Trop Med Hyg. 2008 Oct;79(4):624-35. PMID: 18840755.
 
-[4] Rorato, A.C., Dal’Asta, A.P., Lana, R.M. et al. Trajetorias: a dataset of environmental, epidemiological, and economic indicators for the Brazilian Amazon. Sci Data 10, 65 (2023). https://doi.org/10.1038/s41597-023-01962-1.
+\noindent [4] Rorato, A.C., Dal’Asta, A.P., Lana, R.M. et al. Trajetorias: a dataset of environmental, epidemiological, and economic indicators for the Brazilian Amazon. Sci Data 10, 65 (2023). https://doi.org/10.1038/s41597-023-01962-1.
+
+\noindent [5] Coelho, F. C. Github Modelagem-Matematica-IV. https://github.com/fccoelho/Modelagem-Matematica-IV/tree/master
+
+\noindent [6] Prasad, R., Sagar, S.K., Parveen, S. et al. Mathematical modeling in perspective of vector-borne viral infections: a review. Beni-Suef Univ J Basic Appl Sci 11, 102 (2022). https://doi.org/10.1186/s43088-022-00282-4.
+
+\noindent [7] Bacaër, N. (2011). Ross and malaria (1911). A Short History of Mathematical Population Dynamics, 65–69. doi:$10.1007/978-0-85729-115-8\_12$.
+
 
 \newpage
 \section{Referências Usadas}

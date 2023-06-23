@@ -7,6 +7,7 @@
 \usepackage[pdftex,bookmarks=true,bookmarksopen=false,bookmarksnumbered=true,colorlinks=true,linkcolor=black]{hyperref}
 \usepackage[utf8]{inputenc}
 \usepackage{float}
+\usepackage{makecell}
 \usepackage{pdfpages}
 
 \usepackage[brazil]{babel}
@@ -237,7 +238,7 @@ Agora, cancelando os fatores $N$ e $\gamma$ em ambos os lados das equações:
 \\
 Sendo assim temos um sistema dado apenas por $y^*$ e $x^*$ e o parâmetro $\dfrac{\beta}{\gamma}$, que podemos chamar de $R_0$.
 \\\\
-Como esse trabalho será focado principalmente na modelagem de malária, irei agora apresentar um modelo desenvolvido especialmente para essa doença, desenvolvido por Sir Ronald Ross em 1911 $^{[7]}$, que usa duas EDOs distintas das apresentadas acima:
+Como esse trabalho será focado principalmente na modelagem de malária, irei agora apresentar um dos primeiros modelos desenvolvidos especialmente para essa doença, por Sir Ronald Ross em 1911 $^{[7]}$, que usa duas EDOs distintas das apresentadas acima:
 
 \begin{gather*}
 \begin{cases}
@@ -262,6 +263,54 @@ Dividindo as equações dos pontos de equilíbrio por $I \times i$, temos:
 \end{gather*}
 \\
 O que transforma o problema em um sistema linear com dois desconhecidos, $I$ e $i$.
+\\\\
+Agora, irei apresentar o modelo que será usado para o desenvolvimento do trabalho, elaborado por Paul E. Parham e Edwin Michael em 2010, que leva em consideração fatores como a chuva e temperatura $^{[8]}$. Definindo primeiramente os parâmetros:
+\begin{center}
+\begin{tabular}{|c | c|} 
+ \hline
+ \textbf{Parâmetro} & \textbf{Definição} \\ 
+ \hline
+ $b(R, T)$ & Taxa de nascimento de mosquitos (/ dia) \\ 
+ \hline
+ $\mu(T)$ & Taxa de morte de mosquitos per capita (/ dia) \\
+ \hline
+ a(T) & Taxa de mordidas (/dia)  \\
+ \hline
+ $b_1$ & \makecell{Proporção de mordidas de mosquitos suscetíveis em \\ humanos infectados que produzem infecção} \\
+ \hline
+ $\tau_M(T)$ & Duração do ciclo de esporozoitos (dias) \\
+ \hline
+ $I_M(T)$ & \makecell{Probabilidade de sobrevivência de mosquitos infectados \\ durante o período de incubação do parasita} \\
+ \hline
+ $b_2$ & \makecell{Proporção de mordidas de mosquitos infectados em \\ humanos suscetíveis que produzem infecção} \\
+ \hline
+ $\tau_H$ & Período latente da infecção em humanos (dias) \\
+ \hline
+ $1/\gamma$ & Duração média da infecciosidade em humanos (dias) \\
+ \hline
+ $M(t)$ & Número total de mosquitos $(S_M(t) + E_M(t) + I_M(t))$ \\
+ \hline
+ $N(t)$ & Número total de humanos $(S_H(t) + I_H(t) + R_H(t) )$ \\  
+ \hline
+\end{tabular}
+\end{center}
+Definindo agora as equações:
+\begin{gather*}
+\begin{cases}
+\dfrac{dS_M}{dt} = b - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu S_M\\
+\\
+\dfrac{dE_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu E_M - ab_1\bigg(\dfrac{I_H(t-\tau_M)}{N}\bigg)S_M(t-\tau_M)l(\tau_M)\\
+\\
+\dfrac{dI_M}{dt} = ab_1\bigg(\dfrac{I_H(t-\tau_M)}{N}\bigg)S_M(t-\tau_M)l(\tau_M) -\mu I_M\\
+\\
+\dfrac{dS_H}{dt} = -ab_2\bigg(\dfrac{I_M}{N}\bigg)S_H\\
+\\
+\dfrac{dI_H}{dt} = ab_2\bigg(\dfrac{I_M(t-\tau_H)}{N}\bigg)S_H(t-\tau_H)-\gamma I_H\\
+\\
+\dfrac{dR_H}{dt} = \gamma I_H
+\end{cases}
+\end{gather*}
+
 
 \newpage
 \begin{figure}[H]
@@ -337,8 +386,9 @@ xx
 
 \noindent [6] Prasad, R., Sagar, S.K., Parveen, S. et al. Mathematical modeling in perspective of vector-borne viral infections: a review. Beni-Suef Univ J Basic Appl Sci 11, 102 (2022). https://doi.org/10.1186/s43088-022-00282-4.
 
-\noindent [7] Bacaër, N. (2011). Ross and malaria (1911). A Short History of Mathematical Population Dynamics, 65–69. doi:$10.1007/978-0-85729-115-8\_12$.
+\noindent [7] Bacaër, N. (2011). Ross and malaria (1911). In: A Short History of Mathematical Population Dynamics. Springer, London. https://doi.org/10.1007/978-0-85729-115-8$\_$12.
 
+\noindent [8] Parham, P.E., Michael, E. (2010). Modelling Climate Change and Malaria Transmission. In: Michael, E., Spear, R.C. (eds) Modelling Parasite Transmission and Control. Advances in Experimental Medicine and Biology, vol 673. Springer, New York, NY. https://doi.org/10.1007/978-1-4419-6064-1$\_$13.
 
 \newpage
 \section{Referências Usadas}
@@ -353,11 +403,12 @@ xx
 
 \noindent [5] ALVES, Leon Diniz. Weather-driven mathematical models of dengue transmission dynamics in twelve Brazilian sites. 2021. 137 f. Tese (Doutorado em Biologia Computacional e Sistemas) - Instituto Oswaldo Cruz, Fundação Oswaldo Cruz, Rio de Janeiro, 2021. https://www.arca.fiocruz.br/handle/icict/52536	.
 
-\noindent [6] Alves, Leon Diniz, Raquel Martins Lana, and Flávio Codeço Coelho. 2021. "A Framework for Weather-Driven Dengue Virus Transmission Dynamics in Different Brazilian Regions" International Journal of Environmental Research and Public Health 18, no. 18: 9493. https://doi.org/10.3390/ijerph18189493.
+\noindent [6] Alves, Leon Diniz, Raquel Martins Lana, and Flávio Codeço Coelho. 2021. ``A Framework for Weather-Driven Dengue Virus Transmission Dynamics in Different Brazilian Regions" International Journal of Environmental Research and Public Health 18, no. 18: 9493. https://doi.org/10.3390/ijerph18189493.
 
 \noindent [7] Prasad, R., Sagar, S.K., Parveen, S. et al. Mathematical modeling in perspective of vector-borne viral infections: a review. Beni-Suef Univ J Basic Appl Sci 11, 102 (2022). https://doi.org/10.1186/s43088-022-00282-4.
 
-\noindent [8] Abdullah, Seadawy, A. & Jun, W. New mathematical model of vertical transmission and cure of vector-borne diseases and its numerical simulation. Adv Differ Equ 2018, 66 (2018). https://doi.org/10.1186/s13662-018-1516-z.
+\noindent [8] Abdullah, Seadawy, A. & Jun, W. New mathematical model of vertical transmission and cure of vector-borne diseases and its numerical simulation. Adv Differ Equ 2018, 66 (2018). 
+https://doi.org/10.1186/s13662-018-1516-z.
 
 \noindent [9] N. Shah and J. Gupta, "SEIR Model and Simulation for Vector Borne Diseases," Applied Mathematics, Vol. 4 No. 8A, 2013, pp. 13-17. doi: 10.4236/am.2013.48A003.
 

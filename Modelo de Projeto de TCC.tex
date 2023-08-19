@@ -8,7 +8,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage{float}
 \usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{changepage}
+\usepackage{pbox}
 \usepackage{pdfpages}
+\usepackage{mwe}
+\usepackage{cellspace}
+\setlength\cellspacetoplimit{4pt}
+\setlength\cellspacebottomlimit{6pt}
 
 \usepackage[brazil]{babel}
 %\usepackage{pstricks}%, egameps}
@@ -54,7 +61,7 @@
 \textbf{\LARGE Curso de Graduação em Matemática Aplicada}
 
 \par
-\vspace{170pt}
+\vspace{160pt}
 \textbf{\Large Utilização de indicadores ambientais e epidemiológicos no estudo da dinâmica de doenças transmitidas por vetores}\\
 \vspace{80pt}
 \textbf{\Large por Raphael Felberg Levy}\\
@@ -77,7 +84,7 @@
 \textbf{\LARGE Curso de Graduação em Matemática Aplicada}
 
 \par
-\vspace{100pt}
+\vspace{90pt}
 \textbf{\Large Utilização de indicadores ambientais e epidemiológicos no estudo da dinâmica de doenças transmitidas por vetores}
 
 
@@ -114,7 +121,7 @@ monografia que refere-se ao plano de trabalho a ser executado para continuidade 
 \textbf{\LARGE Curso de Graduação em Matemática Aplicada}
 
 \par
-\vspace{100pt}
+\vspace{90pt}
 \textbf{\Large Utilização de indicadores ambientais e epidemiológicos no estudo da dinâmica de doenças transmitidas por vetores}
 
 
@@ -165,23 +172,6 @@ Diante desse contexto, este trabalho visa investigar a transmissão de doenças 
 \\\\
 (Ao longo deste trabalho, serão abordados os seguintes tópicos: (1) uma revisão das principais doenças transmitidas por vetores na Amazônia e seus vetores e patógenos associados; (2) análise dos fatores ecológicos, climáticos e socioeconômicos que influenciam a transmissão de doenças; (3) discussão sobre os modelos epidemiológicos, incluindo adaptações aos modelos SIR e SEI, para avaliar o impacto das mudanças ambientais na transmissão de doenças; e (4) identificação de estratégias de prevenção e controle baseadas na compreensão da dinâmica de transmissão e nos desafios específicos da região amazônica.)
 
-\newpage
-\section{Objetivo Final}
-
-Estudar a evolução da malárias através de um modelo matemático básico, e aplicar modificações levando em consideração fatores influentes na transmissão, como desmatamento, queimadas, chuva, temperatura variante etc.
-
-\subsection{xx}
-
-referencial teórico... \footnote{Ver xx}.
-
-\subsubsection{yy}
-
-\newpage
-\subsection{xx}
-
-xx
-
-\newpage
 \section{Metodologia}
 
 Para a elaboração do trabalho, serão usados dados do dataset do Projeto Trajetórias, e serão abordados métodos de transmissão de doenças baseados em equações diferenciais ordinárias, como o SIR, e, partindo de uma modelagem simples, serão incluídos os fenômenos ambientais, como desmatamento e queimada, para ver como modificações no ecossistema irão interferir no modelo elaborado previamente.
@@ -264,37 +254,9 @@ Dividindo as equações dos pontos de equilíbrio por $I \times i$, temos:
 \\
 O que transforma o problema em um sistema linear com dois desconhecidos, $I$ e $i$.
 \\\\
-Agora, irei apresentar o modelo que será usado para o desenvolvimento do trabalho, elaborado por Paul E. Parham e Edwin Michael em 2010, que leva em consideração fatores como a chuva e temperatura $^{[8]}$. Definindo primeiramente os parâmetros:
-\begin{center}
-\begin{tabular}{|c | c|} 
- \hline
- \textbf{Parâmetro} & \textbf{Definição} \\ 
- \hline
- $b(R, T)$ & Taxa de nascimento de mosquitos (/ dia) \\ 
- \hline
- $\mu(T)$ & Taxa de morte de mosquitos per capita (/ dia) \\
- \hline
- a(T) & Taxa de mordidas (/dia)  \\
- \hline
- $b_1$ & \makecell{Proporção de mordidas de mosquitos suscetíveis em \\ humanos infectados que produzem infecção} \\
- \hline
- $\tau_M(T)$ & Duração do ciclo de esporozoitos (dias) \\
- \hline
- $I_M(T)$ & \makecell{Probabilidade de sobrevivência de mosquitos infectados \\ durante o período de incubação do parasita} \\
- \hline
- $b_2$ & \makecell{Proporção de mordidas de mosquitos infectados em \\ humanos suscetíveis que produzem infecção} \\
- \hline
- $\tau_H$ & Período latente da infecção em humanos (dias) \\
- \hline
- $1/\gamma$ & Duração média da infecciosidade em humanos (dias) \\
- \hline
- $M(t)$ & Número total de mosquitos $(S_M(t) + E_M(t) + I_M(t))$ \\
- \hline
- $N(t)$ & Número total de humanos $(S_H(t) + I_H(t) + R_H(t) )$ \\  
- \hline
-\end{tabular}
-\end{center}
-Definindo agora as equações:
+Agora, irei apresentar o modelo que será usado para o desenvolvimento do trabalho, elaborado por Paul E. Parham e Edwin Michael em 2010, que leva em consideração fatores como a chuva e temperatura ($R$ e $T$, respectivamente) $^{[8]}$. 
+\\\\
+Definindo as equações que serão utilizadas:
 \begin{gather*}
 \begin{cases}
 \dfrac{dS_M}{dt} = b - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu S_M\\
@@ -310,26 +272,146 @@ Definindo agora as equações:
 \dfrac{dR_H}{dt} = \gamma I_H
 \end{cases}
 \end{gather*}
+\\\\
+Tendo as equações do modelo, irei primeiro definir os parâmetros utilizados na modelagem e outras funções necessárias, e depois as variáveis usadas:
+\begin{adjustwidth}{-2cm}{}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c | l | c|} 
+ \hline
+ \raisebox{-1ex}{\textbf{Parâmetro}} & \raisebox{-1ex}{\textbf{Definição}} & \raisebox{-1ex}{\textbf{Cálculo}}\\ 
+ \hline
+ $T(t)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Temperatura\rule[-2.5ex]{0pt}{0pt}} & $T_1 (1 + T_2 \cos(\omega_1t - \phi_1))$\\ 
+ \hline
+ $R(t)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Precipitação\rule[-2.5ex]{0pt}{0pt}} & $R_1 (1 + R_2 \cos(\omega_2t - \phi_2))$ \\
+ \hline
+ $b(R, T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Taxa de nascimento de mosquitos (/ dia)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{B_E  p_E(R)  p_L(R,T)  p_P(R)}{(\tau_E + \tau_L(T) + \tau_P)}$\\ 
+ \hline
+ $a(T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Taxa de mordidas (/dia)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{(T - T_1)}{D_1}$ \\
+ \hline
+ $\mu(T)$ & \pbox{8cm}{\rule{0pt}{3ex}Taxa de mortalidade de mosquitos per capita (/ dia)\rule[-1.5ex]{0pt}{0pt}} & $-\log(p(T))$ \\
+ \hline
+ $\tau_M(T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Duração do ciclo de esporozoitos (dias)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{DD}{(T - T_{min})}$ \\
+ \hline
+ $\tau_L(T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Duração da fase de desenvolvimento das larvas (dias)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{1}{c_1T + c_2}$ \\
+ \hline
+ $p(T)$ & \pbox{8cm}{\rule{0pt}{3ex}Taxa diária de sobrevivência dos mosquitos (dias)\rule[-1.5ex]{0pt}{0pt}} & $e^{(-1 / (AT^2 + BT + C))}$ \\
+ \hline
+ $p_L(R)$ & \pbox{8cm}{\rule{0pt}{3ex}Probabilidade de sobrevivência das larvas dependente de chuva\rule[-1.5ex]{0pt}{0pt}} & $(\dfrac{4p_{ML}}{R_L^2})R(R_L - R)$ \\
+ \hline
+ $p_L(T)$ & \pbox{8cm}{\rule{0pt}{3ex}Probabilidade de sobrevivência das larvas dependente de temperatura\rule[-1.5ex]{0pt}{0pt}} & $e^{-(c_1T + c_2)}$ \\
+ \hline
+ $p_L(R, T)$ & \pbox{8cm}{\rule{0pt}{3ex}Probabilidade de sobrevivência das larvas dependente de temperatura e chuva\rule[-1.5ex]{0pt}{0pt}} & $p_L(R)p_L(T)$ \\
+ \hline
+ $l(\tau_M)(T)$ & \pbox{8cm}{\rule{0pt}{3ex}Probabilidade de sobrevivência de mosquitos durante o ciclo de esporozoitos (/ dia)\rule[-1.5ex]{0pt}{0pt}} & $p(T)^{\tau_M(T)}$ \\
+ \hline
+ $M(t)$ & \pbox{8cm}{\rule{0pt}{3ex}Número total de mosquitos\rule[-1.5ex]{0pt}{0pt}} & $S_M(t) + E_M(t) + I_M(t)$ \\
+ \hline
+ $N(t)$ & \pbox{8cm}{\rule{0pt}{3ex}Número total de humanos\rule[-1.5ex]{0pt}{0pt}} & $S_H(t) + I_H(t) + R_H(t)$ \\  
+ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+
+\begin{adjustwidth}{-2cm}{}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c | c|} 
+ \hline
+ \textbf{Parâmetro} & \textbf{Definição}\\ 
+ \hline
+ $b_1$ & \makecell[l]{\rule{0pt}{3ex}Proporção de mordidas de mosquitos suscetíveis \\ em humanos infectados que produzem infecção\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $b_2$ & \makecell[l]{\rule{0pt}{3ex}Proporção de mordidas de mosquitos infectados \\ em humanos suscetíveis que produzem infecção\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\tau_H$ & \makecell[l]{\rule{0pt}{3ex}Período latente da infecção em humanos (dias)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\gamma$ & \makecell[l]{\rule{0pt}{3ex}1/Duração média da infecciosidade em humanos (dias$^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $T_1$ & \makecell[l]{\rule{0pt}{3ex}Temperatura média na ausência de sazonalidade ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $T_2$ & \makecell[l]{\rule{0pt}{3ex}Amplitude da variabilidade sazonal na temperatura\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $R_1$ & \makecell[l]{\rule{0pt}{3ex}Precipitação mensal média na ausência de \\ sazonalidade (mm)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $R_2$ & \makecell[l]{\rule{0pt}{3ex}Amplitude da variabilidade sazonal na precipitação\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\omega_1$ & \makecell[l]{\rule{0pt}{3ex}Frequência angular das oscilações sazonais na temperatura (meses$^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\omega_2$ & \makecell[l]{\rule{0pt}{3ex}Frequência angular das oscilações sazonais na precipitação (meses$^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\phi_1$ & \makecell[l]{\rule{0pt}{3ex}``Phase lag" da variabilidade da temperatura (defasagem de fase)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\phi_2$ & \makecell[l]{\rule{0pt}{3ex}``Phase lag" da variabilidade da precipitação (defasagem de fase)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $B_E$ & \makecell[l]{\rule{0pt}{3ex}Número de ovos colocados por adulto por oviposição\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $p_{ME}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade de sobrevivência dos ovos\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $p_{ML}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade de sobrevivência das larvas\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $p_{MP}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade de sobrevivência das pupas\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\tau_E$ & \makecell[l]{\rule{0pt}{3ex}Duração da fase de desenvolvimento dos ovos (dias)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
 
 
+\begin{adjustwidth}{-2cm}{}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c | c|} 
+ \hline
+ \textbf{Parâmetro} & \textbf{Definição}\\ 
+ \hline
+  $\tau_P$ & \makecell[l]{\rule{0pt}{3ex}Duração da fase de desenvolvimento das pupas (dias)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $R_L$ & \makecell[l]{\rule{0pt}{3ex}Chuva limite até que os sítios de reprodução sejam eliminados, \\ removendo indivíduos de estágio imaturo (mm)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $T_{min}$ & \makecell[l]{\rule{0pt}{3ex}Temperatura mínima, abaixo dessa temperatura não há desenvolvimento \\ do parasita ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $DD$ & \makecell[l]{\rule{0pt}{3ex}``Degree days" para desenvolvimento do parasita $^{[9]} (^\circ C \ \text{dias})$\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $A$ & \makecell[l]{\rule{0pt}{3ex}Constante: -0.03 ($^\circ C^2 \ \text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $B$ & \makecell[l]{\rule{0pt}{3ex}Constante: 1.31 ($^\circ C \ \text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $C$ & \makecell[l]{\rule{0pt}{3ex}Constante: -4.4 ($\text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $D_1$ & \makecell[l]{\rule{0pt}{3ex}Constante: 36.5 ($^\circ C \ \text{dias}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $c_1$ & \makecell[l]{\rule{0pt}{3ex}Constante: 0.00554 ($^\circ C \ \text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $c_2$ & \makecell[l]{\rule{0pt}{3ex}Constante: -0.06737 ($\text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
+\\
+\\
+Com essas funções e parâmetros, podemos calcular o número reprodutivo básico ($R_0$) e os equilíbrios endêmicos:
+\begin{gather*}
+R_0 = \dfrac{Ma^2b_1b_2l(\tau_M)}{\gamma \mu(T)N} \\
+\\
+I_M^* = \dfrac{M(R_0-1)}{(\dfrac{R_0}{l(\tau_M)}) + (\dfrac{ab_2M}{\gamma N})} \\
+\\
+I_H^* = \dfrac{N(R_0-1)}{R_0 + (\dfrac{ab_1}{\mu})}
+\end{gather*}
 \newpage
-\begin{figure}[H]
-\centering
-%left bottom right top
-%\includegraphics[trim=10mm 00mm 00mm 00mm, scale=0.40]{tabela.pdf}
-\begin{center}
-Figura 1: tabela.
-\end{center}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-%left bottom right top
-%\includegraphics[trim=10mm 00mm 00mm 00mm, scale=0.40]{tabela.pdf}
-\begin{center}
-Figura 2: tabela.
-\end{center}
-\end{figure}
+Tendo as equações e parâmetros, a modelagem foi feita inicialmente utilizando dados da zona rural de Manaus, no período de 2004 a 2008, que foram selecionados devido à maior incidência de casos de malária causados por $P. \ vivax$. Usando a função de incidência utilizada no projeto Trajetorias $^{[4]}$, temos:
+\begin{gather*}
+    \text{Inc}(d, m, z, t_1, t_2) = \dfrac{\text{Casos}(d, m, z, t_1, t_2)}{\text{Pop}(m,z,(t_1+t_2)/2) * 5 \ \text{anos}} * 10^5,
+\end{gather*}
+onde $\text{casos}(d, m, z, t_1, t_2)$ é o número de casos da doença $d$ na zona $z$ do município $m$, e $t_1$ e $t_2$ são os anos iniciais e finais do intervalo, enquanto que $\text{pop}(m,z,(t_1+t_2)/2) * 5 \ \text{anos}$ é a população na zona $z$ do município $m$ no meio do período multiplicado pelo total de anos de observação. Nesse caso, poderíamos indicar como:
+\begin{gather*}
+    \text{Inc}(\text{Vivax}, \text{Manaus}, \text{Rural}, 2004, 2008) = \dfrac{\text{Casos}(\text{Vivax}, \text{Manaus}, \text{Rural}, 2004, 2008)}{\text{Pop}(\text{Manaus}, \text{Rural}, 2006) * 5 \ \text{anos}} * 10^5  \\\\
+    184030.8 = \dfrac{78745}{5\text{Pop}} * 10^5 \Rightarrow Pop \approx 8558
+\end{gather*}
+Usando dados da população total de Manaus nesse período, cuja incidência foi de 3106.4 e o número de casos foi de 262264, a população total do município foi estimada como sendo de 1688540 habitantes. Com isso, a população rural pôde ser considerada como aproximadamente 0.5$\%$ da população do município.
+\\\\
+Tendo estimado o tamanho porcentual da população rural na cidade, foi possível calcular essa população em cada um dos anos da análise através de uma interpolação linear feita com dados de séries históricas do IBGE $^{[10]}$.
 
 \newpage
 \subsubsection{yy}
@@ -363,13 +445,16 @@ Funcao_{i}(p) = \gamma + \delta p + \theta p^2 + \omega p^3, \qquad \qquad \qqua
 \end{align*} %\right.\]
 
 \newpage
-\section{Resultados Esperados}
+\section{Resultados}
 
 Nesta seção serão apresentados os resultados esperados...
 
-\subsection{xx}
+\newpage
+\section{Discussão}
 
-xx
+\newpage
+\section{Conclusão}
+
 
 \newpage
 
@@ -389,6 +474,11 @@ xx
 \noindent [7] Bacaër, N. (2011). Ross and malaria (1911). In: A Short History of Mathematical Population Dynamics. Springer, London. https://doi.org/10.1007/978-0-85729-115-8$\_$12.
 
 \noindent [8] Parham, P.E., Michael, E. (2010). Modelling Climate Change and Malaria Transmission. In: Michael, E., Spear, R.C. (eds) Modelling Parasite Transmission and Control. Advances in Experimental Medicine and Biology, vol 673. Springer, New York, NY. https://doi.org/10.1007/978-1-4419-6064-1$\_$13.
+
+\noindent [9] McCord, G. Malaria ecology and climate change. Eur. Phys. J. Spec. Top. 225, 459–470 (2016). https://doi.org/10.1140/epjst/e2015-50097-1
+
+\noindent [10] Censo - Séries históricas. Brasil / Amazonas / Manaus. 
+\\https://cidades.ibge.gov.br/brasil/am/manaus/pesquisa/43/0?tipo=grafico
 
 \newpage
 \section{Referências Usadas}

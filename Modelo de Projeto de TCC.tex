@@ -174,7 +174,7 @@ Diante desse contexto, este trabalho visa investigar a transmissão de doenças 
 
 \section{Metodologia}
 
-Para a elaboração do trabalho, serão usados dados do dataset do Projeto Trajetórias, e serão abordados métodos de transmissão de doenças baseados em equações diferenciais ordinárias, como o SIR, e, partindo de uma modelagem simples, serão incluídos os fenômenos ambientais, como desmatamento e queimada, para ver como modificações no ecossistema irão interferir no modelo elaborado previamente.
+Para a elaboração do trabalho, serão usados dados do dataset do Projeto Trajetórias, e serão abordados métodos de transmissão de doenças baseados em equações diferenciais ordinárias, como o SIR, e, partindo de uma modelagem simples, serão incluídos os fenômenos ambientais, como desmatamento e queimada, para ver como modificações no ecossistema irão interferir no modelo elaborado previamente. Os cálculos computacionais foram realizados utilizando o SageMath.
 
 \subsection{Modelos}
 
@@ -238,7 +238,7 @@ Como esse trabalho será focado principalmente na modelagem de malária, irei ag
 \end{cases}
 \end{gather*}
 \\
-Nesse caso, $N$ é a população humana total, $I(t)$ é o número de humanos infectados no tempo $t$, $n$ é a população total de mosquitos, $i(t)$ é o número de mosquitos infectados no tempo $t$, $b$ é a taxa de mordidas, $p$ é a probabilidade de transmissão do humano para o mosquito por mordida, $p'$ é a probabilidade de transmissão do mosquito para o humano por mordida, $a$ é a taxa de recuperação da infecção de um humano e $m$ é a taxa de mortalidade dos mosquitos. $bp'i\dfrac{N-I}{N}dt -aIdt$ representam respectivamente o número de novos humanos infectados e o número de humanos recuperados no intervalo $dt$, enquanto que $bp(n-i)\dfrac{I}{N}dt - mIdt$ representam respectivamente o número de novos mosquitos infectados e o número de mosquitos que morrem nesse intervalo de tempo, assumindo que a infeccção não interfere na taxa de mortalidade dos mosquitos.
+Nesse caso, $N$ é a população humana total, $I(t)$ é o número de humanos infectados no tempo $t$, $n$ é a população total de mosquitos, $i(t)$ é o número de mosquitos infectados no tempo $t$, $b$ é a taxa de picadas, $p$ é a probabilidade de transmissão do humano para o mosquito por picada, $p'$ é a probabilidade de transmissão do mosquito para o humano por picada, $a$ é a taxa de recuperação da infecção de um humano e $m$ é a taxa de mortalidade dos mosquitos. $bp'i\dfrac{N-I}{N}dt -aIdt$ representam respectivamente o número de novos humanos infectados e o número de humanos recuperados no intervalo $dt$, enquanto que $bp(n-i)\dfrac{I}{N}dt - mIdt$ representam respectivamente o número de novos mosquitos infectados e o número de mosquitos que morrem nesse intervalo de tempo, assumindo que a infeccção não interfere na taxa de mortalidade dos mosquitos.
 \\\\
 Para esse modelo, Ross discutiu dois pontos de equilíbrio, em que $\dfrac{dI}{dt} = \dfrac{di}{dt} = 0$. Eles ocorrem quando $I=i=0$, que é o caso onde não existe malária, e, para $I, i > 0$, $I = N\dfrac{1-amN/(b^2pp'n)}{1+aN/(bp'n)}$ e $i = n\dfrac{1-amN/(b^2pp'n)}{1+m/(bp)}$. Ainda, para que a doença se estabeleça, $n$ deve ser maior que um valor limiar $n^* = \dfrac{amN}{b^2pp'}$. Nesse caso a doença se torna endêmica. Caso $n<n^*$, o equilíbrio estará em $I=i=0$ e a dença irá desaparecer.
 \\\\
@@ -254,26 +254,26 @@ Dividindo as equações dos pontos de equilíbrio por $I \times i$, temos:
 \\
 O que transforma o problema em um sistema linear com dois desconhecidos, $I$ e $i$.
 \\\\
-Agora, irei apresentar o modelo que será usado para o desenvolvimento do trabalho, elaborado por Paul E. Parham e Edwin Michael em 2010, que leva em consideração fatores como a chuva e temperatura ($R$ e $T$, respectivamente) $^{[8]}$. 
+Agora, irei apresentar o modelo que será usado para o desenvolvimento do trabalho, feito com base no elaborado por Paul E. Parham e Edwin Michael em 2010, que leva em consideração fatores como a chuva e temperatura ($R$ e $T$, respectivamente) $^{[8]}$. 
 \\\\
 Definindo as equações que serão utilizadas:
 \begin{gather*}
 \begin{cases}
 \dfrac{dS_M}{dt} = b - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu S_M\\
 \\
-\dfrac{dE_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu E_M - ab_1\bigg(\dfrac{I_H(t-\tau_M)}{N}\bigg)S_M(t-\tau_M)l(\tau_M)\\
+\dfrac{dE_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu E_M - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_Ml(\tau_M)\\
 \\
-\dfrac{dI_M}{dt} = ab_1\bigg(\dfrac{I_H(t-\tau_M)}{N}\bigg)S_M(t-\tau_M)l(\tau_M) -\mu I_M\\
+\dfrac{dI_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_Ml(\tau_M) -\mu I_M\\
 \\
 \dfrac{dS_H}{dt} = -ab_2\bigg(\dfrac{I_M}{N}\bigg)S_H\\
 \\
-\dfrac{dI_H}{dt} = ab_2\bigg(\dfrac{I_M(t-\tau_H)}{N}\bigg)S_H(t-\tau_H)-\gamma I_H\\
+\dfrac{dI_H}{dt} = ab_2\bigg(\dfrac{I_M}{N}\bigg)S_H-\gamma I_H\\
 \\
 \dfrac{dR_H}{dt} = \gamma I_H
 \end{cases}
 \end{gather*}
 \\\\
-Tendo as equações do modelo, irei primeiro definir os parâmetros utilizados na modelagem e outras funções necessárias, e depois as variáveis usadas:
+Tendo as equações do modelo para a população de humanos e de mosquitos, irei primeiro definir os parâmetros utilizados na modelagem e outras funções necessárias, e depois as variáveis usadas:
 \begin{adjustwidth}{-2cm}{}
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
@@ -287,7 +287,7 @@ Tendo as equações do modelo, irei primeiro definir os parâmetros utilizados n
  \hline
  $b(R, T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Taxa de nascimento de mosquitos (/ dia)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{B_E  p_E(R)  p_L(R,T)  p_P(R)}{(\tau_E + \tau_L(T) + \tau_P)}$\\ 
  \hline
- $a(T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Taxa de mordidas (/dia)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{(T - T_1)}{D_1}$ \\
+ $a(T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Taxa de picadas (/dia)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{(T - T_1)}{D_1}$ \\
  \hline
  $\mu(T)$ & \pbox{8cm}{\rule{0pt}{3ex}Taxa de mortalidade de mosquitos per capita (/ dia)\rule[-1.5ex]{0pt}{0pt}} & $-\log(p(T))$ \\
  \hline
@@ -320,9 +320,9 @@ Tendo as equações do modelo, irei primeiro definir os parâmetros utilizados n
  \hline
  \textbf{Parâmetro} & \textbf{Definição}\\ 
  \hline
- $b_1$ & \makecell[l]{\rule{0pt}{3ex}Proporção de mordidas de mosquitos suscetíveis \\ em humanos infectados que produzem infecção\rule[-1.5ex]{0pt}{0pt}} \\
+ $b_1$ & \makecell[l]{\rule{0pt}{3ex}Proporção de picadas de mosquitos suscetíveis \\ em humanos infectados que produzem infecção\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $b_2$ & \makecell[l]{\rule{0pt}{3ex}Proporção de mordidas de mosquitos infectados \\ em humanos suscetíveis que produzem infecção\rule[-1.5ex]{0pt}{0pt}} \\
+ $b_2$ & \makecell[l]{\rule{0pt}{3ex}Proporção de picadas de mosquitos infectados \\ em humanos suscetíveis que produzem infecção\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $\tau_H$ & \makecell[l]{\rule{0pt}{3ex}Período latente da infecção em humanos (dias)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
@@ -346,11 +346,11 @@ Tendo as equações do modelo, irei primeiro definir os parâmetros utilizados n
  \hline
  $B_E$ & \makecell[l]{\rule{0pt}{3ex}Número de ovos colocados por adulto por oviposição\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $p_{ME}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade de sobrevivência dos ovos\rule[-1.5ex]{0pt}{0pt}} \\
+ $p_{ME}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade máxima de sobrevivência dos ovos\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $p_{ML}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade de sobrevivência das larvas\rule[-1.5ex]{0pt}{0pt}} \\
+ $p_{ML}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade máxima de sobrevivência das larvas\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $p_{MP}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade de sobrevivência das pupas\rule[-1.5ex]{0pt}{0pt}} \\
+ $p_{MP}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade máxima de sobrevivência das pupas\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $\tau_E$ & \makecell[l]{\rule{0pt}{3ex}Duração da fase de desenvolvimento dos ovos (dias)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline

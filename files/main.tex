@@ -13,6 +13,9 @@
 \usepackage{pbox}
 \usepackage{pdfpages}
 \usepackage{mwe}
+%\usepackage[demo]{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{cellspace}
 \setlength\cellspacetoplimit{4pt}
 \setlength\cellspacebottomlimit{6pt}
@@ -172,9 +175,13 @@ Diante desse contexto, este trabalho visa investigar a transmissão de doenças 
 \\\\
 (Ao longo deste trabalho, serão abordados os seguintes tópicos: (1) uma revisão das principais doenças transmitidas por vetores na Amazônia e seus vetores e patógenos associados; (2) análise dos fatores ecológicos, climáticos e socioeconômicos que influenciam a transmissão de doenças; (3) discussão sobre os modelos epidemiológicos, incluindo adaptações aos modelos SIR e SEI, para avaliar o impacto das mudanças ambientais na transmissão de doenças; e (4) identificação de estratégias de prevenção e controle baseadas na compreensão da dinâmica de transmissão e nos desafios específicos da região amazônica.)
 
+\section{Resumo}
+
+
+
 \section{Metodologia}
 
-Para a elaboração do trabalho, serão usados dados do dataset do Projeto Trajetórias, e serão abordados métodos de transmissão de doenças baseados em equações diferenciais ordinárias, como o SIR, e, partindo de uma modelagem simples, serão incluídos os fenômenos ambientais, como desmatamento e queimada, para ver como modificações no ecossistema irão interferir no modelo elaborado previamente. Os cálculos computacionais foram realizados em ambiente SageMath, utilizando funções de integração numérica do Scipy para solução do método.
+Para a elaboração do trabalho, serão usados dados populacionais do dataset do Projeto Trajetórias e dados climáticos do Climate Data, e serão abordados métodos de transmissão de doenças baseados em equações diferenciais ordinárias, como o SIR, e, partindo de uma modelagem simples, serão incluídos os fenômenos ambientais, como desmatamento e queimada, para ver como modificações no ecossistema irão interferir no modelo elaborado previamente. Os cálculos computacionais foram realizados em ambiente SageMath, utilizando funções de integração numérica do Scipy para solução do método.
 
 \subsection{Modelos}
 
@@ -352,6 +359,8 @@ Tendo as equações do modelo para a população de humanos e de mosquitos, irei
  \hline
  $\tau_E$ & \makecell[l]{\rule{0pt}{3ex}Duração da fase de desenvolvimento dos ovos (dias)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
+ $b_3^*$ & \makecell[l]{\rule{0pt}{3ex}Taxa de infecção em mosquitos expostos $(1/\tau_M(T))$\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
 \end{tabular}
 \end{center}
 \end{adjustwidth}
@@ -368,9 +377,10 @@ Tendo as equações do modelo para a população de humanos e de mosquitos, irei
  \hline
  $R_L$ & \makecell[l]{\rule{0pt}{3ex}Chuva limite até que os sítios de reprodução sejam eliminados, \\ removendo indivíduos de estágio imaturo (mm)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $T_{min}$ & \makecell[l]{\rule{0pt}{3ex}Temperatura mínima, abaixo dessa temperatura não há desenvolvimento \\ do parasita ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
+ $T_{min}$ & \makecell[l]{\rule{0pt}{3ex}Temperatura mínima, abaixo dessa temperatura não há desenvolvimento \\ do parasita: 14.5 ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $DD$ & \makecell[l]{\rule{0pt}{3ex}``Degree days" para desenvolvimento do parasita $^{[9]} (^\circ C \ \text{dias})$\rule[-1.5ex]{0pt}{0pt}} \\
+ $DD$ & \makecell[l]{\rule{0pt}{3ex}``Degree days" para desenvolvimento do parasita. Número de graus em \\ que a temperatura média diária excede a temperatura mínima \\ de desenvolvimento.
+ ``Sum of heat" para maturação: 105 $(^\circ C \ \text{dias})$ $^{[9], [12]}$\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $A$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C^2 \ \text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
@@ -384,9 +394,14 @@ Tendo as equações do modelo para a população de humanos e de mosquitos, irei
  \hline
  $c_2$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($\text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
+ $T'^*$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de temperatura ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
 \end{tabular}
 \end{center}
 \end{adjustwidth}
+
+\vspace{1cm}
+Parâmetros marcados com $^*$ foram adicionados durante o desenvolvimento da modelagem para correção de imprecisões derivadas das equações originais do artigo de referência.
 \\\\
 Com essas funções e parâmetros, podemos calcular o número reprodutivo básico ($R_0$) e os equilíbrios endêmicos:
 \begin{gather*}
@@ -396,10 +411,9 @@ I_M^* = \dfrac{M(R_0-1)}{(\dfrac{R_0}{l(\tau_M)}) + (\dfrac{ab_2M}{\gamma N})} \
 \\
 I_H^* = \dfrac{N(R_0-1)}{R_0 + (\dfrac{ab_1}{\mu})}
 \end{gather*}
-\newpage
 Tendo as equações e parâmetros, a modelagem foi feita inicialmente utilizando dados da zona rural de Manaus, no período de 2004 a 2008, que foram selecionados devido à maior incidência de casos de malária causados por $P. \ vivax$. Usando a função de incidência utilizada no projeto Trajetorias $^{[4]}$, temos:
 \begin{gather*}
-    \text{Inc}(d, m, z, t_1, t_2) = \dfrac{\text{Casos}(d, m, z, t_1, t_2)}{\text{Pop}(m,z,(t_1+t_2)/2) * 5 \ \text{anos}} * 10^5,
+    \text{Inc}(d, m, z, t_1, t_2) = \dfrac{\text{Casos}(d, m, z, t_1, t_2)}{\text{Pop}(m,z,(t_1+t_2)/2) \times 5 \ \text{anos}} \times 10^5,
 \end{gather*}
 onde $\text{casos}(d, m, z, t_1, t_2)$ é o número de casos da doença $d$ na zona $z$ do município $m$, e $t_1$ e $t_2$ são os anos iniciais e finais do intervalo, enquanto que $\text{pop}(m,z,(t_1+t_2)/2) \times 5 \ \text{anos}$ é a população na zona $z$ do município $m$ no meio do período multiplicado pelo total de anos de observação. Nesse caso, poderíamos indicar como:
 \begin{gather*}
@@ -408,12 +422,58 @@ onde $\text{casos}(d, m, z, t_1, t_2)$ é o número de casos da doença $d$ na z
 \end{gather*}
 Usando dados da população total de Manaus nesse período, cuja incidência foi de 3106.4 e o número de casos foi de 262264, a população total do município foi estimada como sendo de 1688540 habitantes. Com isso, a população rural pôde ser considerada como aproximadamente 0.5$\%$ da população do município.
 \\\\
-Tendo estimado o tamanho porcentual da população rural na cidade, foi possível calcular essa população em cada um dos anos da análise através de uma interpolação linear feita com dados de séries históricas do IBGE $^{[10]}$.
+Tendo estimado o tamanho porcentual da população rural na cidade, foi possível calcular essa população em cada um dos anos da análise através de uma interpolação linear feita com dados de séries históricas do IBGE $^{[10]}$:
+\\\\
+\begin{adjustwidth}{-2cm}{}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c | c|} 
+ \hline
+ \textbf{Ano} & \textbf{População rural estimada}\\ 
+ \hline
+$2004$ & $7717$ \\
+ \hline
+ $2005$ & $7889$ \\
+ \hline
+ $2006$ & $8061$ \\
+ \hline
+ $2007$ & $8233$ \\
+ \hline
+ $2008$ & $8492$ \\
+ \hline
+\end{tabular}
+\end{center}
+\end{adjustwidth}
 
+\vspace{1cm}
+Descrevendo agora um pouco da teoria por trás dos fatores ambientais, segundo $^{[13]}$, a remoção da copa das árvores permitiu a reemergência da malária na América do Sul, já que em áreas desmatadas, sem as copas cobrindo o solo, poças d'água sob luz solar atraem mosquitos da espécie $Anopheles \ darlingi$, principal vetor relacionado à malária humana na Amazônia $^{[14]}$, sendo que costumam ser menos encontrados em florestas ainda intactas. O desmatamento também atrai e aproxima humanos para que possam tomar parte em atividades madeireiras, de agricultura e construção de rodovias, trazendo indíviduos infectados com o $Plasmodium$ para uma área que tanto o vetor quanto o ambiente já foram modificados de forma a favorecer a sua transmissão.
 \newpage
 \section{Resultados}
 
 Analisando primeiro os resultados obtidos com os parâmetros originais do artigo de Parham e Michael, e utilizando a população média estimada anteriormente e um valor arbitrário para a população de mosquitos, de 10000, assumindo 1000 humanos infectados e 5000 mosquitos expostos à malária em $t=0$, a modelagem ficou como a seguir: 
+
+% Pra plotar duas imagens uma ao lado da outra, precisa corrigir a posição das legendas.
+
+% \begin{figure}
+% \hspace*{-1.5cm} % Adiciona espaço negativo para puxar a imagem para a esquerda
+% \begin{minipage}{.45\textwidth}
+%   \centering
+%   \includegraphics[width=1.25\linewidth]{SIR_Dados_Originais_Parham_Michael.png}
+%   \captionof{figure}{A figure}
+%   \label{fig:test1}
+% \end{minipage}%
+% \hspace{1.5cm} % Adiciona espaço horizontal
+% \begin{minipage}{.45\textwidth}
+%   \centering
+%   \includegraphics[width=1.3\linewidth]{SEI_Dados_Originais_Parham_Michael.png}
+%   \captionof{figure}{Another figure} % Legenda à direita da segunda imagem
+%   \label{fig:test2}
+% \end{minipage}
+% \end{figure}
+
+
+
+
 
 \begin{figure}[!ht]
         \centering
@@ -424,8 +484,13 @@ Analisando primeiro os resultados obtidos com os parâmetros originais do artigo
         \centering
         \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SEI_Dados_Originais_Parham_Michael.png}}
 \end{figure} 
-Com essa modelagem inical, é perceptível uma forte oscilação do número de humanos e mosquitos suscetíveis, assim como de humanos infectados. Ademais, é notável que, com esses parâmetros, a epidemia não irá se estabilizar, visto que o número de humanos infectados tende a 0 ao longo do ano, enquanto que a população de mosquitos suscetíveis fica negativa e a população de expostos e infectados também tende a 0. Esses efeitos foram caracterizados pela temperatura e precipitação oscilando em períodos de tempo muito curtos, devido a um alto valor de $\omega$ para ambas as funções. 
-\\\\Coletando dados climatológicos de Manaus em $^{[11]}$, a temperatura e precipitação média foram estimados como 26.4 $^\circ C$ e 250.08 mm, respectivamente. Com esses dados, a amplitude da variabilidade sazonal, frequência angular e ``phase lag" da variabilidade para ambos foram definidos de forma a aproximar os valores reais:
+A elaboração do modelo com os dados originais pode ser encontrada em
+\\
+https://github.com/RaphaLevy/TCC/blob/main/old/Dados\%20Originais.ipynb.
+\\\\
+Com essa modelagem inicial, é perceptível uma forte oscilação do número de humanos e mosquitos suscetíveis, assim como de humanos infectados. Ademais, é notável que, com esses parâmetros, a epidemia não irá se estabilizar, visto que o número de humanos infectados tende a 0 ao longo do ano, enquanto que a população de mosquitos suscetíveis fica negativa e a população de expostos e infectados também tende a 0. Esses efeitos foram caracterizados pela temperatura e precipitação oscilando em períodos de tempo muito curtos, devido a um alto valor de $\omega$ para ambas as funções. 
+\\\\
+Coletando dados climatológicos de Manaus em $^{[11]}$, a temperatura e precipitação média foram estimados como 26.4 $^\circ C$ e 250.083 mm, respectivamente. Com esses dados, a amplitude da variabilidade sazonal, frequência angular e ``phase lag" da variabilidade para ambos foram definidos de forma a aproximar os valores reais:
 
 \begin{adjustwidth}{-2cm}{}
 \begin{center}
@@ -453,8 +518,29 @@ Com essa modelagem inical, é perceptível uma forte oscilação do número de h
 \end{tabular}
 \end{center}
 \end{adjustwidth}
-\\\\
+
+\vspace{1cm}
 A temperatura e precipitação ao longo do ano evoluem então da seguinte maneira:
+
+
+% \begin{figure}
+% \hspace*{-1.5cm} % Adiciona espaço negativo para puxar a imagem para a esquerda
+% \begin{minipage}{.45\textwidth}
+%   \centering
+%   \includegraphics[width=1.2\linewidth]{Grafico_da_Temperatura.png}
+%   \captionof{figure}{A figure}
+%   \label{fig:test1}
+% \end{minipage}%
+% \hspace{1.5cm} % Adiciona espaço horizontal
+% \begin{minipage}{.45\textwidth}
+%   \centering
+%   \includegraphics[width=1.2\linewidth]{Grafico_da_Precipitacao.png}
+%   \captionof{figure}{Another figure} % Legenda à direita da segunda imagem
+%   \label{fig:test2}
+% \end{minipage}
+% \end{figure}
+
+
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{4.0em} \includegraphics[scale=0.6] {Grafico_da_Temperatura.png}}
@@ -464,10 +550,53 @@ A temperatura e precipitação ao longo do ano evoluem então da seguinte maneir
         \centering
         \hbox{\hspace{4.0em} \includegraphics[scale=0.6] {Grafico_da_Precipitacao.png}}
 \end{figure} 
-\\\\De forma a garantir a corretude da função com os parâmetros utilizados, calculei os valores da temperatura nos meses de outubro e maio, que são o mais quente e frio do ano, com temperaturas médias de 27.6 $^\circ C$ e 25.8 $^\circ C$ respectivamente, e da precipitação em março e agosto, que são os meses com maior e menor precipitação, com 395 e 114 mm, respectivamente. Os valores médios obtidos foram de 27.06 $^\circ C$, 25.86 $^\circ C$, 390.67 mm e 112.89 mm.
+De forma a garantir a corretude da função com os parâmetros utilizados, calculei os valores da temperatura nos meses de outubro e maio, que são o mais quente e frio do ano, com temperaturas médias de 27.6 $^\circ C$ e 25.8 $^\circ C$ respectivamente, e da precipitação em março e agosto, que são os meses com maior e menor precipitação, com 395 e 114 mm, respectivamente. Os valores médios obtidos foram de 27.06 $^\circ C$, 25.86 $^\circ C$, 390.67 mm e 112.89 mm. Tendo os parâmetros de $T$ e $R$ prontos para uma primeira análise, a evolução das populações de humanos e mosquitos foram verificadas utilizando $N=8558$, com $S_{H0} = 7558$, $I_{H0} = 10000$, $M= 300000$, $S_{M0}=250000$, $E_{M0} = 50000$, $A = 317.925, \ B = 15, \ C = -48.78$ e $R_L = 312 \ \text{mm}$:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SIR_a_incorreto.png}}
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SEI_a_incorreto.png}}
+\end{figure} 
+Notavelmente, essa modelagem está incorreta, especialmente a da população humana, cujo número de infectados decai para aproximadamente -300000. Verificando as EDOs, foi possível ver que o único parâmetro que é dado em função da temperatura e chuva no SIR é o $a(T)$, que é a taxa de picadas por dia. Dada a sua fórmula, e sabendo que a temperatura inicialmente decai nos primeiros meses do ano, tem-se que $a$ tomará valores negativos na equação de infectados, visto que $T_1$ será maior que $T$ inicialmente, explicando o comportamento da curva. Se comparado com os dados do artigo de Parham e Michael, cuja temperatura é crescente inicialmente, foi necessário modificar a ordem do numerador dessa taxa para que, num primeiro momento, não se torne negativa conforme a temperatura decai. Utilizando então a equação $a(T) = \dfrac{T_1-T}{D_1}$, os gráficos do modelo ficaram como a seguir:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SIR_a_correto.png}}
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SEI_a_correto.png}}
+\end{figure}
+Analisando o comportamento da modelagem de mosquitos de forma que a população ficasse aproximadamente constante ao longo do período, dadas as equações diferenciais do modelo SEI, e os parâmetros passados para atingir esse objetivo, o valor de $\mu$ passado fica muito próximo de 0, enquanto que $l(\tau_M)$, uma probabilidade, fica muito próxima de 1. Por isso, $\dfrac{dE_M}{dt}$ também fica bem próximo de 0, fazendo com que a função de expostos seja linear, aproximadamente constante no número inicial de infectados, enquanto que a população de mosquitos que sai do compartimento de suscetíveis quase que simultaneamente entra no compartimento de infectados, causando as ondulações espelhadas de $S$ e $I$. Para contornar esse efeito, foi necessário modificar o uso de $b_1$, para passar apenas mosquitos do compartimento $S$ para $E$, necessitando da inclusão de um novo parâmetro, $b_3$, para passar mosquitos do compartimento $E$ para $I$. Essa taxa é inversa ao período de incubação, então definimos
+\begin{gather*}
+    b_3 = \dfrac{T-T_{min}}{DD}
+\end{gather*}
+Ademais, foi removido o parâmetro $a(T)$ na passagem de mosquitos expostos para infectados, visto que nessa mudança do compartimento $E$ para $I$ não ocorrem novas picadas, assim como o parâmetro $T_1$ utilizado na fórmula de $a(T)$ também teve de ser modificado, visto que o artigo original aplica $T_1$ com dois valores diferentes, para a taxa de picadas e para a equação da temperatura por tempo. Com o intuito de manter a formatação de $T(t)$ e $R(t)$ a mesma, $T_1$ de $a$ foi modificado para $T'$.
+\\\\
+Considerando então o que foi dito acima, também se tornou necessário modificar as equações diferenciais do SEI, que ficaram dessa forma:
+\begin{gather*}
+\begin{cases}
+\dfrac{dS_M}{dt} = b - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu S_M\\
+\\
+\dfrac{dE_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu E_M - b_3E_Ml\\
+\\
+\dfrac{dI_M}{dt} = b_3E_Ml -\mu I_M\\
+\end{cases}
+\end{gather*}
+Utilizando as equações atualizadas, 
+\\\\
+
+
 
 \newpage
 \section{Discussão}
+
+Dado ao grande foco alocado na modelagem da transmissão analisando os impactos ambientais, e a necessidade constante de modificar o modelo proposto, tanto para corrigir estimações não-realistas, como o modelo oscilante apresentado nos primeiros gráficos do trabalho, quanto para alterar a metodologia usada no artigo de referência, em especial na modelagem dos mosquitos, a análise dos efeitos de fatores socioeconômicos, assim como a identificação de estratégias de prevenção e controle da doença acabaram fugindo ao escopo do TCC.
+\\\\
+Dentro do que foi feito, a principal consideração que se pôde tirar do desenvolvimento do trabalho é que esse é um modelo muito sensível aos parâmetros utilizados. Pequenas modificações feitas em $A, \ B$ ou $C$ por exemplo são suficientes para que o modelo atinja um equilíbrio ou tenha as populações tendendo a $\pm \infty$, o que não faz sentido num ecossistema ``fechado". 
 
 \newpage
 \section{Conclusão}
@@ -476,7 +605,8 @@ A temperatura e precipitação ao longo do ano evoluem então da seguinte maneir
 \newpage
 
 \section{Referências Cronológicas}
-[1] Pimenta et al. An overview of malaria transmission from the perspective of Amazon $\text{Anopheles vectors}$. Mem Inst Oswaldo Cruz, Rio de Janeiro, Vol. 110(1): 23-47, February 2015. https://doi.org/10.1590/0074-02760140266.  
+[1] Pimenta et al. An overview of malaria transmission from the perspective of Amazon $\text{Anopheles vectors}$. Mem Inst Oswaldo Cruz, Rio de Janeiro, Vol. 110(1): 23-47, February 2015. 
+\\https://doi.org/10.1590/0074-02760140266.  
 
 \noindent [2] Josling, G. A., Williamson, K. C., Llinás, M. Regulation of Sexual Commitment and Gametocytogenesis in Malaria Parasites. Annual Review of Microbiology 2018 72:1, 501-519. https://doi.org/10.1146/annurev-micro-090817-062712. 
 
@@ -497,7 +627,13 @@ A temperatura e precipitação ao longo do ano evoluem então da seguinte maneir
 \noindent [10] Censo - Séries históricas. Brasil / Amazonas / Manaus. 
 \\https://cidades.ibge.gov.br/brasil/am/manaus/pesquisa/43/0?tipo=grafico
 
-\noindent [11] Climate Data. CLIMA MANAUS (BRASIL). https://pt.climate-data.org/america-do-sul/brasil/amazonas/manaus-1882/
+\noindent [11] Climate Data. CLIMA MANAUS (BRASIL). https://pt.climate-data.org \\ /america-do-sul/brasil/amazonas/manaus-1882/
+
+\noindent [12] Detinova, Tatiana Sergeevna, Bertram, D. S $\&$ World Health Organization. (1962). Age-grouping methods in diptera of medical importance, with special reference to some vectors of malaria / T. S. Detinova ; [with] an Annex on the ovary and ovarioles of mosquitos (with glossary) by D. S. Bertram. World Health Organization. \\ https://iris.who.int/handle/10665/41724
+
+\noindent [13] Norris, D.E. Mosquito-borne Diseases as a Consequence of Land Use Change. EcoHealth 1, 19–24 (2004). https://doi.org/10.1007/s10393-004-0008-7
+
+\noindent [14] Anopheles. Fiocruz Rondônia. https://www.rondonia.fiocruz.br/pivem/anopheline/
 
 \newpage
 \section{Referências Usadas}

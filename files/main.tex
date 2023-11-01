@@ -17,6 +17,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{cellspace}
+\usepackage[top=2.5cm]{geometry}
 \setlength\cellspacetoplimit{4pt}
 \setlength\cellspacebottomlimit{6pt}
 
@@ -173,7 +174,7 @@ Notavelmente, a transmissão de doenças por vetores é intimamente relacionada 
 \\\\
 Diante desse contexto, este trabalho visa investigar a transmissão de doenças por vetores na Amazônia e analisar como os impactos ambientais influenciam a dinâmica de transmissão da malária, os fatores ecológicos e socioeconômicos que afetam essa disseminação e possíveis estratégias de prevenção e controle, tendo como referência principal o Projeto Trajetórias-Sinbiose, elaborado pela FIOCRUZ, um dataset incluindo indicadores ambientais, epidemiológicos, econômicos e socioeconômicos para todos os municípios da Amazônia Legal, analisando a relação espacial e temporal entre trajetórias econômicas ligadas à dinâmica dos sistemas agrários, sendo eles rurais de base familiar ou produção agrícola e de gado em larga escala, a disponibilidade de recursos naturais e o risco de doenças $^{[4]}$.
 \\\\
-(Ao longo deste trabalho, serão abordados os seguintes tópicos: (1) uma revisão das principais doenças transmitidas por vetores na Amazônia e seus vetores e patógenos associados; (2) análise dos fatores ecológicos, climáticos e socioeconômicos que influenciam a transmissão de doenças; (3) discussão sobre os modelos epidemiológicos, incluindo adaptações aos modelos SIR e SEI, para avaliar o impacto das mudanças ambientais na transmissão de doenças; e (4) identificação de estratégias de prevenção e controle baseadas na compreensão da dinâmica de transmissão e nos desafios específicos da região amazônica.)
+% (Ao longo deste trabalho, serão abordados os seguintes tópicos: (1) uma revisão das principais doenças transmitidas por vetores na Amazônia e seus vetores e patógenos associados; (2) análise dos fatores ecológicos, climáticos e socioeconômicos que influenciam a transmissão de doenças; (3) discussão sobre os modelos epidemiológicos, incluindo adaptações aos modelos SIR e SEI, para avaliar o impacto das mudanças ambientais na transmissão de doenças; e (4) identificação de estratégias de prevenção e controle baseadas na compreensão da dinâmica de transmissão e nos desafios específicos da região amazônica.)
 
 \section{Resumo}
 
@@ -187,11 +188,11 @@ Para a elaboração do trabalho, serão usados dados populacionais do dataset do
 
 Descrevendo primeiramente SIR $^{[5], [6]}$, que pode ser considerado a base de modelos que serão usados ao longo do projeto, este foi desenvolvido por W. O. Kermack e A. G. McKendrick em 1927, sendo um dos modelos mais usados para a modelagem de epidemias, levando em consideração três compartimentos:
 
-\begin{gather*}
-    S: \text{número de indivíduos suscetíveis} \\
-    I: \text{número de indivíduos infectados} \\
-    R: \text{número de indivíduos recuperados}
-\end{gather*}
+\begin{align*}
+    & S: \text{número de indivíduos suscetíveis} \\
+    & I: \text{número de indivíduos infectados} \\
+    & R: \text{número de indivíduos recuperados}
+\end{align*}
 \\
 Nesse modelo, os indivíduos saudáveis na classe $S$ são suscetíveis ao contato com indivíduos da classe $I$, e são transferidos para esse compartimento caso contraiam a doença. Indivíduos infectados podem espalhar a doença por contato direto com indivíduos suscetíveis, mas também podem se tornar imunes ao longo do tempo, sendo transferidos para o compartimento $R$. Em geral, $R$ inclui o total de recuperados (imunes) e mortos em decorrência da doença, mas podemos assumir que o número de mortos é muito baixo em relação ao tamanho da população total, podendo ser ignorado. Consideramos também que indivíduos nessa categoria não voltarão a ser suscetíveis ou infecciosos.   
 \\\\
@@ -266,25 +267,28 @@ Agora, irei apresentar o modelo que será usado para o desenvolvimento do trabal
 Definindo as equações que serão utilizadas:
 \begin{gather*}
 \begin{cases}
-\dfrac{dS_M}{dt} = b - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu S_M\\
-\\
-\dfrac{dE_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu E_M - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_Ml(\tau_M)\\
-\\
-\dfrac{dI_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_Ml(\tau_M) -\mu I_M\\
-\\
 \dfrac{dS_H}{dt} = -ab_2\bigg(\dfrac{I_M}{N}\bigg)S_H\\
 \\
 \dfrac{dI_H}{dt} = ab_2\bigg(\dfrac{I_M}{N}\bigg)S_H-\gamma I_H\\
 \\
-\dfrac{dR_H}{dt} = \gamma I_H
+\dfrac{dR_H}{dt} = \gamma I_H\\
+\\
+\dfrac{dS_M}{dt} = b - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu S_M\\
+\\
+\dfrac{dE_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu E_M - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_Ml(\tau_M)\\
+\\
+\dfrac{dI_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_Ml(\tau_M) -\mu I_M
 \end{cases}
 \end{gather*}
 \\\\
+É preciso comentar que o modelo original utilizava $I_M(t-\tau)$ em $\dfrac{dI_H}{dt}$ e $I_H(t-\tau)$ em $\dfrac{dE_M}{dt}$ (na passagem de $E$ para $I$) e $\dfrac{dI_M}{dt}$, respectivamente, mas como isso faria com que o modelo fosse baseado em equações com atraso, foi recomendado pelo orientador do Trabalho que essa diferença fosse desconsiderada, e usasse apenas $t$ atual.
+\\\\
 Tendo as equações do modelo para a população de humanos e de mosquitos, irei primeiro definir os parâmetros utilizados na modelagem e outras funções necessárias, e depois as variáveis usadas:
+\\
 \begin{adjustwidth}{-2cm}{}
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|c | l | c|} 
+\raggedleft\begin{tabular}{|c | l | c|} 
  \hline
  \raisebox{-1ex}{\textbf{Parâmetro}} & \raisebox{-1ex}{\textbf{Definição}} & \raisebox{-1ex}{\textbf{Cálculo}}\\ 
  \hline
@@ -320,10 +324,10 @@ Tendo as equações do modelo para a população de humanos e de mosquitos, irei
 \end{center}
 \end{adjustwidth}
 
-\begin{adjustwidth}{-2cm}{}
+\begin{adjustwidth}{-0.5cm}{}
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|c | c|} 
+\raggedleft\begin{tabular}{|c | c|} 
  \hline
  \textbf{Parâmetro} & \textbf{Definição}\\ 
  \hline
@@ -366,10 +370,10 @@ Tendo as equações do modelo para a população de humanos e de mosquitos, irei
 \end{adjustwidth}
 
 
-\begin{adjustwidth}{-2cm}{}
+\begin{adjustwidth}{-0.5cm}{}
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
-\begin{tabular}{|c | c|} 
+\raggedleft\begin{tabular}{|c | c|} 
  \hline
  \textbf{Parâmetro} & \textbf{Definição}\\ 
  \hline
@@ -424,7 +428,7 @@ Usando dados da população total de Manaus nesse período, cuja incidência foi
 \\\\
 Tendo estimado o tamanho porcentual da população rural na cidade, foi possível calcular essa população em cada um dos anos da análise através de uma interpolação linear feita com dados de séries históricas do IBGE $^{[10]}$:
 \\\\
-\begin{adjustwidth}{-2cm}{}
+\begin{adjustwidth}{-1cm}{}
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|c | c|} 
@@ -446,11 +450,11 @@ $2004$ & $7717$ \\
 \end{adjustwidth}
 
 \vspace{1cm}
-Descrevendo agora um pouco da teoria por trás dos fatores ambientais, segundo $^{[13]}$, a remoção da copa das árvores permitiu a reemergência da malária na América do Sul, já que em áreas desmatadas, sem as copas cobrindo o solo, poças d'água sob luz solar atraem mosquitos da espécie $Anopheles \ darlingi$, principal vetor relacionado à malária humana na Amazônia $^{[14]}$, sendo que costumam ser menos encontrados em florestas ainda intactas. O desmatamento também atrai e aproxima humanos para que possam tomar parte em atividades madeireiras, de agricultura e construção de rodovias, trazendo indíviduos infectados com o $Plasmodium$ para uma área que tanto o vetor quanto o ambiente já foram modificados de forma a favorecer a sua transmissão.
+Descrevendo agora um pouco da teoria por trás dos fatores ambientais, segundo $^{[13]}$, a remoção da copa das árvores permitiu a reemergência da malária na América do Sul, já que em áreas desmatadas, sem as copas cobrindo o solo, poças d'água sob luz solar atraem mosquitos da espécie $Anopheles \ darlingi$, principal vetor relacionado à malária humana na Amazônia $^{[14]}$, sendo que costumam ser menos encontrados em florestas ainda intactas. Isso ocorre porque a luz e calor favorecem o desenvolvimento de larvas e pupas, além de uma maior disponibilidade de algas para alimentação das larvas $^{[15]}$. O aumento da temperatura ambiente também favorece a capacidade vetorial dos mosquitos. O desmatamento também atrai e aproxima humanos para que possam tomar parte em atividades madeireiras, de agricultura e construção de rodovias, trazendo indíviduos infectados com o $Plasmodium$ para uma área que tanto o vetor quanto o ambiente já foram modificados de forma a favorecer a sua transmissão. Ainda, a agricultura também favorece à sedimentação dos rios, sendo ambientes propícios para o estabelecimento de criadouros. Sendo assim, pode ser considerado uma mudança adequada para o modelo para levar em consideração o desmatamento, o aumento das probabilidades de sobrevivência dos ovos, larvas e pupas, além de aumentar a proporção de picadas que produzem infecção, devido ao aumento da densidade populacional humana em áreas próximas aos criadouros dos mosquitos.
 \newpage
 \section{Resultados}
 
-Analisando primeiro os resultados obtidos com os parâmetros originais do artigo de Parham e Michael, e utilizando a população média estimada anteriormente e um valor arbitrário para a população de mosquitos, de 10000, assumindo 1000 humanos infectados e 5000 mosquitos expostos à malária em $t=0$, a modelagem ficou como a seguir: 
+Analisando primeiro os resultados obtidos com os parâmetros originais do artigo de Parham e Michael ($T_1=23.2, \ T_2=0.07, \ \omega_1=0.67, \ \phi_1=1.53, \ R_1=85.9, \ R_2=0.98, \ \omega_2=0.65, \ \phi_2=1.99, \ A=-0.03, \ B=1.31, \ C=-4.4, \ b_1=0.04, \ b_2 = 0.09, \ T_{min}=14.5, \ \gamma= 1/120,\ R_L = 50, \ c_1=0.00554, \ c_2=-0.06737$), e utilizando a população média estimada anteriormente e um valor arbitrário para a população de mosquitos, de 10000, assumindo 1000 humanos infectados e 5000 mosquitos expostos à malária em $t=0$, a modelagem ficou como a seguir: 
 
 % Pra plotar duas imagens uma ao lado da outra, precisa corrigir a posição das legendas.
 
@@ -477,13 +481,15 @@ Analisando primeiro os resultados obtidos com os parâmetros originais do artigo
 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SIR_Dados_Originais_Parham_Michael.png}}
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SIR_Dados_Originais_Parham_Michael.png}}
+        \caption{SIR com dados originais}
 \end{figure} 
-\newpage
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SEI_Dados_Originais_Parham_Michael.png}}
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SEI_Dados_Originais_Parham_Michael.png}}
+        \caption{SEI com dados originais}
 \end{figure} 
+\newpage
 A elaboração do modelo com os dados originais pode ser encontrada em
 \\
 https://github.com/RaphaLevy/TCC/blob/main/old/Dados\%20Originais.ipynb.
@@ -543,33 +549,51 @@ A temperatura e precipitação ao longo do ano evoluem então da seguinte maneir
 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{4.0em} \includegraphics[scale=0.6] {Grafico_da_Temperatura.png}}
+        \hbox{\hspace{7.0em} \includegraphics[scale=0.6] {Grafico_da_Temperatura.png}}
+        \caption{Gráfico da temperatura}
 \end{figure} 
 \newpage
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{4.0em} \includegraphics[scale=0.6] {Grafico_da_Precipitacao.png}}
+        \hbox{\hspace{7.0em} \includegraphics[scale=0.6] {Grafico_da_Precipitacao.png}}
+        \caption{Gráfico da precipitação}
 \end{figure} 
+A elaboração dos gráficos acima pode ser encontrada em
+\\
+https://github.com/RaphaLevy/TCC/blob/main/Discuss\%C3\%A3o/
+\\
+Correcao\_de\_Modelagens.ipynb.
+\\\\
 De forma a garantir a corretude da função com os parâmetros utilizados, calculei os valores da temperatura nos meses de outubro e maio, que são o mais quente e frio do ano, com temperaturas médias de 27.6 $^\circ C$ e 25.8 $^\circ C$ respectivamente, e da precipitação em março e agosto, que são os meses com maior e menor precipitação, com 395 e 114 mm, respectivamente. Os valores médios obtidos foram de 27.06 $^\circ C$, 25.86 $^\circ C$, 390.67 mm e 112.89 mm. Tendo os parâmetros de $T$ e $R$ prontos para uma primeira análise, a evolução das populações de humanos e mosquitos foram verificadas utilizando $N=8558$, com $S_{H0} = 7558$, $I_{H0} = 10000$, $M= 300000$, $S_{M0}=250000$, $E_{M0} = 50000$, $A = 317.925, \ B = 15, \ C = -48.78$ e $R_L = 312 \ \text{mm}$:
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SIR_a_incorreto.png}}
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SIR_a_incorreto.png}}
+        \caption{SIR original com $T'=26.4, \ \phi_1=-1.45$}
 \end{figure} 
 \newpage
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SEI_a_incorreto.png}}
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SEI_a_incorreto.png}}
+        \caption{SEI original com $T'=26.4, \ \phi_1=-1.45$}
 \end{figure} 
 Notavelmente, essa modelagem está incorreta, especialmente a da população humana, cujo número de infectados decai para aproximadamente -300000. Verificando as EDOs, foi possível ver que o único parâmetro que é dado em função da temperatura e chuva no SIR é o $a(T)$, que é a taxa de picadas por dia. Dada a sua fórmula, e sabendo que a temperatura inicialmente decai nos primeiros meses do ano, tem-se que $a$ tomará valores negativos na equação de infectados, visto que $T_1$ será maior que $T$ inicialmente, explicando o comportamento da curva. Se comparado com os dados do artigo de Parham e Michael, cuja temperatura é crescente inicialmente, foi necessário modificar a ordem do numerador dessa taxa para que, num primeiro momento, não se torne negativa conforme a temperatura decai. Utilizando então a equação $a(T) = \dfrac{T_1-T}{D_1}$, os gráficos do modelo ficaram como a seguir:
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SIR_a_correto.png}}
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SIR_a_correto.png}}
+        \caption{SIR atualizado com $T'=26.4, \ \phi_1=-1.45$}
 \end{figure} 
 \newpage
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{0.0em} \includegraphics[scale=0.55] {SEI_a_correto.png}}
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SEI_a_correto.png}}
+        \caption{SEI atualizado com $T'=26.4, \ \phi_1=-1.45$}
 \end{figure}
+A elaboração dos gráficos acima pode ser encontrada em
+\\
+https://github.com/RaphaLevy/TCC/blob/main/Discuss\%C3\%A3o/
+\\
+Testa\_Infectados\_Humanos.ipynb.
+\\\\
 Analisando o comportamento da modelagem de mosquitos de forma que a população ficasse aproximadamente constante ao longo do período, dadas as equações diferenciais do modelo SEI, e os parâmetros passados para atingir esse objetivo, o valor de $\mu$ passado fica muito próximo de 0, enquanto que $l(\tau_M)$, uma probabilidade, fica muito próxima de 1. Por isso, $\dfrac{dE_M}{dt}$ também fica bem próximo de 0, fazendo com que a função de expostos seja linear, aproximadamente constante no número inicial de infectados, enquanto que a população de mosquitos que sai do compartimento de suscetíveis quase que simultaneamente entra no compartimento de infectados, causando as ondulações espelhadas de $S$ e $I$. Para contornar esse efeito, foi necessário modificar o uso de $b_1$, para passar apenas mosquitos do compartimento $S$ para $E$, necessitando da inclusão de um novo parâmetro, $b_3$, para passar mosquitos do compartimento $E$ para $I$. Essa taxa é inversa ao período de incubação, então definimos
 \begin{gather*}
     b_3 = \dfrac{T-T_{min}}{DD}
@@ -586,15 +610,87 @@ Considerando então o que foi dito acima, também se tornou necessário modifica
 \dfrac{dI_M}{dt} = b_3E_Ml -\mu I_M\\
 \end{cases}
 \end{gather*}
-Utilizando as equações atualizadas, 
+Utilizando as equações atualizadas, dessa vez iniciando a população humana com nenhum infectado e usando $A, \ B, \ C$ e $R_L$ definidos previamente, os gráficos ficaram como a seguir:
 \\\\
-
-
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SIR_Correcao_b3.png}}
+        \caption{SIR com $T'=26.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SEI_Correcao_b3.png}}
+        \caption{SEI com $T'=26.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+\end{figure}
+Com as adaptações feitas à transmissão da doença entre os mosquitos, é possível ver que não só o equilíbrio mudou, de forma que agora o número de expostos tende a 0, e não o de infectados, podemos ver também que a população de humanos é fortemente impactada, novamente oscilando constantemente, e com o número de infectados ficando negativo repetidas vezes. Analisando modificações nos parâmetros empíricos citados acima, foi notado que esse comportamento se dá devido em especial ao alto valor em módulo de $A$, visto que com $A=-217.925$, o comportamento do modelo foi similar. Até mesmo usando $A=17.925$, o comportamento observado foi similar. Contudo, para $A=0$, a população humana teve um comportamento bem mais viável, enquanto que a população de mosquitos tendeu à extinção:
+\\\\
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SIR_Correcao_b3_A0.png}}
+        \caption{SIR com $T'=26.4, \ A=0, \ B=15, \ C=-48.78, \ R_L=312$}
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SEI_Correcao_b3_A0.png}}
+        \caption{SEI com $T'=26.4, \ A=0, \ B=15, \ C=-48.78, \ R_L=312$}
+\end{figure}
+\newpage
+A elaboração dos gráficos acima pode ser encontrada em
+\\
+https://github.com/RaphaLevy/TCC/blob/main/Discuss\%C3\%A3o/
+\\
+Correcao\_de\_Modelagens\_2.ipynb.
+\\\\
+Analisando o efeito de $A$, notou-se que, para $A$ muito grande, $\mu$ se torna extremamente pequeno:
+\begin{flalign*}
+& \text{Para A} = 317.925, \ \mu = 4.505961269611858e-06 \\
+& \text{Para A} = 17.925, \ \mu = 7.78802370175753e-05 \\
+& \text{Para A} = -217.925, \ \mu = -6.599014101979344e-06 \\
+& \text{Para A} = 0, \mu = 0.0028800184321179124
+\end{flalign*}
+\\
+Com isso, a mortalidade de mosquitos será extremamente baixa para valores grandes de $A$, positivos ou não. Contudo, como uma forma de possibilitar o uso de valores altos para esse parâmetro, e ainda garantir que as população tenham valores sempre não-negativos, foi aplicado um máximo nas taxas com subtração, segundo recomendação do orientador, de forma que o valor resultante entre $T(t)-T_{min}$, $R_L - R(t)$ e $T'-T(t)$ seja o valor máximo entre essas diferenças e uma tolerância pequena, no caso foi utilizado um $\epsilon = 10^{-5}$. Isso foi suficiente para garantir que, mesmo com valores grandes de $A$, o modelo não tomasse valores negativos. Isso pode ser verificado nas imagens a seguir:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{4.0em} \includegraphics[scale=0.6] {SIR_Correcao_max_A317.png}}
+        \caption{SIR com $T'=26.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SEI_Correcao_max_A317.png}}
+        \caption{SEI com $T'=26.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+\end{figure}
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{4.0em} \includegraphics[scale=0.6] {SIR_Correcao_max_A0.png}}
+        \caption{SIR com $T'=26.4, \ A=0, \ B=15, \ C=-48.78, \ R_L=312$}
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SEI_Correcao_max_A0.png}}
+        \caption{SEI com $T'=26.4, \ A=0, \ B=15, \ C=-48.78, \ R_L=312$}
+\end{figure}
+\newpage
+Com essas modificações, é possível notar como, independente do valor de $A$, a evolução das populações humanas será bem similar, com uma estabilização da população de suscetíveis logo antes de se tornar 0. A de mosquitos, por sua vez, é menos oscilante para valores grandes de $A$, e não se estabiliza mesmo em mais de 10000 dias. Por outro lado, se $A=0$, a população de mosquitos se aproxima da extinção, com pequenos picos de mosquitos unicamente suscetíveis, sem estabilização da doença. Contudo, ainda que usando o máximo entre um pequeno $\epsilon$ e as diferenças notadas acima, $T'=26.4$ é um valor menor que a temperatura máxima calculada para o ano, que é próxima de 27.1. Assim, foi recomendado pelo orientador que fosse testado um valor maior que esse máximo, e utilizando $T'=27.4$, os resultados obtidos foram:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{4.0em} \includegraphics[scale=0.6] {SIR_Correcao_max_T_linha.png}}
+        \caption{SIR com $T'=27.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SEI_Correcao_max_T_linha.png}}
+        \caption{SEI com $T'=27.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+\end{figure}
+\\
+Tendo então o modelo SIR/SEI devidamente corrigido, foi possível partir para as análises de aplicação do desmatamento. Para isso, iniciei com o cálculo do $\mathcal{R}_0$ para ambos SIR e SEI, e também para o modelo acoplado, usando como referência a formulação de P. van den Driessche $^{[16]}$.
 
 \newpage
 \section{Discussão}
 
-Dado ao grande foco alocado na modelagem da transmissão analisando os impactos ambientais, e a necessidade constante de modificar o modelo proposto, tanto para corrigir estimações não-realistas, como o modelo oscilante apresentado nos primeiros gráficos do trabalho, quanto para alterar a metodologia usada no artigo de referência, em especial na modelagem dos mosquitos, a análise dos efeitos de fatores socioeconômicos, assim como a identificação de estratégias de prevenção e controle da doença acabaram fugindo ao escopo do TCC.
+Dado ao grande foco alocado na modelagem da transmissão analisando os impactos ambientais, e a necessidade constante de modificar o modelo proposto, tanto para corrigir estimações não-realistas, como o modelo oscilante apresentado nos primeiros gráficos do trabalho, quanto para alterar a metodologia usada no artigo de referência, em especial na modelagem dos mosquitos, a análise aprofundada dos efeitos de fatores socioeconômicos, assim como a identificação de estratégias de prevenção e controle da doença acabaram fugindo ao escopo do TCC.
 \\\\
 Dentro do que foi feito, a principal consideração que se pôde tirar do desenvolvimento do trabalho é que esse é um modelo muito sensível aos parâmetros utilizados. Pequenas modificações feitas em $A, \ B$ ou $C$ por exemplo são suficientes para que o modelo atinja um equilíbrio ou tenha as populações tendendo a $\pm \infty$, o que não faz sentido num ecossistema ``fechado". 
 
@@ -604,43 +700,49 @@ Dentro do que foi feito, a principal consideração que se pôde tirar do desenv
 
 \newpage
 
-\section{Referências Cronológicas}
+\section{Referências}
 [1] Pimenta et al. An overview of malaria transmission from the perspective of Amazon $\text{Anopheles vectors}$. Mem Inst Oswaldo Cruz, Rio de Janeiro, Vol. 110(1): 23-47, February 2015. 
 \\https://doi.org/10.1590/0074-02760140266.  
-
+\\\\
 \noindent [2] Josling, G. A., Williamson, K. C., Llinás, M. Regulation of Sexual Commitment and Gametocytogenesis in Malaria Parasites. Annual Review of Microbiology 2018 72:1, 501-519. https://doi.org/10.1146/annurev-micro-090817-062712. 
-
+\\\\
 \noindent [3] Silva-Nunes, M., Codeço, C. T. et al. Malaria on the Amazonian Frontier: Transmission Dynamics, Risk Factors, Spatial Distribution, and Prospects for Control. Am J Trop Med Hyg. 2008 Oct;79(4):624-35. PMID: 18840755.
-
+\\\\
 \noindent [4] Rorato, A.C., Dal’Asta, A.P., Lana, R.M. et al. Trajetorias: a dataset of environmental, epidemiological, and economic indicators for the Brazilian Amazon. Sci Data 10, 65 (2023). https://doi.org/10.1038/s41597-023-01962-1.
-
+\\\\
 \noindent [5] Coelho, F. C. Github Modelagem-Matematica-IV. \\ https://github.com/fccoelho/Modelagem-Matematica-IV/tree/master
-
+\\\\
 \noindent [6] Prasad, R., Sagar, S.K., Parveen, S. et al. Mathematical modeling in perspective of vector-borne viral infections: a review. Beni-Suef Univ J Basic Appl Sci 11, 102 (2022). https://doi.org/10.1186/s43088-022-00282-4.
-
+\\\\
 \noindent [7] Bacaër, N. (2011). Ross and malaria (1911). In: A Short History of Mathematical Population Dynamics. Springer, London. \\ https://doi.org/10.1007/978-0-85729-115-8$\_$12.
-
+\\\\
 \noindent [8] Parham, P.E., Michael, E. (2010). Modelling Climate Change and Malaria Transmission. In: Michael, E., Spear, R.C. (eds) Modelling Parasite Transmission and Control. Advances in Experimental Medicine and Biology, vol 673. Springer, New York, NY. https://doi.org/10.1007/978-1-4419-6064-1$\_$13.
-
+\\\\
 \noindent [9] McCord, G. Malaria ecology and climate change. Eur. Phys. J. Spec. Top. 225, 459–470 (2016). https://doi.org/10.1140/epjst/e2015-50097-1
-
+\\\\
 \noindent [10] Censo - Séries históricas. Brasil / Amazonas / Manaus. 
 \\https://cidades.ibge.gov.br/brasil/am/manaus/pesquisa/43/0?tipo=grafico
-
+\\\\
 \noindent [11] Climate Data. CLIMA MANAUS (BRASIL). https://pt.climate-data.org \\ /america-do-sul/brasil/amazonas/manaus-1882/
-
+\\\\
 \noindent [12] Detinova, Tatiana Sergeevna, Bertram, D. S $\&$ World Health Organization. (1962). Age-grouping methods in diptera of medical importance, with special reference to some vectors of malaria / T. S. Detinova ; [with] an Annex on the ovary and ovarioles of mosquitos (with glossary) by D. S. Bertram. World Health Organization. \\ https://iris.who.int/handle/10665/41724
-
+\\\\
 \noindent [13] Norris, D.E. Mosquito-borne Diseases as a Consequence of Land Use Change. EcoHealth 1, 19–24 (2004). https://doi.org/10.1007/s10393-004-0008-7
+\\\\
+\noindent [14] Anopheles. Fiocruz Rondônia. \\ https://www.rondonia.fiocruz.br/pivem/anopheline/
+\\\\
+\noindent [15] Silva-Nunes, M. Impacto de Alterações Ambientais na Transmissão da Malária e Perspectivas para o Controle da Doença em Áreas de Assentamento Rural da Amazônia Brasileira. \\ https://revistas.ufrj.br/index.php/oa/article/view/7101/5685
+\\\\
+\noindent [16] van den Driessche P, Watmough J. Reproduction numbers and sub-threshold endemic equilibria for compartmental models of disease transmission. Math Biosci. 2002 Nov-Dec;180:29-48. doi: 10.1016/s0025-5564(02)00108-6. PMID: 12387915. \\ 
+https://pubmed.ncbi.nlm.nih.gov/12387915/
 
-\noindent [14] Anopheles. Fiocruz Rondônia. https://www.rondonia.fiocruz.br/pivem/anopheline/
 
 \newpage
 \section{Referências Usadas}
 
 [1] Rorato, A.C., Dal’Asta, A.P., Lana, R.M. et al. Trajetorias: a dataset of environmental, epidemiological, and economic indicators for the Brazilian Amazon. Sci Data 10, 65 (2023). https://doi.org/10.1038/s41597-023-01962-1.
 
-\noindent [2] Prasad, R., Sagar, S.K., Parveen, S. et al. Mathematical modeling in perspective of vector-borne viral infections: a review. Beni-Suef Univ J Basic Appl Sci 11, 102 (2022). https://doi.org/10.1186/s43088-022-00282-4.
+% \noindent [2] Prasad, R., Sagar, S.K., Parveen, S. et al. Mathematical modeling in perspective of vector-borne viral infections: a review. Beni-Suef Univ J Basic Appl Sci 11, 102 (2022). https://doi.org/10.1186/s43088-022-00282-4.
 
 \noindent [3] Vyhmeister E., Provan G., Doyle B., Bourke B. Multi-cluster and environmental dependant vector born disease models. Heliyon, Volume 6, Issue 9 (2020). https://doi.org/10.1016/j.heliyon.2020.e04090
 
@@ -650,11 +752,11 @@ Dentro do que foi feito, a principal consideração que se pôde tirar do desenv
 
 \noindent [6] Alves, Leon Diniz, Raquel Martins Lana, and Flávio Codeço Coelho. 2021. ``A Framework for Weather-Driven Dengue Virus Transmission Dynamics in Different Brazilian Regions" International Journal of Environmental Research and Public Health 18, no. 18: 9493. https://doi.org/10.3390/ijerph18189493.
 
-\noindent [7] Prasad, R., Sagar, S.K., Parveen, S. et al. Mathematical modeling in perspective of vector-borne viral infections: a review. Beni-Suef Univ J Basic Appl Sci 11, 102 (2022). https://doi.org/10.1186/s43088-022-00282-4.
+% \noindent [7] Prasad, R., Sagar, S.K., Parveen, S. et al. Mathematical modeling in perspective of vector-borne viral infections: a review. Beni-Suef Univ J Basic Appl Sci 11, 102 (2022). https://doi.org/10.1186/s43088-022-00282-4.
 
-\noindent [8] Abdullah, Seadawy, A. & Jun, W. New mathematical model of vertical transmission and cure of vector-borne diseases and its numerical simulation. Adv Differ Equ 2018, 66 (2018). 
-https://doi.org/10.1186/s13662-018-1516-z.
+% \noindent [8] Abdullah, Seadawy, A. \& Jun, W. New mathematical model of vertical transmission and cure of vector-borne diseases and its numerical simulation. Adv Differ Equ 2018, 66 (2018). 
+% https://doi.org/10.1186/s13662-018-1516-z.
 
-\noindent [9] N. Shah and J. Gupta, "SEIR Model and Simulation for Vector Borne Diseases," Applied Mathematics, Vol. 4 No. 8A, 2013, pp. 13-17. doi: 10.4236/am.2013.48A003.
+% \noindent [9] N. Shah and J. Gupta, "SEIR Model and Simulation for Vector Borne Diseases," Applied Mathematics, Vol. 4 No. 8A, 2013, pp. 13-17. doi: 10.4236/am.2013.48A003.
 
 \end{document}

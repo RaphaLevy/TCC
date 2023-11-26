@@ -301,7 +301,7 @@ Definindo as equações que serão utilizadas:
 \\\\
 Tendo as equações do modelo para a população de humanos e de mosquitos, irei primeiro definir os parâmetros utilizados na modelagem e outras funções necessárias, e depois as variáveis usadas:
 \\
-\begin{adjustwidth}{-2cm}{}
+\begin{adjustwidth}{-0.5cm}{}
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
 \raggedleft\begin{tabular}{|c | l | c|} 
@@ -337,6 +337,7 @@ Tendo as equações do modelo para a população de humanos e de mosquitos, irei
  $N(t)$ & \pbox{8cm}{\rule{0pt}{3ex}Número total de humanos\rule[-1.5ex]{0pt}{0pt}} & $S_H(t) + I_H(t) + R_H(t)$ \\  
  \hline
 \end{tabular}
+\captionof{table}{Parâmetros usados na modelagem}
 \end{center}
 \end{adjustwidth}
 
@@ -382,6 +383,7 @@ Tendo as equações do modelo para a população de humanos e de mosquitos, irei
  $b_3^*$ & \makecell[l]{\rule{0pt}{3ex}Taxa de infecção em mosquitos expostos $(1/\tau_M(T))$\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
 \end{tabular}
+\captionof{table}{Parâmetros usados na modelagem}
 \end{center}
 \end{adjustwidth}
 
@@ -417,6 +419,7 @@ Tendo as equações do modelo para a população de humanos e de mosquitos, irei
  $T'^*$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de temperatura ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
 \end{tabular}
+\captionof{table}{Parâmetros usados na modelagem}
 \end{center}
 \end{adjustwidth}
 
@@ -444,7 +447,7 @@ Usando dados da população total de Manaus nesse período, cuja incidência foi
 \\\\
 Tendo estimado o tamanho porcentual da população rural na cidade, foi possível calcular essa população em cada um dos anos da análise através de uma interpolação linear feita com dados de séries históricas do IBGE $^{[10]}$:
 \\\\
-\begin{adjustwidth}{-1cm}{}
+\begin{adjustwidth}{0cm}{}
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|c | c|} 
@@ -461,11 +464,16 @@ $2004$ & $7717$ \\
  \hline
  $2008$ & $8492$ \\
  \hline
+ $2009$ & $8751$ \\
+ \hline
 \end{tabular}
+\captionof{table}{População rural de Manaus de 2004 a 2009}
 \end{center}
 \end{adjustwidth}
 
 \vspace{1cm}
+Como haviam dados populacionais para os anos de 2000, 2007 e 2010, as interpolações foram feitas com diferentes pontos iniciais e finais, usando de 2000 a 2007 para 2004-2007, e de 2007 a 2010 para 2008-2009, de forma a utilizar corretamente a população de 2007.
+\\\\
 Descrevendo agora um pouco da teoria por trás dos fatores ambientais, segundo $^{[13]}$, a remoção da copa das árvores permitiu a reemergência da malária na América do Sul, já que em áreas desmatadas, sem as copas cobrindo o solo, poças d'água sob luz solar atraem mosquitos da espécie $Anopheles \ darlingi$, principal vetor relacionado à malária humana na Amazônia $^{[14]}$, sendo que costumam ser menos encontrados em florestas ainda intactas. Isso ocorre porque a luz e calor favorecem o desenvolvimento de larvas e pupas, além de uma maior disponibilidade de algas para alimentação das larvas $^{[15]}$. O aumento da temperatura ambiente também favorece a capacidade vetorial dos mosquitos. O desmatamento também atrai e aproxima humanos para que possam tomar parte em atividades madeireiras, de agricultura e construção de rodovias, trazendo indíviduos infectados com o $Plasmodium$ para uma área que tanto o vetor quanto o ambiente já foram modificados de forma a favorecer a sua transmissão. Ainda, a agricultura também favorece à sedimentação dos rios, sendo ambientes propícios para o estabelecimento de criadouros. Sendo assim, pode ser considerado uma mudança adequada para o modelo para levar em consideração o desmatamento, o aumento das probabilidades de sobrevivência dos ovos, larvas e pupas, além de aumentar a proporção de picadas que produzem infecção, devido ao aumento da densidade populacional humana em áreas próximas aos criadouros dos mosquitos.
 \newpage
 \section{Resultados}
@@ -514,7 +522,7 @@ Com essa modelagem inicial, é perceptível uma forte oscilação do número de 
 \\\\
 Coletando dados climatológicos de Manaus em $^{[11]}$, a temperatura e precipitação média foram estimados como 26.4 $^\circ C$ e 250.083 mm, respectivamente. Com esses dados, a amplitude da variabilidade sazonal, frequência angular e ``phase lag" da variabilidade para ambos foram definidos de forma a aproximar os valores reais:
 \\\\
-\begin{adjustwidth}{-2cm}{}
+\begin{adjustwidth}{-0.5cm}{}
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
 \begin{tabular}{|c | c|} 
@@ -538,6 +546,7 @@ Coletando dados climatológicos de Manaus em $^{[11]}$, a temperatura e precipit
  $\phi_2$ & \makecell[l]{\rule{0pt}{3ex}1.6\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
 \end{tabular}
+\captionof{table}{Valores dos parâmetros de clima}
 \end{center}
 \end{adjustwidth}
 
@@ -580,7 +589,7 @@ https://github.com/RaphaLevy/TCC/blob/main/Discuss\%C3\%A3o/
 \\
 Correcao\_de\_Modelagens.ipynb.
 \\\\
-De forma a garantir a corretude da função com os parâmetros utilizados, calculei os valores da temperatura nos meses de outubro e maio, que são o mais quente e frio do ano, com temperaturas médias de 27.6 $^\circ C$ e 25.8 $^\circ C$ respectivamente, e da precipitação em março e agosto, que são os meses com maior e menor precipitação, com 395 e 114 mm, respectivamente. Os valores médios obtidos foram de 27.06 $^\circ C$, 25.86 $^\circ C$, 390.67 mm e 112.89 mm. Tendo os parâmetros de $T$ e $R$ prontos para uma primeira análise, a evolução das populações de humanos e mosquitos foram verificadas utilizando $N=8558$, com $S_{H0} = 7558$, $I_{H0} = 10000$, $M= 300000$, $S_{M0}=250000$, $E_{M0} = 50000$, $A = 317.925, \ B = 15, \ C = -48.78$ e $R_L = 312 \ \text{mm}$. Os resultados podem ser encontrados no Apêndice 1 e 2.
+De forma a garantir a corretude da função com os parâmetros utilizados, calculei os valores da temperatura nos meses de outubro e maio, que são o mais quente e frio do ano, com temperaturas médias de 27.6 $^\circ C$ e 25.8 $^\circ C$ respectivamente, e da precipitação em março e agosto, que são os meses com maior e menor precipitação, com 395 e 114 mm, respectivamente. Os valores médios obtidos foram de 27.06 $^\circ C$, 25.86 $^\circ C$, 390.67 mm e 112.89 mm. Tendo os parâmetros de $T$ e $R$ prontos para uma primeira análise, a evolução das populações de humanos e mosquitos foram verificadas utilizando $N=8558$, com $S_{H0} = 7558$, $I_{H0} = 10000$, $M= 300000$, $S_{M0}=250000$, $E_{M0} = 50000$, $A = 317.925, \ B = 15, \ C = -48.78$ e $R_L = 312 \ \text{mm}$. Os resultados podem ser encontrados no Apêndice 1 e 2. 
 \\\\
 Notavelmente, a modelagem resultante não está incorreta, com ambas as populações se tornando negativas em certos pontos, especialmente a da população humana, cujo número de infectados decai para aproximadamente -300000. Verificando as EDOs, foi possível ver que o único parâmetro que é dado em função da temperatura e chuva no SIR é o $a(T)$, que é a taxa de picadas por dia. Dada a sua fórmula, e sabendo que a temperatura inicialmente decai nos primeiros meses do ano, tem-se que $a$ tomará valores negativos na equação de infectados, visto que $T_1$ será maior que $T$ inicialmente, explicando o comportamento da curva. Se comparado com os dados do artigo de Parham e Michael, cuja temperatura é crescente inicialmente, foi necessário modificar a ordem do numerador dessa taxa para que, num primeiro momento, não se torne negativa conforme a temperatura decai. Utilizando então a equação $a(T) = \dfrac{T_1-T}{D_1}$, os resultados podem ser vistos no apêndice 3 e 4.
 \\\\
@@ -609,7 +618,8 @@ Considerando então o que foi dito acima, também se tornou necessário modifica
 \end{cases}
 \end{gather*}
 \\\\
-Com as adaptações feitas à transmissão da doença entre os mosquitos (Apêndices 5 e 6), é possível ver que não só o equilíbrio mudou, de forma que agora o número de expostos tende a 0, e não o de infectados, podemos ver também que a população de humanos é fortemente impactada, novamente oscilando constantemente, e com o número de infectados ficando negativo repetidas vezes. Analisando modificações nos parâmetros empíricos citados acima, foi notado que esse comportamento se dá devido em especial ao alto valor em módulo de $A$, visto que com $A=-217.925$, o comportamento do modelo foi similar. Até mesmo usando $A=17.925$, o comportamento observado foi similar. Contudo, para $A=0$, a população humana teve um comportamento bem mais viável, enquanto que a população de mosquitos tendeu à extinção (Apêndices 7 e 8).
+Com as adaptações feitas à transmissão da doença entre os mosquitos (Apêndices 5 e 6), é possível ver que não só o equilíbrio mudou, de forma que agora o número de expostos tende a 0, e não o de infectados, podemos ver também que a população de humanos é fortemente impactada, novamente oscilando constantemente, e com o número de infectados ficando negativo repetidas vezes. \footnote{Observação: as modelagens do SIR mostradas ao longo de 5 anos de análise foram feitas usando o valor médio estimado para a população no período entre 2004 e 2008, com $N$=8558.}
+Analisando modificações nos parâmetros empíricos citados acima, foi notado que esse comportamento se dá devido em especial ao alto valor em módulo de $A$, visto que com $A=-217.925$, o comportamento do modelo foi similar. Até mesmo usando $A=17.925$, o comportamento observado foi similar. Contudo, para $A=0$, a população humana teve um comportamento bem mais viável, enquanto que a população de mosquitos tendeu à extinção (Apêndices 7 e 8).
 \\\\
 A elaboração dos gráficos indicados acima pode ser encontrada em
 \\
@@ -796,11 +806,24 @@ $$V = \begin{bmatrix}
 0 & b_3l+\mu & 0\\
 0 & -b_3l & \mu
 \end{bmatrix}$$ 
-e $R_0 = \Big | \sqrt{\dfrac{a^2 b_1 b_2 b_3 l}{(b_3 l + \mu)\gamma \mu}}\Big | $.
+e $R_0 = \Big | \sqrt{\dfrac{a^2 b_1 b_2 b_3 l}{(b_3 l + \mu)\gamma \mu}}\Big | = 
+\sqrt{\mathcal{R}_{0 SIR} \times \mathcal{R}_{0 SEI}}$. 
 
 \end{itemize}
-Tendo obtido a fórmula fechada de $\mathcal{R}_0$, foi possível calcular o seu valor para o modelo atual, apresentado nas figuras 17 e 18. No caso, $\mathcal{R}_0$ = 88.16804666190774
-e a taxa de picadas no tempo $t=0$ foi de 0.025218306088151666, ou seja, aproximadamente uma picada por mosquito a cada 40 dias. Notavelmente, esses são valores muito altos para o número de reprodução de uma doença, nesse caso indicando que um indíviduo poderia infectar outros 88. Sendo assim, seria necessário modificar os parâmetros para que o valor de $\mathcal{R}_0$ ficasse próximo de 1, para que seja mais fácil analisar como pequenas modificações nos parâmetros causariam a extinção ou a continuação da doença. Antes disso porém foi necessário mais uma vez corrigir as equações do SEI, já que a probabilidade diária de sobrevivência de mosquitos durante o ciclo de esporozoitos ($l$), não é diretamente associada à taxa de infecção dos expostos, e também não é parte da taxa de entrada de novos indíviduos no compartimento $I$. Outra coisa que teve de ser corrigida foi a fórmula da taxa de picadas ($a$), que voltou a ser $\dfrac{(T(t) - T')}{D_1}$ como originalmente. As equações corrigidas do SEI ficaram como a seguir:
+Tendo obtido a fórmula fechada de $\mathcal{R}_0$, foi possível calcular o seu valor para o 
+modelo atual, apresentado nas figuras 17 e 18. No caso, $\mathcal{R}_0$ = 88.16804666190774
+e a taxa de picadas no tempo $t=0$ foi de 0.025218306088151666, ou seja, aproximadamente 
+uma picada por mosquito a cada 40 dias. Notavelmente, esses são valores muito altos para 
+o número de reprodução de uma doença, nesse caso indicando que um indíviduo poderia infectar 
+outros 88. Sendo assim, seria necessário modificar os parâmetros para que o valor de 
+$\mathcal{R}_0$ ficasse próximo de 1, para que seja mais fácil analisar como pequenas 
+modificações nos parâmetros causariam a extinção ou a continuação da doença. Antes disso porém 
+foi necessário mais uma vez corrigir as equações do SEI, já que a probabilidade diária de 
+sobrevivência de mosquitos durante o ciclo de esporozoitos ($l$), não é diretamente associada 
+à taxa de infecção dos expostos, e também não é parte da taxa de entrada de novos indíviduos 
+no compartimento $I$. Outra coisa que teve de ser corrigida foi a fórmula da taxa de picadas 
+($a$), que voltou a ser $\dfrac{(T(t) - T')}{D_1}$ como originalmente. As equações corrigidas 
+do SEI ficaram como a seguir:
 \begin{gather*}
 \begin{cases}
 \dfrac{dS_M}{dt} = b - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu S_M\\
@@ -812,8 +835,14 @@ e a taxa de picadas no tempo $t=0$ foi de 0.025218306088151666, ou seja, aproxim
 \end{gather*}
 Tendo corrigido as equações, o $\mathcal{R}_0$ do SEI e do modelo acoplado foram $\Big | \dfrac{ab_1b_3}{(b_3+l+\mu)\mu}\Big | $ e $\Big | \sqrt{\dfrac{a^2b_1b_2b_3}{(b_3+l+\mu)\gamma\mu}}\Big | $, respectivamente. Podemos verificar que $\mathcal{R}_0$ é de fato adimensional: $a, \ b_3, \ l, \ \mu$ e $\gamma$ são funções de unidade 1/dia, enquanto $b_1$ e $b_2$ são adimensionais. Sendo assim, $\mathcal{R}_0$ do SIR tem dimensão (1/dia)/(1/dia), $\mathcal{R}_0$ do SEI tem dimensão (1/dia$^2$)/(1/dia$^2$) e o acoplado tem dimensão (1/dia$^3$)/(1/dia$^3$). 
 \\\\
-Novamente calculando o $\mathcal{R}_0$ do modelo atual, seu valor para o modelo acoplado foi de 63.745319442750855, o que já é menor que o encontrado previamente, mas ainda muito alto. Foi necessário analisar que parâmetros poderiam ser modificados de forma que $\mathcal{R}_0$ se aproximasse de 1 tanto para o SIR quanto para o SEI, já que pelas equações é possível aproximar o valor acoplado de 1 enquanto que o valor de um dos outros dois modelos fosse menor que 1, fazendo com que a doença não se estabilizasse ou a população tendesse à extinção, no caso do SEI.
-\\\\
+Novamente calculando o $\mathcal{R}_0$ do modelo atual, seu valor para o modelo acoplado 
+foi de 63.745319442750855, o que já é menor que o encontrado previamente, mas ainda muito alto. 
+Foi necessário analisar que parâmetros poderiam ser modificados de forma que $\mathcal{R}_0$ 
+se aproximasse de 1 tanto para o SIR quanto para o SEI, já que pelas equações é possível 
+aproximar o valor acoplado de 1 enquanto que o valor de um dos outros dois modelos fosse 
+menor que 1, fazendo com que a doença não se estabilizasse ou a população tendesse à extinção, 
+no caso do SEI.
+\\
 Dessa maneira, as modificações ideais para aproximar $\mathcal{R}_0$ de 1 foram as seguintes:
 \begin{flalign*}
 & T' = 27.4 \Rightarrow 25.6 \\
@@ -822,14 +851,12 @@ Dessa maneira, as modificações ideais para aproximar $\mathcal{R}_0$ de 1 fora
 & b_2 = 0.3 \Rightarrow 0.2 \\
 & \gamma = 1/1825 \Rightarrow 1/365
 \end{flalign*}
-\\
 Com essas adaptações, 
 \begin{flalign*}
 & \mathcal{R}_0 \ \text{SIR} = 1.167378607783994 \\
 & \mathcal{R}_0 \ \text{SEI} = 1.7805860145371295 \\
 & \mathcal{R}_0 \ \text{SIR/SEI} = 1.4417413161486372
 \end{flalign*}
-\\
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SIR_R0_near1.png}}
@@ -840,15 +867,137 @@ Com essas adaptações,
         \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SEI_R0_near1.png}}
         \caption{SEI com $T'=25.6, \ A=15, \ D_1=55, \ b_2=0.2, \ \gamma=1/365$}
 \end{figure}
+\\\\
+Discutindo essa aproximação de $\mathcal{R}_0$ a 1 com o orientador do Trabalho, foi decidido 
+que ao invés de aumentar o valor $D_1$, um parâmetro empírico usado para estabilizar a taxa de picadas, seria ideal modificar $b_1$ e $b_2$, que são as proporções de picadas gerando infecção em mosquitos e humanos suscetíveis, respectivamente, tendo em vista que, conforme temos mais ocorrências de áreas desmatadas, haverá um maior contato entre humanos e mosquitos, aumentando a proporção de picadas gerando infecção. Junto com essa correção, também foram modelados os gráficos de evolução das taxas utilizadas, em função da temperatura e precipitação, ao invés do tempo, para que fosse possível analisar o comportamento dessas taxas conforme a temperatura e precipitação variam. Os gráficos estão indicados no apêndice, partindo do 15. Gerando esses gráficos, também foi percebido que seria ideal aumentar $R_L$ do valor atual de 312 mm para 450 mm, para evitar que a probabilidade de sobrevivência de mosquitos durante as diferentes fases se tornasse muito próximo de 0, o que estava afetando a taxa de nascimentos $b(R,T)$.
+\\\\
+Após o desenvolvimento dos gráficos das taxas, foi iniciada a modelagem usando os dados 
+``reais" da população obtidos através da interpolação dos dados de população de Manaus indicada na Tabela 4.
+Com os valores previmente obtidos, a taxa anual de nascimentos foi estimada como sendo de 206.8 
+nascimentos por ano. Sendo assim, são 0.56657 nascimentos por dia, aproximadamente, e 0.00007 nascimentos
+diários por pessoa, já que a população rural média em Manaus é de aproximadamente 8078.5 pessoas entre 2004 e 2008.
+\\\\
+Assumindo que a taxa de natalidade e mortalidade de humanos é a mesma, foi então incluído na 
+modelagem o parâmetro $\mu_H$, com valor 0.00007, representando a taxa diária de 
+nascimentos e mortes. O modelo atualizado ficou como a seguir:
+\begin{gather*}
+\begin{cases}
+\dfrac{dS_H}{dt} = \mu_HN-ab_2\bigg(\dfrac{I_M}{N}\bigg)S_H - \mu_HS_H\\
 \\
-
+\dfrac{dI_H}{dt} = ab_2\bigg(\dfrac{I_M}{N}\bigg)S_H-\gamma I_H - \mu_HI_H\\
+\\
+\dfrac{dR_H}{dt} = \gamma I_H - \mu_HR_H\\
+\\
+\end{cases}
+\end{gather*}
+A elaboração dos gráficos, a partir do Apêndice 27, foi feita em
+\\
+https://github.com/RaphaLevy/TCC/blob/main/Modelagem\_com\_Dinamica\_Pop/ \\
+Modelagem\_com\_Entrada\_Populacional.ipynb.
+\\\\
+Tendo corrigido as equações, o $\mathcal{R}_0$ do SIR e do modelo acoplado 
+foram $\Big | \dfrac{ab_2}{\gamma + \mu_H}\Big | $ e 
+$\Big | \sqrt{\dfrac{a^2b_1b_2b_3}{(b_3+l+\mu)(\gamma+\mu_H)\mu}}\Big | $, respectivamente. Podemos verificar que $\mathcal{R}_0$ é de fato adimensional: $a, \ b_3, \ l, \ \mu$ e $\gamma$ são funções de unidade 1/dia, enquanto $b_1$ e $b_2$ são adimensionais. Sendo assim, $\mathcal{R}_0$ do SIR tem dimensão (1/dia)/(1/dia), $\mathcal{R}_0$ do SEI tem dimensão (1/dia$^2$)/(1/dia$^2$) e o acoplado tem dimensão (1/dia$^3$)/(1/dia$^3$). 
+\\\
+Como esperado, com $\mathcal{R}_0$ menor que 1, e apenas 1 mosquito exposto e 
+1 humano infectado, a doença não consegue se estabelecer, como pode ser visto abaixo:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.5em} \includegraphics[scale=0.7] {SIR_Entrada_Pop_1_1_Infect.png}}
+        \caption{SIR com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=1, I_{H0}=1$} 
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.5em} \includegraphics[scale=0.7] {SEI_Entrada_Pop_1_1_Infect.png}}
+        \caption{SEI com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=1, I_{H0}=1$} 
+\end{figure} 
+\\Dos apêndices 27 a 30, aumentando o número de infectados e expostos, inicialmente com um 
+``pequeno" aumento, com 1/30 da população de mosquitos exposta à doença, e 6.5\% 
+de humanos infectados, a população de infectados humanos começa a aumentar, 
+mas não consegue se estabelecer. Prolongando o tempo de análise, será possível 
+ver que a população se extinguirá nos anos seguintes. Idealmente, seria 
+possível verificar a população de infectados tendendo a 0 ainda no tempo da 
+análise. Por outro lado, iniciando a população humana com cerca de 13\% de infectados, 
+é possível ver que essa população tem um aumento ao longo do primeiro ano, 
+chegando a quase 41\% da população, mas posteriormente decaindo.
+\\\\
+No caso dos mosquitos, a população inicial de expostos quase que 
+imediatamente se torna de infectados, se estabilizando em cerca de 5000 
+indivíduos, mas não é possível perceber a população de infectados se 
+extinguindo, mesmo prolongando o tempo de análise. Esse comportamento 
+ainda pode ser notado quando 1/3 da população começa exposto, rapidamente 
+se tornando infectada, mas se estabelecendo em cerca de 10000 indivíduos. 
+\\\\
+Agora, voltando a um único exposto e infectado inicialmente, e incluindo um fator
+multiplicativo $k$ nas proporções $b_1$ e $b_2$, representando o aumento de contato
+entre humanos e mosquitos devido ao desmatamento, foi possível analisar o efeito desse impacto
+na evolução da doença. Aumentando as proporções em 20 e 50\%, não foi possível perceber
+nenhuma diferença visível na evolução da doença, mas com um aumento de 100\%, o resultado ficou como a seguir:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SIR_Desmat_k=2.png}}
+        \caption{SIR com $k=2$}
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{3.0em} \includegraphics[scale=0.6] {SEI_Desmat_k=2.png}}
+        \caption{SEI com $k=2$}
+\end{figure} 
+\newpage
+Dobrando a proporção de picadas causando infecção, já é possível notar que o 
+número de infectados começa a aumentar, ainda que quase no final do período 
+de análise. Isso porque com o valor de $k$, o $\mathcal{R}_0$ passou de 0.83, 
+com $k=1$, para 1.66 permitindo que a doença se estabeleça a longo prazo. 
+Aumentando $k$ para 5, será bem mais perceptível a evolução da doença:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{3.7em} \includegraphics[scale=0.6] {SIR_Desmat_k=5.png}}
+        \caption{SIR com $k=5$}
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{3.2em} \includegraphics[scale=0.6] {SEI_Desmat_k=5.png}}
+        \caption{SEI com $k=5$}
+\end{figure} 
+\newpage
+Nesse caso, $\mathcal{R}_0 = 4.17$, e apesar de não ser possível verificar no tempo 
+máximo dos 5 anos, nesse caso o número de infectados já se estabelece positivamente, 
+oscilando em aproximadamente 200 humanos e 17000 mosquitos infectados. Aumentando $k$ para 10, 
+$\mathcal{R}_0 = 8.34$, e a infecção atinge seu máximo de forma ainda mais rápida:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{4.2em} \includegraphics[scale=0.6] {SIR_Desmat_k=10.png}}
+        \caption{SIR com $k=10$}
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{4.2em} \includegraphics[scale=0.6] {SEI_Desmat_k=10.png}}
+        \caption{SEI com $k=10$}
+\end{figure} 
 
 \newpage
 \section{Discussão}
 
-Dado ao grande foco alocado na modelagem da transmissão analisando os impactos ambientais, e a necessidade constante de modificar o modelo proposto, tanto para corrigir estimações não-realistas, como o modelo oscilante apresentado nos primeiros gráficos do trabalho, quanto para alterar a metodologia usada no artigo de referência, em especial na modelagem dos mosquitos, a análise aprofundada dos efeitos de fatores socioeconômicos, assim como a identificação de estratégias de prevenção e controle da doença acabaram fugindo ao escopo do TCC.
+Ao longo do trabalho, foi desenvolvido e analisado um modelo de transmissão 
+SIR/SEI para a malária de forma a complementar a metodologia original referenciada, 
+utilizando dos fatores epidemiológicos da transmissão da doença e complementando com 
+dinâmicas de demografia humana e fatores ambientais externos à temperatura e precipitação,
+como o desmatamento, considerado no fator multiplicativo das proporções de picadas
+causando infecção. 
 \\\\
-Dentro do que foi feito, a principal consideração que se pôde tirar do desenvolvimento do trabalho é que esse é um modelo muito sensível aos parâmetros utilizados. Pequenas modificações feitas em $A, \ B$ ou $C$ por exemplo são suficientes para que o modelo atinja um equilíbrio ou tenha as populações tendendo a $\pm \infty$, o que não faz sentido num ecossistema ``fechado". 
+Dado ao grande foco alocado na modelagem da transmissão analisando os impactos 
+ambientais, e a necessidade constante de modificar o modelo proposto, tanto 
+para corrigir estimações não-realistas, como o modelo oscilante apresentado 
+nos primeiros gráficos do trabalho, quanto para alterar a metodologia usada 
+no artigo de referência, em especial na modelagem dos mosquitos, a análise 
+aprofundada dos efeitos de fatores socioeconômicos, assim como a identificação 
+de estratégias de prevenção e controle da doença acabaram fugindo ao escopo do 
+TCC.
+\\\\
+Dentro do que foi feito, a principal consideração que se pôde tirar do 
+desenvolvimento do trabalho é que esse é um modelo muito sensível aos 
+parâmetros utilizados. Pequenas modificações são suficientes para que o modelo 
+atinja um equilíbrio ou tenha as populações tendendo a $\pm \infty$.
 \\\\
 Também foi notado, em adição à essas  
 
@@ -935,6 +1084,97 @@ Nessa seção, serão incluídos os plots elaborados ao longo do desenvolvimento
         \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SEI_Correcao_max_T_linha.png}}
         \caption*{Apêndice 14: SEI com $T'=27.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
 \end{figure}
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{4.0em} \includegraphics[scale=1.0] {Plot_a(T).png}}
+        \caption*{Apêndice 15: Taxa de picadas $(a(T))$} 
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{4.0em} \includegraphics[scale=1.0] {Plot_b3(T).png}}
+        \caption*{Apêndice 16: Taxa de infecção de expostos $(b_3(T)$)} 
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.3em} \includegraphics[scale=1.0] {Plot_tau_L(T).png}}
+        \caption*{Apêndice 17: Duração da fase de desenvolvimento das larvas $(\tau_L(T))$} 
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.5em} \includegraphics[scale=1.0] {Plot_p(T).png}}
+        \caption*{Apêndice 18: Taxa diária de sobrevivência dos mosquitos $(p(T)$)} 
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{3.0em} \includegraphics[scale=1.0] {Plot_p_LR(R).png}}
+        \caption*{Apêndice 19: Probabilidade de sobrevivência das larvas $(p_{LR}(R))$} 
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.5em} \includegraphics[scale=1.0] {Plot_p_LT(T).png}}
+        \caption*{Apêndice 20: Probabilidade de sobrevivência das larvas $(p_{LT}(T))$} 
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{3.0em} \includegraphics[scale=1.0] {Plot_p_LR(R).png}}
+        \caption*{Apêndice 21: Probabilidade de sobrevivência dos ovos $(p_{ER}(R))$} 
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.5em} \includegraphics[scale=1.0] {Plot_p_LT(T).png}}
+        \caption*{Apêndice 22: Probabilidade de sobrevivência das pupas $(p_{PR}(R))$} 
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{3.0em} \includegraphics[scale=1.0] {Plot_p_LR(R).png}}
+        \caption*{Apêndice 23: Duração do ciclo esporogônico $(\tau_{M}(T))$} 
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.5em} \includegraphics[scale=1.0] {Plot_p_LT(T).png}}
+        \caption*{Apêndice 24: Taxa de mortalidade do mosquito $(\mu(T))$} 
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.7em} \includegraphics[scale=1.2] {Plot_p_LRT(R,T).png}}
+        \caption*{Apêndice 25: Probabilidade de sobrevivência das larvas $(\tau_{M}(T))$} 
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.7em} \includegraphics[scale=1.2] {Plot_b(R,T).png}}
+        \caption*{Apêndice 26: Taxa de nascimento de mosquitos $(b(R,T))$} 
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.7em} \includegraphics[scale=0.7] {SIR_Entrada_Pop_10000_500_Infect.png}}
+        \caption*{Apêndice 27: SIR com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=10000, I_{H0}=500$} 
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.5em} \includegraphics[scale=0.7] {SEI_Entrada_Pop_10000_500_Infect.png}}
+        \caption*{Apêndice 28: SEI com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=10000, I_{H0}=500$} 
+\end{figure} 
+\newpage
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.7em} \includegraphics[scale=0.7] {SIR_Entrada_Pop_100000_1000_Infect.png}}
+        \caption*{Apêndice 29: SIR com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=100000, I_{H0}=1000$} 
+\end{figure} 
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.5em} \includegraphics[scale=0.7] {SEI_Entrada_Pop_100000_1000_Infect.png}}
+        \caption*{Apêndice 30: SEI com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=100000, I_{H0}=1000$} 
+\end{figure} 
+
+
+
 
 \newpage
 \section{Referências}

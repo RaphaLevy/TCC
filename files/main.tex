@@ -125,24 +125,24 @@ monografia que refere-se ao plano de trabalho a ser executado para continuidade 
 \textbf{\LARGE Curso de Graduação em Matemática Aplicada}
 
 \par
-\vspace{90pt}
+\vspace{55pt}
 \textbf{\Large Utilização de indicadores ambientais e epidemiológicos no estudo da dinâmica de doenças transmitidas por vetores}
 
 
 \par
-\vspace{65pt}
+\vspace{35pt}
 
 ``\textbf{Projeto de Monografia apresentado à Escola de Matemática Aplicada como requisito parcial para continuidade ao trabalho de monografia.}''
 \end{center}
 
 \par
-\vspace{65pt}
+\vspace{30pt}
 \begin{center}
 
 \textbf{Aprovado em } \makebox[30pt]{\hrulefill}\textbf{ de }\makebox[120pt]{\hrulefill}\textbf{ de }\makebox[50pt]{\hrulefill}
 \\
 \vspace{5pt}
-\textbf{Grau atribuído ao Projeto de Monografia:} \makebox[30pt]{\hrulefill}\\
+%\textbf{Grau atribuído ao Projeto de Monografia:} \makebox[30pt]{\hrulefill}\\
 \end{center}
 
 
@@ -153,28 +153,74 @@ monografia que refere-se ao plano de trabalho a ser executado para continuidade 
 \hrulefill
 
 \vspace{5pt}
-\textbf{Professor Orientador: Flávio Codeço Coelho}\\
+\textbf{Flávio Codeço Coelho}\\
 \textbf{Escola de Matemática Aplicada}\\
 \textbf{Fundação Getúlio Vargas}
+
+\vspace{30pt}
+
+\hrulefill
+
+\vspace{5pt}
+\textbf{Claudio José Struchiner}\\
+\textbf{Escola de Matemática Aplicada}\\
+\textbf{Fundação Getúlio Vargas}
+
+\vspace{30pt}
+
+\hrulefill
+
+\vspace{5pt}
+\textbf{Mônica da Silva-Nunes}\\
+\textbf{Centro de Ciências da Saúde e do Desporto}\\
+\textbf{Universidade Federal do Acre}
 \end{center}
 
 \thispagestyle{empty}
 
 \newpage
 \begin{center}
+        \textbf{Agradecimentos}
+\end{center}
+À minha família, especialmente meus pais, por todo o apoio e 
+incentivo ao longo não só da graduação, como em toda a jornada até esse momento. 
+\\\\
+Ao meu orientador, Flávio Codeço Coelho, por ser meu guia no
+desenvolvimento desse Trabalho e por me apresentar a área da modelagem de fenômenos biológicos.   
+\\\\
+A todos os professores que tive a oportunidade de conhecer e com quem tive o prazer de aprender 
+ao longo da graduação, e aos monitores que se dispunham a ajudar nos momentos mais difíceis.
+\\\\
+E por fim, gostaria de agradecer a todos os meus amigos que me acompanharam e me apoiaram até aqui. 
+Os últimos 4 anos não seriam os mesmos sem vocês.
+
+
+\newpage
+\begin{center}
     \textbf{Resumo}
 \end{center}
 
-A malária é uma doença infecciosa transmitida por mosquitos infectados por protozoários do gênero \textit{Plasmodium}, sendo a região amazônica considerada área endêmica para a doença. Esse trabalho tem como intuito analisar o comportamento dessa transmissão baseado em modificações climáticas e ambientais, como chuvas e desmatamento, através de modificações propostas aos modelos SIR e SEI. O Projeto Trajetórias-Sinbiose elaborado pela FIOCRUZ será usado como base de referência para as análises.
+A malária é uma doença infecciosa transmitida por mosquitos infectados por protozoários do gênero \textit{Plasmodium}, sendo a região amazônica considerada área endêmica 
+para a doença. Esse trabalho tem como intuito analisar o comportamento dessa transmissão baseado em modificações climáticas e ambientais, como temperatura, precipitação e desmatamento, 
+através de modificações propostas aos modelos SIR e SEI, de forma a contribuir no estudo de aplicações 
+de efeitos externos na evolução da doença. 
+O Projeto Trajetórias-Sinbiose elaborado pela FIOCRUZ será usado como base de referência para as análises.
 \\\\
+\textbf{Palavras-Chave}: Modelagem biológica. Malária. Amazônia. SIR. SEI.
 \\\\
 \\\\
 \begin{center}
     \textbf{Abstract}
 \end{center}
 
-Malaria is an infectious disease transmitted by mosquitoes infected by protozoa of the genus \textit{Plasmodium}, with the Amazon region being considered an endemic area for the disease. This work aims to analyze the behavior of this transmission based on climatic and environmental changes, such as rain and deforestation, through proposed modifications to the SIR and SEI models. The Trajetórias-Sinbiose Project developed by FIOCRUZ will be used as a reference base for the analyses.
-
+Malaria is an infectious disease transmitted by mosquitoes infected by protozoa of the genus \textit{Plasmodium}, with the Amazon region being considered an endemic area 
+for the disease. This work aims to analyze the behavior of this transmission based on climatic and environmental changes, such as temperature, precipitation and deforestation, through proposed 
+modifications to the SIR and SEI models, in order to contribute to the study of applications
+of external effects on the evolution of the disease. 
+The Trajetórias-Sinbiose Project developed by FIOCRUZ will be used as a reference base for the analyses.
+\\\\
+\textbf{Keywords}: Biological modelling. Malaria. Amazon. SIR. SEI.
+\\\\
 
 \newpage
 \tableofcontents
@@ -186,11 +232,50 @@ Malaria is an infectious disease transmitted by mosquitoes infected by protozoa 
 
 \section{Introdução}
 
-A Amazônia é uma das maiores e mais biodiversas florestas tropicais do mundo, abrigando inúmeras espécies de plantas, animais e microrganismos, incluindo vetores e patógenos responsáveis pela transmissão de diversas doenças. Entre elas, uma das mais comuns é a malária, que é causadas por protozoários do gênero \textit{Plasmodium}, transmitidos pela picada da fêmea infectada do mosquito do gênero \textit{Anopheles}. Ela está presente em 22 países americanos, porém as áreas com maior risco de infecção estão localizadas na região amazônica, englobando nove países, e que representaram $68\%$ dos casos de infecção em 2011 $^{[1]}$. Apesar de ser muito comum nas Américas, a malária não é limitada a esse continente, sendo encontrada em países da África e Ásia, tendo resultado em mais de dois milhões de casos de infecção e  445 mil mortes ao redor do mundo em 2016 $^{[2]}$.    
+A Amazônia é uma das maiores e mais biodiversas florestas tropicais do mundo, 
+abrigando inúmeras espécies de plantas, animais e microrganismos, incluindo 
+vetores e patógenos responsáveis pela transmissão de diversas doenças. Entre 
+elas, uma das mais comuns é a malária, que é causadas por protozoários do 
+gênero \textit{Plasmodium}, transmitidos pela picada da fêmea infectada do 
+mosquito do gênero \textit{Anopheles}. Ela está presente em 22 países 
+americanos, porém as áreas com maior risco de infecção estão localizadas 
+na região amazônica, englobando nove países, e que representaram $68\%$ 
+dos casos de infecção em 2011 $^{[1]}$. Apesar de ser muito comum nas 
+Américas, a malária não é limitada a esse continente, sendo encontrada 
+em países da África e Ásia, tendo resultado em mais de dois milhões de 
+casos de infecção e  445 mil mortes ao redor do mundo em 2016 $^{[2]}$.    
 \\\\
-Notavelmente, a transmissão de doenças por vetores é intimamente relacionada à alterações ambientais que interferem no ecossistema dos organismos transmissores e dos organismos afetados. No caso da Amazônia, povoados agrícolas e agropecuários são uns dos fatores que mais favorecem a transmissão da doença, tanto pelo desmatamento que causam para seu estabelecimento, assim como o agrupamento de pessoas em ambientes próximos ao habitat do vetor $^{[3]}$. Além disso, outros fatores, como chuvas, queimadas e mineração, também são muito influentes na transmissão de doenças na região. Esses eventos resultam em perda de habitat, fragmentação de ecossistemas e alterações no clima, afetando a distribuição e abundância de vetores e hospedeiros, bem como a interação entre eles e os patógenos. Além disso, o crescimento populacional e a urbanização também têm um papel importante na disseminação de doenças, uma vez que aumentam a exposição dos seres humanos aos vetores e aos riscos de infecção.
+Notavelmente, a transmissão de doenças por vetores é intimamente relacionada 
+à alterações ambientais que interferem no ecossistema dos organismos 
+transmissores e dos organismos afetados. No caso da Amazônia, povoados 
+agrícolas e agropecuários são uns dos fatores que mais favorecem a 
+transmissão da doença, tanto pelo desmatamento que causam para seu 
+estabelecimento, assim como o agrupamento de pessoas em ambientes 
+próximos ao habitat do vetor $^{[3]}$, em especial por aglomerar migrantes 
+não-imunes próximos a esses criadouros naturais e artificiais $^{[4]}$. 
 \\\\
-Diante desse contexto, este trabalho visa investigar a transmissão de doenças por vetores na Amazônia e analisar como os impactos ambientais influenciam a dinâmica de transmissão da malária, os fatores ecológicos e socioeconômicos que afetam essa disseminação e possíveis estratégias de prevenção e controle, tendo como referência principal o Projeto Trajetórias-Sinbiose, elaborado pela FIOCRUZ, um dataset incluindo indicadores ambientais, epidemiológicos, econômicos e socioeconômicos para todos os municípios da Amazônia Legal, analisando a relação espacial e temporal entre trajetórias econômicas ligadas à dinâmica dos sistemas agrários, sendo eles rurais de base familiar ou produção agrícola e de gado em larga escala, a disponibilidade de recursos naturais e o risco de doenças $^{[4]}$.
+Além disso, outros fatores, 
+como chuvas, queimadas e mineração, também são muito influentes na 
+transmissão de doenças na região. Esses eventos resultam em perda 
+de habitat, fragmentação de ecossistemas e alterações no clima, 
+afetando a distribuição e abundância de vetores e hospedeiros, bem 
+como a interação entre eles e os patógenos. Ademais, o crescimento 
+populacional e a urbanização também têm um papel importante na disseminação 
+de doenças, uma vez que aumentam a exposição dos seres humanos aos vetores 
+e aos riscos de infecção.
+\\\\
+Diante desse contexto, este trabalho visa investigar a transmissão de 
+doenças por vetores na Amazônia e analisar como os impactos ambientais 
+influenciam a dinâmica de transmissão da malária, os fatores ecológicos 
+e socioeconômicos que afetam essa disseminação e possíveis estratégias 
+de prevenção e controle, tendo como referência principal o Projeto 
+Trajetórias-Sinbiose, elaborado pela FIOCRUZ, um dataset incluindo 
+indicadores ambientais, epidemiológicos, econômicos e socioeconômicos 
+para todos os municípios da Amazônia Legal, analisando a relação espacial 
+e temporal entre trajetórias econômicas ligadas à dinâmica dos sistemas 
+agrários, sendo eles rurais de base familiar ou produção agrícola e de 
+gado em larga escala, a disponibilidade de recursos naturais e o risco 
+de doenças $^{[5]}$.
 \\\\
 % (Ao longo deste trabalho, serão abordados os seguintes tópicos: (1) uma revisão das principais doenças transmitidas por vetores na Amazônia e seus vetores e patógenos associados; (2) análise dos fatores ecológicos, climáticos e socioeconômicos que influenciam a transmissão de doenças; (3) discussão sobre os modelos epidemiológicos, incluindo adaptações aos modelos SIR e SEI, para avaliar o impacto das mudanças ambientais na transmissão de doenças; e (4) identificação de estratégias de prevenção e controle baseadas na compreensão da dinâmica de transmissão e nos desafios específicos da região amazônica.)
 
@@ -200,9 +285,16 @@ Diante desse contexto, este trabalho visa investigar a transmissão de doenças 
 
 \section{Metodologia}
 
-Para a elaboração do trabalho, serão usados dados populacionais do dataset do Projeto Trajetórias e dados climáticos do Climate Data, e serão abordados métodos de transmissão de doenças baseados em equações diferenciais ordinárias, como o SIR, e, partindo de uma modelagem simples, serão incluídos os fenômenos ambientais, como desmatamento e queimada, para ver como modificações no ecossistema irão interferir no modelo elaborado previamente. Os cálculos computacionais foram realizados em ambiente SageMath, utilizando funções de integração numérica do Scipy para solução do método.
+Para a elaboração do trabalho, serão usados dados populacionais 
+do dataset do Projeto Trajetórias e dados climáticos do Climate Data, 
+e serão abordados métodos de transmissão de doenças baseados em equações 
+diferenciais ordinárias, como o SIR, e, partindo de uma modelagem simples, 
+serão incluídos os fenômenos ambientais, como desmatamento e queimada, para 
+ver como modificações no ecossistema irão interferir no modelo elaborado 
+previamente. Os cálculos computacionais foram realizados em ambiente SageMath 9.2, 
+utilizando funções de integração numérica do Scipy para solução do método.
 \\\\
-Descrevendo primeiramente SIR $^{[5], [6]}$, que pode ser considerado a base de modelos que serão usados ao longo do projeto, este foi desenvolvido por W. O. Kermack e A. G. McKendrick em 1927, sendo um dos modelos mais usados para a modelagem de epidemias, levando em consideração três compartimentos:
+Descrevendo primeiramente SIR $^{[6], [7]}$, que pode ser considerado a base de modelos que serão usados ao longo do projeto, este foi desenvolvido por W. O. Kermack e A. G. McKendrick em 1927, sendo um dos modelos mais usados para a modelagem de epidemias, levando em consideração três compartimentos:
 
 \begin{align*}
     & S: \text{número de indivíduos suscetíveis} \\
@@ -250,9 +342,13 @@ Agora, cancelando os fatores $N$ e $\gamma$ em ambos os lados das equações:
 \end{cases}
 \end{gather*}
 \\
-Sendo assim temos um sistema dado apenas por $y^*$ e $x^*$ e o parâmetro $\dfrac{\beta}{\gamma}$, que podemos chamar de $R_0$.
+Sendo assim temos um sistema dado apenas por $y^*$ e $x^*$ e o parâmetro 
+$\dfrac{\beta}{\gamma}$, que podemos chamar de $R_0$.
 \\\\
-Como esse trabalho será focado principalmente na modelagem de malária, irei agora apresentar um dos primeiros modelos desenvolvidos especialmente para essa doença, por Sir Ronald Ross em 1911 $^{[7]}$, que usa duas EDOs distintas das apresentadas acima:
+Como esse trabalho será focado principalmente na modelagem de malária, 
+irei agora apresentar um dos primeiros modelos desenvolvidos especialmente 
+para essa doença, por Sir Ronald Ross em 1911 $^{[8]}$, que usa duas EDOs 
+distintas das apresentadas acima:
 
 \begin{gather*}
 \begin{cases}
@@ -262,9 +358,17 @@ Como esse trabalho será focado principalmente na modelagem de malária, irei ag
 \end{cases}
 \end{gather*}
 \\
-Nesse caso, $N$ é a população humana total, $I(t)$ é o número de humanos infectados no tempo $t$, $n$ é a população total de mosquitos, $i(t)$ é o número de mosquitos infectados no tempo $t$, $b$ é a taxa de picadas, $p$ é a probabilidade de transmissão do humano para o mosquito por picada, $p'$ é a probabilidade de transmissão do mosquito para o humano por picada, $a$ é a taxa de recuperação da infecção de um humano e $m$ é a taxa de mortalidade dos mosquitos. $bp'i\dfrac{N-I}{N}dt -aIdt$ representam respectivamente o número de novos humanos infectados e o número de humanos recuperados no intervalo $dt$, enquanto que $bp(n-i)\dfrac{I}{N}dt - mIdt$ representam respectivamente o número de novos mosquitos infectados e o número de mosquitos que morrem nesse intervalo de tempo, assumindo que a infeccção não interfere na taxa de mortalidade dos mosquitos.
+Nesse caso, $N$ é a população humana total, $I(t)$ é o número de humanos 
+infectados no tempo $t$, $n$ é a população total de mosquitos, $i(t)$ é o número de mosquitos infectados no tempo $t$, $b$ é a taxa de picadas, $p$ é a probabilidade de transmissão do humano para o mosquito por picada, $p'$ é a probabilidade de transmissão do mosquito para o humano por picada, $a$ é a taxa de recuperação da infecção de um humano e $m$ é a taxa de mortalidade dos mosquitos. $bp'i\dfrac{N-I}{N}dt -aIdt$ representam respectivamente o número de novos humanos infectados e o número de humanos recuperados no intervalo $dt$, enquanto que $bp(n-i)\dfrac{I}{N}dt - mIdt$ representam respectivamente o número de novos mosquitos infectados e o número de mosquitos que morrem nesse intervalo de tempo, assumindo que a infeccção não interfere na taxa de mortalidade dos mosquitos.
 \\\\
-Para esse modelo, Ross discutiu dois pontos de equilíbrio, em que $\dfrac{dI}{dt} = \dfrac{di}{dt} = 0$. Eles ocorrem quando $I=i=0$, que é o caso onde não existe malária, e, para $I, i > 0$, $I = N\dfrac{1-amN/(b^2pp'n)}{1+aN/(bp'n)}$ e $i = n\dfrac{1-amN/(b^2pp'n)}{1+m/(bp)}$. Ainda, para que a doença se estabeleça, $n$ deve ser maior que um valor limiar $n^* = \dfrac{amN}{b^2pp'}$. Nesse caso a doença se torna endêmica. Caso $n<n^*$, o equilíbrio estará em $I=i=0$ e a dença irá desaparecer.
+Para esse modelo, Ross discutiu dois pontos de equilíbrio, em que 
+$\dfrac{dI}{dt} = \dfrac{di}{dt} = 0$. Eles ocorrem quando $I=i=0$, 
+que é o caso onde não existe malária, e, para $I, i > 0$, 
+$I = N\dfrac{1-amN/(b^2pp'n)}{1+aN/(bp'n)}$ e 
+$i = n\dfrac{1-amN/(b^2pp'n)}{1+m/(bp)}$. Ainda, para que a doença se 
+estabeleça, $n$ deve ser maior que um valor limiar $n^* = \dfrac{amN}{b^2pp'}$. 
+Nesse caso a doença se torna endêmica. Caso $n<n^*$, o equilíbrio estará em 
+$I=i=0$ e a dença irá desaparecer.
 \\\\
 Dividindo as equações dos pontos de equilíbrio por $I \times i$, temos:
 
@@ -276,9 +380,13 @@ Dividindo as equações dos pontos de equilíbrio por $I \times i$, temos:
 \end{cases}
 \end{gather*}
 \\
-O que transforma o problema em um sistema linear com dois desconhecidos, $I$ e $i$.
+O que transforma o problema em um sistema linear com dois desconhecidos, 
+$I$ e $i$.
 \\\\
-Agora, irei apresentar o modelo que será usado para o desenvolvimento do trabalho, feito com base no elaborado por Paul E. Parham e Edwin Michael em 2010, que leva em consideração fatores como a chuva e temperatura ($R$ e $T$, respectivamente) $^{[8]}$. 
+Agora, irei apresentar o modelo que será usado para o desenvolvimento do 
+trabalho, feito com base no elaborado por Paul E. Parham e Edwin Michael 
+em 2010, que leva em consideração fatores como a chuva e temperatura 
+($R$ e $T$, respectivamente) $^{[9]}$. 
 \\\\
 Definindo as equações que serão utilizadas:
 \begin{gather*}
@@ -297,9 +405,16 @@ Definindo as equações que serão utilizadas:
 \end{cases}
 \end{gather*}
 \\\\
-É preciso comentar que o modelo original utilizava $I_M(t-\tau)$ em $\dfrac{dI_H}{dt}$ e $I_H(t-\tau)$ em $\dfrac{dE_M}{dt}$ (na passagem de $E$ para $I$) e $\dfrac{dI_M}{dt}$, respectivamente, mas como isso faria com que o modelo fosse baseado em equações com atraso, foi recomendado pelo orientador do Trabalho que essa diferença fosse desconsiderada, e usasse apenas $t$ atual.
+É preciso comentar que o modelo original utilizava $I_M(t-\tau)$ em 
+$\dfrac{dI_H}{dt}$ e $I_H(t-\tau)$ em $\dfrac{dE_M}{dt}$ (na passagem 
+de $E$ para $I$) e $\dfrac{dI_M}{dt}$, respectivamente, mas como isso 
+faria com que o modelo fosse baseado em equações com atraso, foi 
+recomendado pelo orientador do Trabalho que essa diferença fosse 
+desconsiderada, e usasse apenas $t$ atual.
 \\\\
-Tendo as equações do modelo para a população de humanos e de mosquitos, irei primeiro definir os parâmetros utilizados na modelagem e outras funções necessárias, e depois as variáveis usadas:
+Tendo as equações do modelo para a população de humanos e de mosquitos, 
+irei primeiro definir os parâmetros utilizados na modelagem e outras 
+funções necessárias, e depois as variáveis usadas:
 \\
 \begin{adjustwidth}{-0.5cm}{}
 \begin{center}
@@ -402,17 +517,17 @@ Tendo as equações do modelo para a população de humanos e de mosquitos, irei
  $T_{min}$ & \makecell[l]{\rule{0pt}{3ex}Temperatura mínima, abaixo dessa temperatura não há desenvolvimento \\ do parasita: 14.5 ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $DD$ & \makecell[l]{\rule{0pt}{3ex}``Degree days" para desenvolvimento do parasita. Número de graus em \\ que a temperatura média diária excede a temperatura mínima \\ de desenvolvimento.
- ``Sum of heat" para maturação: 105 $(^\circ C \ \text{dias})$ $^{[9], [12]}$\rule[-1.5ex]{0pt}{0pt}} \\
+ ``Sum of heat" para maturação: 105 $(^\circ C \ \text{dias})$ $^{[10], [14]}$\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $A$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C^2 \ \text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ $A$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C^2 \ \text{dias})^{-1}$\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $B$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C \ \text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ $B$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C \ \text{dias})^{-1}$\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $C$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($\text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $D_1$ & \makecell[l]{\rule{0pt}{3ex}Constante: 36.5 ($^\circ C \ \text{dias}$)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $c_1$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C \ \text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ $c_1$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C \ \text{dias})^{-1}$\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $c_2$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($\text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
@@ -434,7 +549,12 @@ I_M^* = \dfrac{M(R_0-1)}{(\dfrac{R_0}{l(\tau_M)}) + (\dfrac{ab_2M}{\gamma N})} \
 \\
 I_H^* = \dfrac{N(R_0-1)}{R_0 + (\dfrac{ab_1}{\mu})}
 \end{gather*}
-Tendo as equações e parâmetros, a modelagem foi feita inicialmente utilizando dados da zona rural de Manaus, no período de 2004 a 2008, que foram selecionados devido à maior incidência de casos de malária causados por $P. \ vivax$. Usando a função de incidência utilizada no projeto Trajetorias $^{[4]}$, temos:
+Tendo as equações e parâmetros, a modelagem foi feita inicialmente 
+utilizando dados da zona rural de Manaus, no período de 2004 a 2008, 
+que foram selecionados devido à maior incidência de casos de malária causados 
+por $P. \ vivax$, sendo a espécie responsável pelo maior número de
+casos no Brasil a partir do início dos anos 90 $^{[11-NOVO]}$. Usando a função de incidência utilizada no projeto 
+Trajetorias $^{[5]}$, temos:
 \begin{gather*}
     \text{Inc}(d, m, z, t_1, t_2) = \dfrac{\text{Casos}(d, m, z, t_1, t_2)}{\text{Pop}(m,z,(t_1+t_2)/2) \times 5 \ \text{anos}} \times 10^5,
 \end{gather*}
@@ -445,7 +565,7 @@ onde $\text{casos}(d, m, z, t_1, t_2)$ é o número de casos da doença $d$ na z
 \end{gather*}
 Usando dados da população total de Manaus nesse período, cuja incidência foi de 3106.4 e o número de casos foi de 262264, a população total do município foi estimada como sendo de 1688540 habitantes. Com isso, a população rural pôde ser considerada como aproximadamente 0.5$\%$ da população do município.
 \\\\
-Tendo estimado o tamanho porcentual da população rural na cidade, foi possível calcular essa população em cada um dos anos da análise através de uma interpolação linear feita com dados de séries históricas do IBGE $^{[10]}$:
+Tendo estimado o tamanho porcentual da população rural na cidade, foi possível calcular essa população em cada um dos anos da análise através de uma interpolação linear feita com dados de séries históricas do IBGE $^{[12]}$:
 \\\\
 \begin{adjustwidth}{0cm}{}
 \begin{center}
@@ -474,11 +594,40 @@ $2004$ & $7717$ \\
 \vspace{1cm}
 Como haviam dados populacionais para os anos de 2000, 2007 e 2010, as interpolações foram feitas com diferentes pontos iniciais e finais, usando de 2000 a 2007 para 2004-2007, e de 2007 a 2010 para 2008-2009, de forma a utilizar corretamente a população de 2007.
 \\\\
-Descrevendo agora um pouco da teoria por trás dos fatores ambientais, segundo $^{[13]}$, a remoção da copa das árvores permitiu a reemergência da malária na América do Sul, já que em áreas desmatadas, sem as copas cobrindo o solo, poças d'água sob luz solar atraem mosquitos da espécie $Anopheles \ darlingi$, principal vetor relacionado à malária humana na Amazônia $^{[14]}$, sendo que costumam ser menos encontrados em florestas ainda intactas. Isso ocorre porque a luz e calor favorecem o desenvolvimento de larvas e pupas, além de uma maior disponibilidade de algas para alimentação das larvas $^{[15]}$. O aumento da temperatura ambiente também favorece a capacidade vetorial dos mosquitos. O desmatamento também atrai e aproxima humanos para que possam tomar parte em atividades madeireiras, de agricultura e construção de rodovias, trazendo indíviduos infectados com o $Plasmodium$ para uma área que tanto o vetor quanto o ambiente já foram modificados de forma a favorecer a sua transmissão. Ainda, a agricultura também favorece à sedimentação dos rios, sendo ambientes propícios para o estabelecimento de criadouros. Sendo assim, pode ser considerado uma mudança adequada para o modelo para levar em consideração o desmatamento, o aumento das probabilidades de sobrevivência dos ovos, larvas e pupas, além de aumentar a proporção de picadas que produzem infecção, devido ao aumento da densidade populacional humana em áreas próximas aos criadouros dos mosquitos.
+Descrevendo agora um pouco da teoria por trás dos fatores ambientais, segundo $^{[15]}$, 
+a remoção da copa das árvores permitiu a reemergência da malária 
+na América do Sul, já que em áreas desmatadas, 
+sem as copas cobrindo o solo, poças d'água sob luz solar atraem mosquitos 
+da espécie $Anopheles \ darlingi$, principal vetor relacionado à malária 
+humana na Amazônia $^{[16]}$, sendo que costumam ser menos encontrados em 
+florestas ainda intactas. Isso ocorre porque a luz e calor favorecem o 
+desenvolvimento de larvas e pupas, além de uma maior disponibilidade de 
+algas para alimentação das larvas $^{[17]}$. O aumento da temperatura 
+ambiente também favorece a capacidade vetorial dos mosquitos. O desmatamento 
+também atrai e aproxima humanos para que possam tomar parte em atividades 
+madeireiras, de agricultura e construção de rodovias, trazendo indíviduos 
+infectados com o $Plasmodium$ para uma área que tanto o vetor quanto o 
+ambiente já foram modificados de forma a favorecer a sua transmissão. 
+Ainda, a agricultura também favorece à sedimentação dos rios, sendo 
+ambientes propícios para o estabelecimento de criadouros. Sendo assim, 
+pode ser considerado uma mudança adequada para o modelo para levar 
+em consideração o desmatamento, o aumento das probabilidades de 
+sobrevivência dos ovos, larvas e pupas, além de aumentar a proporção 
+de picadas que produzem infecção, devido ao aumento da densidade 
+populacional humana em áreas próximas aos criadouros dos mosquitos.
 \newpage
 \section{Resultados}
 
-Analisando primeiro os resultados obtidos com os parâmetros originais do artigo de Parham e Michael ($T_1=23.2, \ T_2=0.07, \ \omega_1=0.67, \ \phi_1=1.53, \ R_1=85.9, \ R_2=0.98, \ \omega_2=0.65, \ \phi_2=1.99, \ A=-0.03, \ B=1.31, \ C=-4.4, \ b_1=0.04, \ b_2 = 0.09, \ T_{min}=14.5, \ \gamma= 1/120,\ R_L = 50, \ c_1=0.00554, \ c_2=-0.06737$), e utilizando a população média estimada anteriormente e um valor arbitrário para a população de mosquitos, de 10000, assumindo 1000 humanos infectados e 5000 mosquitos expostos à malária em $t=0$, a modelagem ficou como a seguir: 
+Analisando primeiro os resultados obtidos com os parâmetros originais 
+do artigo de Parham e Michael ($T_1=23.2, \ T_2=0.07, \ \omega_1=0.67, 
+\ \phi_1=1.53, \ R_1=85.9, \ R_2=0.98, \ \omega_2=0.65, \ \phi_2=1.99, 
+\ A=-0.03, \ B=1.31, \ C=-4.4, \ b_1=0.04, \ b_2 = 0.09, \ T_{min}=14.5, 
+\ \gamma= 1/120,\ R_L = 50, \ c_1=0.00554, \ c_2=-0.06737 ^{[8], [17]}$), 
+e utilizando a população média estimada anteriormente e um valor arbitrário 
+para a população de mosquitos, de 10000, assumindo 1000 humanos infectados 
+e 5000 mosquitos expostos à malária em $t=0$, a modelagem ficou como a seguir 
+\footnote{A elaboração do modelo com os dados originais pode ser encontrada em
+https://github.com/RaphaLevy/TCC/blob/main/old/Dados\%20Originais.ipynb.}: 
 
 % Pra plotar duas imagens uma ao lado da outra, precisa corrigir a posição das legendas.
 
@@ -505,22 +654,18 @@ Analisando primeiro os resultados obtidos com os parâmetros originais do artigo
 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{2.8em} \includegraphics[scale=0.5] {SIR_Dados_Originais_Parham_Michael.png}}
+        \hbox{\hspace{3.6em} \includegraphics[scale=0.475] {SIR_Dados_Originais_Parham_Michael.png}}
         \caption{SIR com dados originais}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{2.0em} \includegraphics[scale=0.5] {SEI_Dados_Originais_Parham_Michael.png}}
+        \hbox{\hspace{2.7em} \includegraphics[scale=0.475] {SEI_Dados_Originais_Parham_Michael.png}}
         \caption{SEI com dados originais}
 \end{figure} 
 \newpage
-A elaboração do modelo com os dados originais pode ser encontrada em
-\\
-https://github.com/RaphaLevy/TCC/blob/main/old/Dados\%20Originais.ipynb.
-\\\\
 Com essa modelagem inicial, é perceptível uma forte oscilação do número de humanos e mosquitos suscetíveis, assim como de humanos infectados. Ademais, é notável que, com esses parâmetros, a epidemia não irá se estabilizar, visto que o número de humanos infectados tende a 0 ao longo do ano, enquanto que a população de mosquitos suscetíveis fica negativa e a população de expostos e infectados também tende a 0. Esses efeitos foram caracterizados pela temperatura e precipitação oscilando em períodos de tempo muito curtos, devido a um alto valor de $\omega$ para ambas as funções. 
 \\\\
-Coletando dados climatológicos de Manaus em $^{[11]}$, a temperatura e precipitação média foram estimados como 26.4 $^\circ C$ e 250.083 mm, respectivamente. Com esses dados, a amplitude da variabilidade sazonal, frequência angular e ``phase lag" da variabilidade para ambos foram definidos de forma a aproximar os valores reais:
+Coletando dados climatológicos de Manaus em $^{[13]}$, a temperatura e precipitação média foram estimados como 26.4 $^\circ C$ e 250.083 mm, respectivamente. Com esses dados, a amplitude da variabilidade sazonal, frequência angular e ``phase lag" da variabilidade para ambos foram definidos de forma a aproximar os valores reais:
 \\\\
 \begin{adjustwidth}{-0.5cm}{}
 \begin{center}
@@ -529,19 +674,19 @@ Coletando dados climatológicos de Manaus em $^{[11]}$, a temperatura e precipit
  \hline
  \textbf{Parâmetro} & \textbf{Valor}\\ 
  \hline
-  $T_1$ & \makecell[l]{\rule{0pt}{3ex}26.4\rule[-1.5ex]{0pt}{0pt}} \\
+  $T_1$ & \makecell[l]{\rule{0pt}{3ex}26.4$^\circ C$\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $T_2$ & \makecell[l]{\rule{0pt}{3ex}0.025\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $\omega_1$ & \makecell[l]{\rule{0pt}{3ex}0.017\rule[-1.5ex]{0pt}{0pt}} \\
+ $\omega_1$ & \makecell[l]{\rule{0pt}{3ex}0.017 (meses)$^{-1}$\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $\phi_1$ & \makecell[l]{\rule{0pt}{3ex}-1.45\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $R_1$ & \makecell[l]{\rule{0pt}{3ex}250.083\rule[-1.5ex]{0pt}{0pt}} \\
+ $R_1$ & \makecell[l]{\rule{0pt}{3ex}250.083 mm\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $R_2$ & \makecell[l]{\rule{0pt}{3ex}0.565\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
- $\omega_2$ & \makecell[l]{\rule{0pt}{3ex}0.02\rule[-1.5ex]{0pt}{0pt}} \\
+ $\omega_2$ & \makecell[l]{\rule{0pt}{3ex}0.02 (meses)$^{-1}$\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $\phi_2$ & \makecell[l]{\rule{0pt}{3ex}1.6\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
@@ -551,7 +696,11 @@ Coletando dados climatológicos de Manaus em $^{[11]}$, a temperatura e precipit
 \end{adjustwidth}
 
 \vspace{1cm}
-A temperatura e precipitação ao longo do ano evoluem então da seguinte maneira:
+Os parâmetros de amplitude ($T_2$ e $R_2$) e defasagem de fase 
+($\phi_1$ e $\phi_2$) são adimensionais. A temperatura e precipitação ao 
+longo do ano evoluem então da seguinte maneira \footnote{A elaboração dos gráficos pode ser encontrada em
+\\
+https://github.com/RaphaLevy/TCC/blob/main/Discuss\%C3\%A3o/Correcao\_de\_Modelagens.ipynb}:
 
 
 % \begin{figure}
@@ -574,7 +723,7 @@ A temperatura e precipitação ao longo do ano evoluem então da seguinte maneir
 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{7.0em} \includegraphics[scale=0.6] {Grafico_da_Temperatura.png}}
+        \hbox{\hspace{6.8em} \includegraphics[scale=0.6] {Grafico_da_Temperatura.png}}
         \caption{Gráfico da temperatura}
 \end{figure} 
 \newpage
@@ -583,21 +732,12 @@ A temperatura e precipitação ao longo do ano evoluem então da seguinte maneir
         \hbox{\hspace{7.0em} \includegraphics[scale=0.6] {Grafico_da_Precipitacao.png}}
         \caption{Gráfico da precipitação}
 \end{figure} 
-A elaboração dos gráficos pode ser encontrada em
-\\
-https://github.com/RaphaLevy/TCC/blob/main/Discuss\%C3\%A3o/
-\\
-Correcao\_de\_Modelagens.ipynb.
-\\\\
 De forma a garantir a corretude da função com os parâmetros utilizados, calculei os valores da temperatura nos meses de outubro e maio, que são o mais quente e frio do ano, com temperaturas médias de 27.6 $^\circ C$ e 25.8 $^\circ C$ respectivamente, e da precipitação em março e agosto, que são os meses com maior e menor precipitação, com 395 e 114 mm, respectivamente. Os valores médios obtidos foram de 27.06 $^\circ C$, 25.86 $^\circ C$, 390.67 mm e 112.89 mm. Tendo os parâmetros de $T$ e $R$ prontos para uma primeira análise, a evolução das populações de humanos e mosquitos foram verificadas utilizando $N=8558$, com $S_{H0} = 7558$, $I_{H0} = 10000$, $M= 300000$, $S_{M0}=250000$, $E_{M0} = 50000$, $A = 317.925, \ B = 15, \ C = -48.78$ e $R_L = 312 \ \text{mm}$. Os resultados podem ser encontrados no Apêndice 1 e 2. 
 \\\\
 Notavelmente, a modelagem resultante não está incorreta, com ambas as populações se tornando negativas em certos pontos, especialmente a da população humana, cujo número de infectados decai para aproximadamente -300000. Verificando as EDOs, foi possível ver que o único parâmetro que é dado em função da temperatura e chuva no SIR é o $a(T)$, que é a taxa de picadas por dia. Dada a sua fórmula, e sabendo que a temperatura inicialmente decai nos primeiros meses do ano, tem-se que $a$ tomará valores negativos na equação de infectados, visto que $T_1$ será maior que $T$ inicialmente, explicando o comportamento da curva. Se comparado com os dados do artigo de Parham e Michael, cuja temperatura é crescente inicialmente, foi necessário modificar a ordem do numerador dessa taxa para que, num primeiro momento, não se torne negativa conforme a temperatura decai. Utilizando então a equação $a(T) = \dfrac{T_1-T}{D_1}$, os resultados podem ser vistos no apêndice 3 e 4.
-\\\\
-A elaboração dos gráficos acima pode ser encontrada em
+\footnote{A elaboração dos gráficos acima pode ser encontrada em
 \\
-https://github.com/RaphaLevy/TCC/blob/main/old/
-\\
-Testa\_Infectados\_Humanos.ipynb.
+https://github.com/RaphaLevy/TCC/blob/main/old/Testa\_Infectados\_Humanos.ipynb}
 \\\\
 Com essas modificações, a evolução da população humana parece mais viável do que estava anteriormente, com o número de infectados inicialmente baixo, aumentando ao longo do ano e posteriormente decaindo. Por outro lado, é possível notar que próximo do tempo final de análise, o número de humanos infectados volta a ser negativo. A modelagem de mosquitos se manteve similar, a única diferença é que as ondulações de população $S$ e $I$ estão espelhadas entre os gráficos: antes da modificação de $a(T)$, $S_M$ era inicialmente crescente e $I_M$ inicialmente dcrescente. Esse comportamento foi invertido no modelo modificado.
 \\\\
@@ -618,14 +758,19 @@ Considerando então o que foi dito acima, também se tornou necessário modifica
 \end{cases}
 \end{gather*}
 \\\\
-Com as adaptações feitas à transmissão da doença entre os mosquitos (Apêndices 5 e 6), é possível ver que não só o equilíbrio mudou, de forma que agora o número de expostos tende a 0, e não o de infectados, podemos ver também que a população de humanos é fortemente impactada, novamente oscilando constantemente, e com o número de infectados ficando negativo repetidas vezes. \footnote{Observação: as modelagens do SIR mostradas ao longo de 5 anos de análise foram feitas usando o valor médio estimado para a população no período entre 2004 e 2008, com $N$=8558.}
+Com as adaptações feitas à transmissão da doença entre os mosquitos 
+(Apêndices 5 e 6), é possível ver que não só o 
+equilíbrio mudou, de forma que agora o número de 
+expostos tende a 0, e não o de infectados, podemos ver também que a população 
+de humanos é fortemente impactada, novamente oscilando constantemente, e com 
+o número de infectados ficando negativo repetidas vezes \footnote{Observação: 
+as modelagens do SIR mostradas ao longo de 5 anos de análise foram feitas 
+usando o valor médio estimado para a população no período entre 2004 e 2008, 
+com $N$=8558}.
 Analisando modificações nos parâmetros empíricos citados acima, foi notado que esse comportamento se dá devido em especial ao alto valor em módulo de $A$, visto que com $A=-217.925$, o comportamento do modelo foi similar. Até mesmo usando $A=17.925$, o comportamento observado foi similar. Contudo, para $A=0$, a população humana teve um comportamento bem mais viável, enquanto que a população de mosquitos tendeu à extinção (Apêndices 7 e 8).
-\\\\
-A elaboração dos gráficos indicados acima pode ser encontrada em
+\footnote{A elaboração dos gráficos indicados acima pode ser encontrada em
 \\
-https://github.com/RaphaLevy/TCC/blob/main/Discuss\%C3\%A3o/
-\\
-Correcao\_de\_Modelagens\_2.ipynb.
+https://github.com/RaphaLevy/TCC/blob/main/Discuss\%C3\%A3o/Correcao\_de\_Modelagens\_2.ipynb}
 \\\\
 Analisando o efeito de $A$, notou-se que, para $A$ muito grande, $\mu$ se torna extremamente pequeno:
 \begin{flalign*}
@@ -634,12 +779,11 @@ Analisando o efeito de $A$, notou-se que, para $A$ muito grande, $\mu$ se torna 
 & \text{Para A} = -217.925, \ \mu = -6.599014101979344e-06 \\
 & \text{Para A} = 0, \mu = 0.0028800184321179124
 \end{flalign*}
-\\
 Com isso, a mortalidade de mosquitos será extremamente baixa para valores grandes de $A$, positivos ou não. Contudo, como uma forma de possibilitar o uso de valores altos para esse parâmetro, e ainda garantir que as população tenham valores sempre não-negativos, foi aplicado um máximo nas taxas com subtração, segundo recomendação do orientador, de forma que o valor resultante entre $T(t)-T_{min}$, $R_L - R(t)$ e $T'-T(t)$ seja o valor máximo entre essas diferenças e uma tolerância pequena, no caso foi utilizado um $\epsilon = 10^{-5}$. Isso foi suficiente para garantir que, mesmo com valores grandes de $A$, o modelo não tomasse valores negativos (Apêndices 9 a 12). 
 \\\\
 Com essas modificações, é possível notar como, independente do valor de $A$, a evolução das populações humanas será bem similar, com uma estabilização da população de suscetíveis logo antes de se tornar 0. A de mosquitos, por sua vez, é menos oscilante para valores grandes de $A$, e não se estabiliza mesmo em mais de 10000 dias. Por outro lado, se $A=0$, a população de mosquitos se aproxima da extinção, com pequenos picos de mosquitos unicamente suscetíveis, sem estabilização da doença. Contudo, ainda que usando o máximo entre um pequeno $\epsilon$ e as diferenças notadas acima, $T'=26.4$ é um valor menor que a temperatura máxima calculada para o ano, que é próxima de 27.1. Assim, foi recomendado pelo orientador que fosse testado um valor maior que esse máximo, no caso $T'=27.4$ (Apêndice 13 e 14).
 \\\\
-Tendo então o modelo SIR/SEI devidamente corrigido, foi possível partir para as análises de aplicação do desmatamento. Para isso, iniciei com o cálculo do $\mathcal{R}_0$ para ambos SIR e SEI, e também para o modelo acoplado, usando como referência a formulação de P. van den Driessche $^{[16]}$:
+Tendo então o modelo SIR/SEI devidamente corrigido, foi possível partir para as análises de aplicação do desmatamento. Para isso, iniciei com o cálculo do $\mathcal{R}_0$ para ambos SIR e SEI, e também para o modelo acoplado, usando como referência a formulação de P. van den Driessche $^{[18]}$:
 \\\\
 Definimos $X_s$ como o conjunto de todos os estados livres de doença, 
 $$X_s=\{x \geq 0|x_i=0, i=1,\ldots,m\},$$
@@ -860,16 +1004,37 @@ Com essas adaptações,
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SIR_R0_near1.png}}
-        \caption{SIR com $T'=25.6, \ A=15, \ D_1=55, \ b_2=0.2, \ \gamma=1/365$}
+        \caption{SIR com $T'=25.6 ^\circ C, \ A=15 \ (^\circ C^2 \ \text{dias})^{-1}, \ D_1=55 \ (^\circ C \ \text{dias}), \ b_2=0.2, \ \gamma=1/365$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SEI_R0_near1.png}}
-        \caption{SEI com $T'=25.6, \ A=15, \ D_1=55, \ b_2=0.2, \ \gamma=1/365$}
+        \caption{SEI com $T'=25.6 ^\circ C, \ A=15 \ (^\circ C^2 \ \text{dias})^{-1}, \ D_1=55 \ (^\circ C \ \text{dias}), \ b_2=0.2, \ \gamma=1/365$}
 \end{figure}
 \\\\
-Discutindo essa aproximação de $\mathcal{R}_0$ a 1 com o orientador do Trabalho, foi decidido 
-que ao invés de aumentar o valor $D_1$, um parâmetro empírico usado para estabilizar a taxa de picadas, seria ideal modificar $b_1$ e $b_2$, que são as proporções de picadas gerando infecção em mosquitos e humanos suscetíveis, respectivamente, tendo em vista que, conforme temos mais ocorrências de áreas desmatadas, haverá um maior contato entre humanos e mosquitos, aumentando a proporção de picadas gerando infecção. Junto com essa correção, também foram modelados os gráficos de evolução das taxas utilizadas, em função da temperatura e precipitação, ao invés do tempo, para que fosse possível analisar o comportamento dessas taxas conforme a temperatura e precipitação variam. Os gráficos estão indicados no apêndice, partindo do 15. Gerando esses gráficos, também foi percebido que seria ideal aumentar $R_L$ do valor atual de 312 mm para 450 mm, para evitar que a probabilidade de sobrevivência de mosquitos durante as diferentes fases se tornasse muito próximo de 0, o que estava afetando a taxa de nascimentos $b(R,T)$.
+Discutindo essa aproximação de $\mathcal{R}_0$ a 1 com o orientador do 
+Trabalho, foi decidido 
+que ao invés de aumentar o valor $D_1$, um parâmetro empírico usado para 
+estabilizar a taxa de picadas, seria ideal modificar $b_1$ e $b_2$, que são as
+proporções de picadas gerando infecção em mosquitos e humanos suscetíveis, 
+respectivamente, tendo em vista que, conforme temos mais ocorrências de áreas 
+desmatadas, haverá um maior contato entre humanos e mosquitos, aumentando a 
+proporção de picadas gerando infecção. 
+\\\\
+Junto com essa correção, também 
+foram modelados os gráficos de evolução das taxas utilizadas, em função 
+da temperatura e precipitação, ao invés do tempo, para que fosse 
+possível analisar o comportamento dessas taxas conforme a temperatura e 
+precipitação variam. Os gráficos estão indicados no apêndice, partindo do 15. 
+Gerando esses gráficos, também foi percebido que seria ideal aumentar $R_L$ 
+do valor atual de 312 mm para 450 mm, para evitar que a probabilidade de 
+sobrevivência de mosquitos durante as diferentes fases se 
+tornasse muito próximo de 0, o que estava afetando a taxa de 
+nascimentos $b(R,T)$, e diminuir $\gamma$ de 1/365 dias para 1/120, valor original
+do artigo de referência $^{[9]}$, de forma que a curva epidêmica fosse mais
+próxima do analisado na realidade, visto na Figura 5 que a curva de infectados começa
+a crescer logo no início da análise, e a infecção só deixa de ocorrer após mais de
+5 anos.
 \\\\
 Após o desenvolvimento dos gráficos das taxas, foi iniciada a modelagem usando os dados 
 ``reais" da população obtidos através da interpolação dos dados de população de Manaus indicada na Tabela 4.
@@ -890,10 +1055,8 @@ nascimentos e mortes. O modelo atualizado ficou como a seguir:
 \\
 \end{cases}
 \end{gather*}
-A elaboração dos gráficos, a partir do Apêndice 27, foi feita em
-\\
-https://github.com/RaphaLevy/TCC/blob/main/Modelagem\_com\_Dinamica\_Pop/ \\
-Modelagem\_com\_Entrada\_Populacional.ipynb.
+A elaboração dos gráficos, a partir do Apêndice 27, foi feita em \footnote{https://github.com/RaphaLevy/TCC/blob/main/Modelagem\_com\_Dinamica\_Pop/ \\
+Modelagem\_com\_Entrada\_Populacional.ipynb}.
 \\\\
 Tendo corrigido as equações, o $\mathcal{R}_0$ do SIR e do modelo acoplado 
 foram $\Big | \dfrac{ab_2}{\gamma + \mu_H}\Big | $ e 
@@ -904,12 +1067,12 @@ Como esperado, com $\mathcal{R}_0$ menor que 1, e apenas 1 mosquito exposto e
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.5em} \includegraphics[scale=0.7] {SIR_Entrada_Pop_1_1_Infect.png}}
-        \caption{SIR com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=1, I_{H0}=1$} 
+        \caption{SIR com $T'=25.6 ^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, E_{M0}=1, I_{H0}=1$} 
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.5em} \includegraphics[scale=0.7] {SEI_Entrada_Pop_1_1_Infect.png}}
-        \caption{SEI com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=1, I_{H0}=1$} 
+        \caption{SEI com $T'=25.6 ^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, E_{M0}=1, I_{H0}=1$} 
 \end{figure} 
 \\Dos apêndices 27 a 30, aumentando o número de infectados e expostos, inicialmente com um 
 ``pequeno" aumento, com 1/30 da população de mosquitos exposta à doença, e 6.5\% 
@@ -932,64 +1095,141 @@ Agora, voltando a um único exposto e infectado inicialmente, e incluindo um fat
 multiplicativo $k$ nas proporções $b_1$ e $b_2$, representando o aumento de contato
 entre humanos e mosquitos devido ao desmatamento, foi possível analisar o efeito desse impacto
 na evolução da doença. Aumentando as proporções em 20 e 50\%, não foi possível perceber
-nenhuma diferença visível na evolução da doença, mas com um aumento de 100\%, o resultado ficou como a seguir:
+nenhuma diferença visível na evolução da doença, isso porque $\mathcal{R}_0 < 1$  
+para $k < 2.0746963059512207$, como pode ser visto abaixo:
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SIR_Desmat_k=2.png}}
-        \caption{SIR com $k=2$}
+        \hbox{\hspace{3em} \includegraphics[scale=0.8] {Plot_R0_vs_k.png}}
+        \caption{$\mathcal{R}_0$ em função de $k$}
+\end{figure} 
+\\\\
+%mas com um aumento de 100\%, o resultado ficou como a seguir:
+Sendo assim, mesmo um aumento de 100\% nas proporções de picadas causando infecção
+não seria suficiente para que a doença se torne endêmica. Sendo assim, 
+abaixo estão testes com $k=2.5, \ 5$ e $10$:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.0em} \includegraphics[scale=0.7] {Correcao_SIR_Desmat_k=2_5.png}}
+        \caption{SIR com $T'=25.6 ^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, \ k=2.5$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{3.0em} \includegraphics[scale=0.6] {SEI_Desmat_k=2.png}}
-        \caption{SEI com $k=2$}
+        \hbox{\hspace{1.5em} \includegraphics[scale=0.7] {Correcao_SEI_Desmat_k=2_5.png}}
+        \caption{SEI com $T'=25.6 ^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, \ k=2.5$}
 \end{figure} 
 \newpage
-Dobrando a proporção de picadas causando infecção, já é possível notar que o 
+Aumentando em $150\%$ a proporção de picadas causando infecção, já é possível notar que o 
 número de infectados começa a aumentar, ainda que quase no final do período 
-de análise. Isso porque com o valor de $k$, o $\mathcal{R}_0$ passou de 0.83, 
-com $k=1$, para 1.66 permitindo que a doença se estabeleça a longo prazo. 
+de análise. Isso porque com o aumento em $k$, $\mathcal{R}_0$ passou de 0.48, 
+com $k=1$, para 1.2, permitindo que a doença se estabeleça a longo prazo. Como $k$
+está relacionado tanto com $b_1$ quanto $b_2$, esse fator aparecerá como $k^2$ no
+numerador de $\mathcal{R}_0$, portanto afetando seu valor de forma linear.
 Aumentando $k$ para 5, será bem mais perceptível a evolução da doença:
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{3.7em} \includegraphics[scale=0.6] {SIR_Desmat_k=5.png}}
-        \caption{SIR com $k=5$}
+        \hbox{\hspace{3.7em} \includegraphics[scale=0.6] {Correcao_SIR_Desmat_k=5.png}}
+        \caption{SIR com $T'=25.6 ^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, \ k=5$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{3.2em} \includegraphics[scale=0.6] {SEI_Desmat_k=5.png}}
-        \caption{SEI com $k=5$}
+        \hbox{\hspace{3.2em} \includegraphics[scale=0.6] {Correcao_SEI_Desmat_k=5.png}}
+        \caption{SEI com $T'=25.6 ^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, \ k=5$}
 \end{figure} 
 \newpage
-Nesse caso, $\mathcal{R}_0 = 4.17$, e apesar de não ser possível verificar no tempo 
-máximo dos 5 anos, nesse caso o número de infectados já se estabelece positivamente, 
-oscilando em aproximadamente 200 humanos e 17000 mosquitos infectados. Aumentando $k$ para 10, 
-$\mathcal{R}_0 = 8.34$, e a infecção atinge seu máximo de forma ainda mais rápida:
+Nesse caso, $\mathcal{R}_0 = 2.41$, e apesar de não ser possível verificar no tempo 
+máximo dos 5 anos, nesse caso o número de infectados consegue se estabilizar, 
+oscilando em aproximadamente 50 humanos e 9000 mosquitos infectados. Aumentando $k$ para 10, 
+$\mathcal{R}_0 = 4.82$, e a infecção atinge seu máximo de forma ainda mais rápida:
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{4.2em} \includegraphics[scale=0.6] {SIR_Desmat_k=10.png}}
-        \caption{SIR com $k=10$}
+        \hbox{\hspace{4.2em} \includegraphics[scale=0.6] {Correcao_SIR_Desmat_k=10.png}}
+        \caption{SIR com $T'=25.6 ^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, \ k=10$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{4.2em} \includegraphics[scale=0.6] {SEI_Desmat_k=10.png}}
-        \caption{SEI com $k=10$}
+        \hbox{\hspace{4.2em} \includegraphics[scale=0.6] {Correcao_SEI_Desmat_k=10.png}}
+        \caption{SEI com $T'=25.6 ^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, \ k=10$}
 \end{figure} 
+\newpage
+Com esses resultados, é possível perceber que o desmatamento acarretando em aproximação
+entre hospedeiro e vetor causa um alto impacto na dinâmica da malária,
+dado que mesmo com um único indivíduo infectado, a doença se estabelece e atinge 
+um nível de infecção humana de cerca de $40\%$ da população conforme a 
+proporção de picadas causando infecção aumenta. Agora, podemos encontrar qual é o valor de $I_H$
+no equilíbrio dependendo de $k$:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{4.2em} \includegraphics[scale=0.7] {Plot_I_H_vs_k.png}}
+        \caption{$I_H^*$ em função de $k$}
+\end{figure} 
+\\\\
+Iniciando o plot a partir de $k$ que deixa $\mathcal{R}_0 = 1$, é possível ver que
+o equilíbrio endêmico da população humana se aproxima de 64 conforme $k$ se aproxima de 10.
+Mais especificamente, quando $k=10$, $I_H^* \approx 63.49$ \footnote{A elaboração 
+dos gráficos em função de $k$ podem ser encontrados em https://github.com/RaphaLevy/TCC/blob/main/Modelagem\_com\_Dinamica\_Pop/Plota\_Equilibrio\_e\_R0.ipynb. 
+O cálculo dos equilíbrios pode ser encontrado em
+https://github.com/RaphaLevy/TCC/blob/main/\\
+Modelagem\_com\_Dinamica\_Pop/R0\_com\_Dinamicas\_Demograficas.ipynb}.
+Analisando o equilíbrio de suscetíveis conforme $k$ aumenta, é possível 
+ver o equilíbrio decaindo rapidamente
+de $N$ quando $k=0$ para aproximadamente 5000 indivíduos quando $k=1$. Analisando 
+nos valores de $k$ tais que $\mathcal{R}_0 \geq 1$:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{4.2em} \includegraphics[scale=0.7] {Plot_S_H_vs_k.png}}
+        \caption{$S_H^*$ em função de $k$}
+\end{figure} 
+\newpage
+Nesse caso, a população de suscetíveis tende a aproximadamente 95 conforme 
+$k$ se aproxima de 10. Tendo calculado os equilíbrios de $S_H$ e $I_H$,
+foi possível fazer uma análise de estabilidade global. Como estamos interessados
+em analisar o equilíbrio endêmico, utilizei $k=10$:
+\begin{figure}[!ht]
+        \centering
+        \hbox{\hspace{2.2em} \includegraphics[scale=0.7] {Equilibrio_SH_IH_k_10.png}}
+        \caption{Equilíbrio global $S_H^* \times I_H^*$ para $k=10$}
+\end{figure}
+\\\\
+Nesse caso, foram feitas 6 análises, a primeira utilizando os
+valores iniciais de $S_H$ e $I_H$ como sendo 7716 e 1, e as demais aumentando $I_H$ 
+em 1000 e diminuindo $S_H$ em 1000 indivíduos. Nesse caso, é possível
+ver as populações de suscetíveis e infectados com um equilíbrio final de
+aproximadamente 8 e 70 pessoas, respectivamente. Com isso,
+poderíamos comparar o resultado obtido com o cálculo do equilíbrio endêmico de Adda e Bichara
+$^{[20]}$, onde
+\begin{gather*}
+        S_H^* = \dfrac{1}{\mathcal{R}_0} \\
+        I_H^* = \dfrac{\mu_H}{\mu_H+\gamma}(1-\dfrac{1}{\mathcal{R}_0})
+\end{gather*}       
+Através desse cálculo, a população de suscetíveis e infectados no equilíbrio 
+foi de aproximadamente 1601 e 51, respectivamente. Notavelmente, esses valores estão distoantes dos 
+obtidos através do cálculo numérico. Contudo, é necessário considerar a principal diferença entre as equações
+propostas para $S$ e $I$ nesse Trabalho e no artigo de Adda e Bichara, que é o uso de
+$I_M$ na taxa de infecção $\beta$, dada a dinâmica do modelo 
+acoplado de SIR e SEI nesse caso, que não está sendo considerada no trabalho
+de Adda e Bichara.
+\\\\ 
+Outra análise possível para 
+os equilíbrios seria analisar a sua evolução conforme o tempo, visto que eles são dados 
+por funções osciladoras, como a taxa de picadas, taxa de nascimentos, de mortalidade, 
+a probabilidade de sobrevivência e a taxa de infecção de expostos, que variam dependendo
+dos fatores de temperatura e precipitação, conforme apresentado previamente.
+
+
 
 \newpage
 \section{Discussão}
 
 Ao longo do trabalho, foi desenvolvido e analisado um modelo de transmissão 
-SIR/SEI para a malária de forma a complementar a metodologia original referenciada, 
+SIR/SEI para a malária de forma a complementar a metodologia original de Parham \& Michael, 
 utilizando dos fatores epidemiológicos da transmissão da doença e complementando com 
 dinâmicas de demografia humana e fatores ambientais externos à temperatura e precipitação,
 como o desmatamento, considerado no fator multiplicativo das proporções de picadas
 causando infecção. 
 \\\\
 Dado ao grande foco alocado na modelagem da transmissão analisando os impactos 
-ambientais, e a necessidade constante de modificar o modelo proposto, tanto 
-para corrigir estimações não-realistas, como o modelo oscilante apresentado 
-nos primeiros gráficos do trabalho, quanto para alterar a metodologia usada 
-no artigo de referência, em especial na modelagem dos mosquitos, a análise 
+ambientais, sendo necessárias diferentes adaptações do modelo buscando torná-lo o 
+mais realista e mais compatível com a dinâmica da doença no ambiente, a análise 
 aprofundada dos efeitos de fatores socioeconômicos, assim como a identificação 
 de estratégias de prevenção e controle da doença acabaram fugindo ao escopo do 
 TCC.
@@ -999,10 +1239,98 @@ desenvolvimento do trabalho é que esse é um modelo muito sensível aos
 parâmetros utilizados. Pequenas modificações são suficientes para que o modelo 
 atinja um equilíbrio ou tenha as populações tendendo a $\pm \infty$.
 \\\\
-Também foi notado, em adição à essas  
+De fato, o que pôde ser especialmente notado quando modificando os parâmetros 
+$A, \ B$ e $C$ foi que utilizando os valores indicados
+no trabalho de Parham $\&$ Michael $^{[9]}$ e Eikenberry $\&$ Gummel $^{[19]}$,
+no caso $A = -0.03, \ B = 1.31, \ C = -4.4$, não aconteceu epidemia.
+Iniciando a modelagem com os demais parâmetros utilizados 
+na Figura 7, com $k=1$, $\mathcal{R}_0 = 0.0207$, um valor muito abaixo do verificado previamente.
+Mesmo com $k=10$, $\mathcal{R}_0 = 0.207$, levando à população de mosquitos à extinção em todos os casos 
+e enviabilzando a existência de equilíbrio endêmico.
+\\\\
+Outro ponto percebido que pôde ser percebido foi que em muitos casos, 
+a malária leva muito tempo para entrar se estabilizar. Com isso,
+apesar de não ter sido possível estudar a aplicação de estratégias de controle da doença,
+pode-se chegar à conclusão que medidas de longo prazo podem não ser tão eficazes,
+visto que as condições ambientais presentes no início dessa análise
+já não seriam as mesmas quando a medida for aplicada.
+\\\\
+Como trabalho futuro, seria possível comparar a metodologia geral utilizada pelos autores 
+referenciados com a metodologia utilizada nesse trabalho, e verificar 
+o que poderia ser modificado para que, utilizando os parâmetros originais, o modelo
+ainda tivesse um equilíbrio endêmico.
+% \\\\
+% Outra opção de complemento ao trabalho desenvolvido seria o uso de um modelo 
+% interativo, permitindo que o usuário modifique os parâmetros e visualize os
+% resultados em uma única execução do método, de forma que não seja necessário 
+% executar todo o código novamente para cada modificação. Para isso, seria possível 
+% utilizar como referência o trabalho desenvolvido por Sinead E. Morris $^{[20]}$
+% em ambiente de linguagem R. 
 
 \newpage
 \section{Conclusão}
+
+
+
+\newpage
+\section{Referências}
+[1] Pimenta et al. An overview of malaria transmission from the perspective of Amazon $\text{Anopheles vectors}$. Mem Inst Oswaldo Cruz, Rio de Janeiro, Vol. 110(1): 23-47, February 2015. 
+\\https://doi.org/10.1590/0074-02760140266.  
+\\\\
+\noindent [2] Josling, G. A., Williamson, K. C., Llinás, M. Regulation of Sexual Commitment and Gametocytogenesis in Malaria Parasites. Annual Review of Microbiology 2018 72:1, 501-519. https://doi.org/10.1146/annurev-micro-090817-062712. 
+\\\\
+\noindent [3] Silva-Nunes, M., Codeço, C. T. et al. Malaria on the Amazonian Frontier: Transmission Dynamics, Risk Factors, Spatial Distribution, and Prospects for Control. Am J Trop Med Hyg. 2008 Oct;79(4):624-35. PMID: 18840755.
+\\\\
+\noindent [4] Mônica da Silva-Nunes, Marta Moreno, Jan E. Conn, Dionicia Gamboa, Shira Abeles, Joseph M. Vinetz, Marcelo U. Ferreira,
+\\Amazonian malaria: Asymptomatic human reservoirs, diagnostic challenges, environmentally driven changes in mosquito vector populations, and the mandate for sustainable control strategies,
+Acta Tropica,
+Volume 121, Issue 3,
+2012,
+Pages 281-291,
+ISSN 0001-706X,
+\\https://doi.org/10.1016/j.actatropica.2011.10.001.
+\\
+(https://www.sciencedirect.com/science/article/pii/S0001706X11002865)
+\\\\
+\noindent [5] Rorato, A.C., Dal’Asta, A.P., Lana, R.M. et al. Trajetorias: a dataset of environmental, epidemiological, and economic indicators for the Brazilian Amazon. Sci Data 10, 65 (2023). https://doi.org/10.1038/s41597-023-01962-1.
+\\\\
+\noindent [6] Coelho, F. C. Github Modelagem-Matematica-IV. \\ https://github.com/fccoelho/Modelagem-Matematica-IV/tree/master
+\\\\
+\noindent [7] Prasad, R., Sagar, S.K., Parveen, S. et al. Mathematical modeling in perspective of vector-borne viral infections: a review. Beni-Suef Univ J Basic Appl Sci 11, 102 (2022). https://doi.org/10.1186/s43088-022-00282-4.
+\\\\
+\noindent [8] Bacaër, N. (2011). Ross and malaria (1911). In: A Short History of Mathematical Population Dynamics. Springer, London. \\ https://doi.org/10.1007/978-0-85729-115-8$\_$12.
+\\\\
+\noindent [9] Parham, P.E., Michael, E. (2010). Modelling Climate Change and Malaria Transmission. In: Michael, E., Spear, R.C. (eds) Modelling Parasite Transmission and Control. Advances in Experimental Medicine and Biology, vol 673. Springer, New York, NY. https://doi.org/10.1007/978-1-4419-6064-1$\_$13.
+\\\\
+\noindent [10] McCord, G. Malaria ecology and climate change. Eur. Phys. J. Spec. Top. 225, 459–470 (2016). https://doi.org/10.1140/epjst/e2015-50097-1
+\\\\
+\noindent [11] Oliveira-Ferreira, J., Lacerda, M.V., Brasil, P. et al. Malaria in Brazil: an overview. Malar J 9, 115 (2010). https://doi.org/10.1186/1475-2875-9-115
+\\\\
+\noindent [12] Censo - Séries históricas. Brasil / Amazonas / Manaus. 
+\\https://cidades.ibge.gov.br/brasil/am/manaus/pesquisa/43/0?tipo=grafico
+\\\\
+\noindent [13] Climate Data. CLIMA MANAUS (BRASIL). https://pt.climate-data.org \\ /america-do-sul/brasil/amazonas/manaus-1882/
+\\\\
+\noindent [14] Detinova, Tatiana Sergeevna, Bertram, D. S $\&$ World Health Organization. (1962). Age-grouping methods in diptera of medical importance, with special reference to some vectors of malaria / T. S. Detinova ; [with] an Annex on the ovary and ovarioles of mosquitos (with glossary) by D. S. Bertram. World Health Organization. \\ https://iris.who.int/handle/10665/41724
+\\\\
+\noindent [15] Norris, D.E. Mosquito-borne Diseases as a Consequence of Land Use Change. EcoHealth 1, 19–24 (2004). https://doi.org/10.1007/s10393-004-0008-7
+\\\\
+\noindent [16] Anopheles. Fiocruz Rondônia. \\ https://www.rondonia.fiocruz.br/pivem/anopheline/
+\\\\
+\noindent [17] Silva-Nunes, M. Impacto de Alterações Ambientais na Transmissão da Malária e Perspectivas para o Controle da Doença em Áreas de Assentamento Rural da Amazônia Brasileira. \\ https://revistas.ufrj.br/index.php/oa/article/view/7101/5685
+\\\\
+\noindent [18] van den Driessche P, Watmough J. Reproduction numbers and sub-threshold endemic equilibria for compartmental models of disease transmission. Math Biosci. 2002 Nov-Dec;180:29-48. doi: 10.1016/s0025-5564(02)00108-6. PMID: 12387915. \\ 
+https://pubmed.ncbi.nlm.nih.gov/12387915/
+\\\\
+\noindent [19] Kamaldeen Okuneye, Abba B. Gumel, Analysis of a temperature- and rainfall-dependent model for malaria transmission dynamics,
+Mathematical Biosciences, Volume 287, 2017, Pages 72-92, ISSN 0025-5564,
+https://doi.org/10.1016/j.mbs.2016.03.013.
+\\\\
+% \noindent [20] Understanding the SIR model, Sinead E. Morris. Sep 21, 2017. https://sineadmorris.github.io/post/the-sir-model/ 
+\noindent [20] Adda, Phillipe $\&$ Bichara, Derdei. $(2011)$. 
+Global stability for SIR and SIRS models with differential mortality. 
+International Journal of Pure and Applied Mathematics. 80. 
+
 
 \newpage
 \section{Apêndice}
@@ -1011,78 +1339,78 @@ Nessa seção, serão incluídos os plots elaborados ao longo do desenvolvimento
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SIR_a_incorreto.png}}
-        \caption*{Apêndice 1: SIR original com $T'=26.4$}
+        \caption*{Apêndice 1: SIR original com $T'=26.4^\circ C$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.5em} \includegraphics[scale=0.55] {SEI_a_incorreto.png}}
-        \caption*{Apêndice 2: SEI original com $T'=26.4$}
+        \caption*{Apêndice 2: SEI original com $T'=26.4^\circ C$}
 \end{figure} 
 \newpage
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.5em} \includegraphics[scale=0.55] {SIR_a_correto.png}}
-        \caption*{Apêndice 3: SIR atualizado com $T'=26.4$}
+        \caption*{Apêndice 3: SIR atualizado com $T'=26.4^\circ C$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SEI_a_correto.png}}
-        \caption*{Apêndice 4: SEI atualizado com $T'=26.4$}
+        \caption*{Apêndice 4: SEI atualizado com $T'=26.4^\circ C$}
 \end{figure}
 \newpage
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SIR_Correcao_b3.png}}
-        \caption*{Apêndice 5: SIR com $T'=26.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+        \caption*{Apêndice 5: SIR com $T'=26.4^\circ C, \ A=317.925 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=312 \text{mm}$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SEI_Correcao_b3.png}}
-        \caption*{Apêndice 6: SEI com $T'=26.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+        \caption*{Apêndice 6: SEI com $T'=26.4^\circ C, \ A=317.925 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=312 \text{mm}$}
 \end{figure}
 \newpage
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.5em} \includegraphics[scale=0.55] {SIR_Correcao_b3_A0.png}}
-        \caption*{Apêndice 7: SIR com $T'=26.4, \ A=0, \ B=15, \ C=-48.78, \ R_L=312$}
+        \caption*{Apêndice 7: SIR com $T'=26.4^\circ C, \ A=0 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=312 \text{mm}$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.0em} \includegraphics[scale=0.55] {SEI_Correcao_b3_A0.png}}
-        \caption*{Apêndice 8: SEI com $T'=26.4, \ A=0, \ B=15, \ C=-48.78, \ R_L=312$}
+        \caption*{Apêndice 8: SEI com $T'=26.4^\circ C, \ A=0 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=312 \text{mm}$}
 \end{figure}
 \newpage
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{4.0em} \includegraphics[scale=0.6] {SIR_Correcao_max_A317.png}}
-        \caption*{Apêndice 9: SIR com $T'=26.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+        \caption*{Apêndice 9: SIR com $T'=26.4^\circ C, \ A=317.925 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=312 \text{mm}$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SEI_Correcao_max_A317.png}}
-        \caption*{Apêndice 10: SEI com $T'=26.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+        \caption*{Apêndice 10: SEI com $T'=26.4^\circ C, \ A=317.925 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=312 \text{mm}$}
 \end{figure}
 \newpage
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{4.0em} \includegraphics[scale=0.6] {SIR_Correcao_max_A0.png}}
-        \caption*{Apêndice 11: SIR com $T'=26.4, \ A=0, \ B=15, \ C=-48.78, \ R_L=312$}
+        \caption*{Apêndice 11: SIR com $T'=26.4^\circ C, \ A=0 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=312 \text{mm}$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SEI_Correcao_max_A0.png}}
-        \caption*{Apêndice 12: SEI com $T'=26.4, \ A=0, \ B=15, \ C=-48.78, \ R_L=312$}
+        \caption*{Apêndice 12: SEI com $T'=26.4^\circ C, \ A=0 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=312 \text{mm}$}
 \end{figure}
 \newpage
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{4.0em} \includegraphics[scale=0.6] {SIR_Correcao_max_T_linha.png}}
-        \caption*{Apêndice 13: SIR com $T'=27.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+        \caption*{Apêndice 13: SIR com $T'=27.4^\circ C, \ A=317.925 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=312 \text{mm}$}
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{3.5em} \includegraphics[scale=0.6] {SEI_Correcao_max_T_linha.png}}
-        \caption*{Apêndice 14: SEI com $T'=27.4, \ A=317.925, \ B=15, \ C=-48.78, \ R_L=312$}
+        \caption*{Apêndice 14: SEI com $T'=27.4^\circ C, \ A=317.925 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=312 \text{mm}$}
 \end{figure}
 \newpage
 \begin{figure}[!ht]
@@ -1098,7 +1426,7 @@ Nessa seção, serão incluídos os plots elaborados ao longo do desenvolvimento
 \newpage
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{2.3em} \includegraphics[scale=1.0] {Plot_tau_L(T).png}}
+        \hbox{\hspace{2.3em} \includegraphics[scale=1.0] {Plot_tau_L(T)_corrigido.png}}
         \caption*{Apêndice 17: Duração da fase de desenvolvimento das larvas $(\tau_L(T))$} 
 \end{figure} 
 \begin{figure}[!ht]
@@ -1114,105 +1442,64 @@ Nessa seção, serão incluídos os plots elaborados ao longo do desenvolvimento
 \end{figure} 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{2.5em} \includegraphics[scale=1.0] {Plot_p_LT(T).png}}
+        \hbox{\hspace{2.5em} \includegraphics[scale=1.0] {Plot_p_LT(T)_corrigido.png}}
         \caption*{Apêndice 20: Probabilidade de sobrevivência das larvas $(p_{LT}(T))$} 
 \end{figure} 
 \newpage
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{3.0em} \includegraphics[scale=1.0] {Plot_p_LR(R).png}}
+        \hbox{\hspace{3.0em} \includegraphics[scale=1.0] {Plot_p_ER(R).png}}
         \caption*{Apêndice 21: Probabilidade de sobrevivência dos ovos $(p_{ER}(R))$} 
 \end{figure} 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{2.5em} \includegraphics[scale=1.0] {Plot_p_LT(T).png}}
+        \hbox{\hspace{2.5em} \includegraphics[scale=1.0] {Plot_p_PR(R).png}}
         \caption*{Apêndice 22: Probabilidade de sobrevivência das pupas $(p_{PR}(R))$} 
 \end{figure} 
 \newpage
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{3.0em} \includegraphics[scale=1.0] {Plot_p_LR(R).png}}
+        \hbox{\hspace{3.0em} \includegraphics[scale=1.0] {Plot_tau_M(T).png}}
         \caption*{Apêndice 23: Duração do ciclo esporogônico $(\tau_{M}(T))$} 
 \end{figure} 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{2.5em} \includegraphics[scale=1.0] {Plot_p_LT(T).png}}
+        \hbox{\hspace{1.5em} \includegraphics[scale=1.0] {Plot_mu(T).png}}
         \caption*{Apêndice 24: Taxa de mortalidade do mosquito $(\mu(T))$} 
 \end{figure} 
 \newpage
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{2.7em} \includegraphics[scale=1.2] {Plot_p_LRT(R,T).png}}
+        \hbox{\hspace{2.7em} \includegraphics[scale=1.0] {Plot_p_LRT(R,T)_c1_c2_corrigido.png}}
         \caption*{Apêndice 25: Probabilidade de sobrevivência das larvas $(\tau_{M}(T))$} 
 \end{figure} 
 \begin{figure}[!ht]
         \centering
-        \hbox{\hspace{2.7em} \includegraphics[scale=1.2] {Plot_b(R,T).png}}
+        \hbox{\hspace{2.7em} \includegraphics[scale=1.0] {Plot_b(R,T)_c1_c2_corrigido.png}}
         \caption*{Apêndice 26: Taxa de nascimento de mosquitos $(b(R,T))$} 
 \end{figure} 
 \newpage
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.7em} \includegraphics[scale=0.7] {SIR_Entrada_Pop_10000_500_Infect.png}}
-        \caption*{Apêndice 27: SIR com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=10000, I_{H0}=500$} 
+        \caption*{Apêndice 27: SIR com $T'=25.6^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, E_{M0}=10000, I_{H0}=500$} 
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.5em} \includegraphics[scale=0.7] {SEI_Entrada_Pop_10000_500_Infect.png}}
-        \caption*{Apêndice 28: SEI com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=10000, I_{H0}=500$} 
+        \caption*{Apêndice 28: SEI com $T'=25.6^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, E_{M0}=10000, I_{H0}=500$} 
 \end{figure} 
 \newpage
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.7em} \includegraphics[scale=0.7] {SIR_Entrada_Pop_100000_1000_Infect.png}}
-        \caption*{Apêndice 29: SIR com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=100000, I_{H0}=1000$} 
+        \caption*{Apêndice 29: SIR com $T'=25.6^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, E_{M0}=100000, I_{H0}=1000$} 
 \end{figure} 
 \begin{figure}[!ht]
         \centering
         \hbox{\hspace{2.5em} \includegraphics[scale=0.7] {SEI_Entrada_Pop_100000_1000_Infect.png}}
-        \caption*{Apêndice 30: SEI com $T'=25.6, \ A=12.5, \ B=15, \ C=-48.78, \ R_L=450, E_{M0}=100000, I_{H0}=1000$} 
+        \caption*{Apêndice 30: SEI com $T'=25.6^\circ C, \ A=12.5 \ (^\circ C^2 \ \text{dias})^{-1}, \ B=15 \ (^\circ C \ \text{dias})^{-1}, \ C=-48.78 \ (\text{dias})^{-1}, \ R_L=450 \text{mm}, E_{M0}=100000, I_{H0}=1000$} 
 \end{figure} 
-
-
-
-
-\newpage
-\section{Referências}
-[1] Pimenta et al. An overview of malaria transmission from the perspective of Amazon $\text{Anopheles vectors}$. Mem Inst Oswaldo Cruz, Rio de Janeiro, Vol. 110(1): 23-47, February 2015. 
-\\https://doi.org/10.1590/0074-02760140266.  
-\\\\
-\noindent [2] Josling, G. A., Williamson, K. C., Llinás, M. Regulation of Sexual Commitment and Gametocytogenesis in Malaria Parasites. Annual Review of Microbiology 2018 72:1, 501-519. https://doi.org/10.1146/annurev-micro-090817-062712. 
-\\\\
-\noindent [3] Silva-Nunes, M., Codeço, C. T. et al. Malaria on the Amazonian Frontier: Transmission Dynamics, Risk Factors, Spatial Distribution, and Prospects for Control. Am J Trop Med Hyg. 2008 Oct;79(4):624-35. PMID: 18840755.
-\\\\
-\noindent [4] Rorato, A.C., Dal’Asta, A.P., Lana, R.M. et al. Trajetorias: a dataset of environmental, epidemiological, and economic indicators for the Brazilian Amazon. Sci Data 10, 65 (2023). https://doi.org/10.1038/s41597-023-01962-1.
-\\\\
-\noindent [5] Coelho, F. C. Github Modelagem-Matematica-IV. \\ https://github.com/fccoelho/Modelagem-Matematica-IV/tree/master
-\\\\
-\noindent [6] Prasad, R., Sagar, S.K., Parveen, S. et al. Mathematical modeling in perspective of vector-borne viral infections: a review. Beni-Suef Univ J Basic Appl Sci 11, 102 (2022). https://doi.org/10.1186/s43088-022-00282-4.
-\\\\
-\noindent [7] Bacaër, N. (2011). Ross and malaria (1911). In: A Short History of Mathematical Population Dynamics. Springer, London. \\ https://doi.org/10.1007/978-0-85729-115-8$\_$12.
-\\\\
-\noindent [8] Parham, P.E., Michael, E. (2010). Modelling Climate Change and Malaria Transmission. In: Michael, E., Spear, R.C. (eds) Modelling Parasite Transmission and Control. Advances in Experimental Medicine and Biology, vol 673. Springer, New York, NY. https://doi.org/10.1007/978-1-4419-6064-1$\_$13.
-\\\\
-\noindent [9] McCord, G. Malaria ecology and climate change. Eur. Phys. J. Spec. Top. 225, 459–470 (2016). https://doi.org/10.1140/epjst/e2015-50097-1
-\\\\
-\noindent [10] Censo - Séries históricas. Brasil / Amazonas / Manaus. 
-\\https://cidades.ibge.gov.br/brasil/am/manaus/pesquisa/43/0?tipo=grafico
-\\\\
-\noindent [11] Climate Data. CLIMA MANAUS (BRASIL). https://pt.climate-data.org \\ /america-do-sul/brasil/amazonas/manaus-1882/
-\\\\
-\noindent [12] Detinova, Tatiana Sergeevna, Bertram, D. S $\&$ World Health Organization. (1962). Age-grouping methods in diptera of medical importance, with special reference to some vectors of malaria / T. S. Detinova ; [with] an Annex on the ovary and ovarioles of mosquitos (with glossary) by D. S. Bertram. World Health Organization. \\ https://iris.who.int/handle/10665/41724
-\\\\
-\noindent [13] Norris, D.E. Mosquito-borne Diseases as a Consequence of Land Use Change. EcoHealth 1, 19–24 (2004). https://doi.org/10.1007/s10393-004-0008-7
-\\\\
-\noindent [14] Anopheles. Fiocruz Rondônia. \\ https://www.rondonia.fiocruz.br/pivem/anopheline/
-\\\\
-\noindent [15] Silva-Nunes, M. Impacto de Alterações Ambientais na Transmissão da Malária e Perspectivas para o Controle da Doença em Áreas de Assentamento Rural da Amazônia Brasileira. \\ https://revistas.ufrj.br/index.php/oa/article/view/7101/5685
-\\\\
-\noindent [16] van den Driessche P, Watmough J. Reproduction numbers and sub-threshold endemic equilibria for compartmental models of disease transmission. Math Biosci. 2002 Nov-Dec;180:29-48. doi: 10.1016/s0025-5564(02)00108-6. PMID: 12387915. \\ 
-https://pubmed.ncbi.nlm.nih.gov/12387915/
-
 
 % \newpage
 % \section{Referências Usadas}

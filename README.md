@@ -15,4 +15,5 @@ Conteúdo:
 + old: Pasta contendo as modelagens com dados originais do artigo de referência, modelagens e testes iniciais e arquivos quebrados
 + Apresentação-Projeto de TCC.pdf: Apresentação inicial sobre tema e proposta do TCC, apresentada à turma 
 + Modelo de Projeto de TCC.pdf: Arquivo contendo o texto desenvolvido para o TCC
++ TCC-Apresentação Final.pdf: Apresentação final do TCC, apresentada para a banca
 

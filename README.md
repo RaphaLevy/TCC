@@ -16,4 +16,4 @@ Conteúdo:
 + Apresentação-Projeto de TCC.pdf: Apresentação inicial sobre tema e proposta do TCC, apresentada à turma 
 + Modelo de Projeto de TCC.pdf: Arquivo contendo o texto desenvolvido para o TCC
 + TCC-Apresentação Final.pdf: Apresentação final do TCC, apresentada para a banca
-
++ Modelagem_para_Apresentação.ipynb: Códigos para geração dos resultados a serem incluídos nos slides de apresentação

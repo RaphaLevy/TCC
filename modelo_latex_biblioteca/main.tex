@@ -56,6 +56,11 @@
 
 % Outros 
 \usepackage{lipsum}
+\usepackage{makecell}
+\usepackage{pbox}
+\usepackage{babel}
+
+
 
 
 % Citações 
@@ -215,6 +220,26 @@ Matemática Aplicada. \\ \\ Área de estudo: Modelagem biológica.}
 
 \pdfbookmark[0]{\listfigurename}{lof}
 \listoffigures*
+% \begin{itemize}
+% 	\item Figura 1: Modelo SIR com dados do artigo de referência
+% 	\item Figura 2: Modelo SEI com dados do artigo de referência
+% 	\item Figura 3: Gráfico de temperatura anual estimada
+% 	\item Figura 4: Gráfico de precipitação anual estimada
+% 	\item Figura 5: Modelo SIR com parâmetros adaptados
+% 	\item Figura 6: Modelo SEI com parâmetros adaptados
+% 	\item Figura 7: Modelo SIR com $k=1$
+% 	\item Figura 8: Modelo SEI com $k=1$
+% 	\item Figura 9: Gráfico de $\mathcal{R}_0$ em função de $k$
+% 	\item Figura 10: Modelo SIR com $k=2.5$
+% 	\item Figura 11: Modelo SEI com $k=2.5$
+% 	\item Figura 12: Modelo SIR com $k=5$
+% 	\item Figura 13: Modelo SEI com $k=5$
+% 	\item Figura 14: Modelo SIR com $k=10$
+% 	\item Figura 15: Modelo SEI com $k=10$
+% 	\item Figura 16: Gráfico de equilíbrio de $I_H$ em função de $k$
+% 	\item Figura 17: Gráfico de equilíbrio de $S_H$ em função de $k$
+% 	\item Figura 18: Equilíbrio global $S_H^* \times I_H^*$ para $k=10$
+% \end{itemize}	
 \cleardoublepage
 
 % \pdfbookmark[0]{\listofquadrosname}{loq}
@@ -223,6 +248,14 @@ Matemática Aplicada. \\ \\ Área de estudo: Modelagem biológica.}
 
 \pdfbookmark[0]{\listtablename}{lot}
 \listoftables*
+% \begin{itemize}
+% 	\item Tabela 1: Parâmetros usados na modelagem
+% 	\item Tabela 2: Parâmetros usados na modelagem
+% 	\item Tabela 3: Parâmetros usados na modelagem
+% 	\item Tabela 4: População rural de Manaus de 2004 a 2009
+% 	\item Tabela 5: Valores dos parâmetros de clima
+	
+% \end{itemize}	
 \cleardoublepage
 
 \input{siglas_simbolos.tex}
@@ -248,6 +281,10 @@ Matemática Aplicada. \\ \\ Área de estudo: Modelagem biológica.}
 \phantompart
 
 \input{desenvolvimento.tex}
+
+\input{resultados.tex}
+
+\input{discussao.tex}
 
 \input{conclusao.tex}
 

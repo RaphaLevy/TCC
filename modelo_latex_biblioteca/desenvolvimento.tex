@@ -1,5 +1,338 @@
-\chapter{Desenvolvimento}
+\chapter{Metodologia}
 
 Corresponde ao corpo do trabalho, contendo a exposição ordenada e pormemorizada
 do assunto. Constam aqui a revisão de literatura, metodologia adotada, os resultados e
-sua discussão. Divide-se em seções e subseções. \cite{Robert2007}
+sua discussão. Divide-se em seções e subseções. \cite{pimenta_orfano_bahia_duarte_rios-velasquez_melo_pessoa_oliveira_campos_villegas_etal_2015}
+
+Para a elaboração do trabalho, serão usados dados populacionais 
+do dataset do Projeto Trajetórias e dados climáticos do Climate Data, 
+e serão abordados métodos de transmissão de doenças baseados em equações 
+diferenciais ordinárias, como o SIR, e, partindo de uma modelagem simples, 
+serão incluídos os fenômenos ambientais, como desmatamento e queimada, para 
+verificar como modificações no ecossistema irão interferir no modelo elaborado 
+previamente. Os cálculos computacionais foram realizados em ambiente SageMath 9.2, 
+utilizando funções de integração numérica do Scipy para solução do método.
+\\\\
+Descrevendo primeiramente SIR $^{[6], [7]}$, que pode ser considerado a base de modelos que serão usados ao longo do projeto, este foi desenvolvido por W. O. Kermack e A. G. McKendrick em 1927, sendo um dos modelos mais usados para a modelagem de epidemias, levando em consideração três compartimentos:
+
+\begin{align*}
+    & S: \text{número de indivíduos suscetíveis} \\
+    & I: \text{número de indivíduos infectados} \\
+    & R: \text{número de indivíduos recuperados}
+\end{align*}
+\\
+Nesse modelo, os indivíduos saudáveis na classe $S$ são suscetíveis ao contato com indivíduos da classe $I$, e são transferidos para esse compartimento caso contraiam a doença. Indivíduos infectados podem espalhar a doença por contato direto com indivíduos suscetíveis, mas também podem se tornar imunes ao longo do tempo, sendo transferidos para o compartimento $R$. Em geral, $R$ inclui o total de recuperados (imunes) e mortos em decorrência da doença, mas podemos assumir que o número de mortos é muito baixo em relação ao tamanho da população total, podendo ser ignorado. Consideramos também que indivíduos nessa categoria não voltarão a ser suscetíveis ou infecciosos.   
+\\\\
+Considerando uma epidemia em um espaço curto de tempo e que a doença não é fatal, podemos ignorar dinâmicas vitais de nascimento e morte. Com isso, podemos descrever o modelo SIR através do seguinte sistema de EDOs:
+
+\begin{gather*}
+\begin{cases}
+\dfrac{dS}{dt} = -\dfrac{\beta SI}{N} \\
+\\
+\dfrac{dI}{dt} = \dfrac{\beta SI}{N} - \gamma I \\
+\\
+\dfrac{dR}{dt} = \gamma I
+\end{cases}
+\end{gather*}
+\\
+No modelo, $N(t) = S(t)+I(t)+R(t)$, ou seja, a população total no tempo $t$, enquanto que $\beta$ é a taxa de infecção e $\gamma$ é a taxa de recuperação. Dado que $S+I+R$ é sempre constante se ignorarmos nascimento e morte, temos $\dfrac{dS}{dt}+\dfrac{dI}{dt}+\dfrac{dR}{dt} = 0$. 
+\\\\
+Para que a doença possa se espalhar, é fácil ver que $\dfrac{dI}{dt} = \dfrac{\beta SI}{N} - \gamma I > 0$. Assim, $\dfrac{\beta SI}{N} > \gamma I \Rightarrow \dfrac{\beta S}{N} > \gamma$. Supondo que estamos no início da infeccção, dado que queremos ver como se espalha, $I$ será muito pequeno e $S \approx N$. Concluímos então que $\dfrac{\beta N}{N} > \gamma \Rightarrow \dfrac{\beta}{\gamma} > 1$. É possível derivar esse valor adimensionalizando o modelo: sejam $y^* = \dfrac{S}{N}, \ x^* = \dfrac{I}{N}, \ z^* = \dfrac{R}{N}$ e $t^*=\dfrac{t}{1/\gamma} = \gamma t$, de forma que $y^*+x^*+z^*=1$. Substituindo o sistema de EDOs acima utilizando esses valores:
+
+\begin{gather*}
+\begin{cases}
+\dfrac{dS}{dt} = \dfrac{d(y^*N)}{d(t^*/\gamma)} = -\dfrac{\beta SI}{N} = -\dfrac{\beta(y^*N)(x^*N)}{N} = -\beta y^*Nx^* \\
+\\
+\dfrac{dI}{dt} = \dfrac{d(x^*N)}{d(t^*/\gamma)} = \dfrac{\beta SI}{N} - \gamma I = \dfrac{\beta(y^*N)(x^*N)}{N} -\gamma(x^*N) = \beta y^*Nx^* - \gamma x^*N \\
+\\
+\dfrac{dR}{dt} = \dfrac{d(z^*N)}{d(t^*/\gamma)} = \gamma I = \gamma(x^*N)
+\end{cases}
+\end{gather*}
+
+Agora, cancelando os fatores $N$ e $\gamma$ em ambos os lados das equações:
+
+\begin{gather*}
+\begin{cases}
+\dfrac{d(y^*)}{d(t^*)} = -\dfrac{\beta y^*x^*}{\gamma} \\
+\\
+\dfrac{d(x^*)}{d(t^*)} = \dfrac{\beta y^*x^*}{\gamma} - x^* \\
+\\
+\dfrac{d(z^*)}{d(t^*)} = x^*
+\end{cases}
+\end{gather*}
+\\
+Sendo assim temos um sistema dado apenas por $y^*$ e $x^*$ e o parâmetro 
+$\dfrac{\beta}{\gamma}$, que podemos chamar de $R_0$.
+\\\\
+Como esse trabalho será focado principalmente na modelagem de malária, 
+irei agora apresentar um dos primeiros modelos desenvolvidos especialmente 
+para essa doença, por Sir Ronald Ross em 1911 $^{[8]}$, que usa duas EDOs 
+distintas das apresentadas acima:
+
+\begin{gather*}
+\begin{cases}
+\dfrac{dI}{dt} = bp'i\dfrac{N-I}{N} -aI\\
+\\
+\dfrac{di}{dt} = bp(n-i)\dfrac{I}{N} - mI
+\end{cases}
+\end{gather*}
+\\
+Nesse caso, $N$ é a população humana total, $I(t)$ é o número de humanos 
+infectados no tempo $t$, $n$ é a população total de mosquitos, $i(t)$ é o 
+número de mosquitos infectados no tempo $t$, $b$ é a taxa de picadas, $p$ 
+é a probabilidade de transmissão do humano para o mosquito por picada, $p'$ 
+é a probabilidade de transmissão do mosquito para o humano por picada, $a$ é 
+a taxa de recuperação da infecção de um humano e $m$ é a taxa de mortalidade 
+dos mosquitos. $bp'i\dfrac{N-I}{N}dt -aIdt$ representam respectivamente o 
+número de novos humanos infectados e o número de humanos recuperados no 
+intervalo $dt$, enquanto que $bp(n-i)\dfrac{I}{N}dt - mIdt$ representam 
+respectivamente o número de novos mosquitos infectados e o número de 
+mosquitos que morrem nesse intervalo de tempo, assumindo que a infecção 
+não interfere na taxa de mortalidade dos mosquitos.
+\\\\
+Para esse modelo, Ross discutiu dois pontos de equilíbrio, em que 
+$\dfrac{dI}{dt} = \dfrac{di}{dt} = 0$. Eles ocorrem quando $I=i=0$, 
+que é o caso onde não existe malária, e, para $I, i > 0$, 
+$I = N\dfrac{1-amN/(b^2pp'n)}{1+aN/(bp'n)}$ e 
+$i = n\dfrac{1-amN/(b^2pp'n)}{1+m/(bp)}$. Ainda, para que a doença se 
+estabeleça, $n$ deve ser maior que um valor limiar $n^* = \dfrac{amN}{b^2pp'}$. 
+Nesse caso a doença se torna endêmica. Caso $n<n^*$, o equilíbrio estará em 
+$I=i=0$ e a dença irá desaparecer.
+\\\\
+Dividindo as equações dos pontos de equilíbrio por $I \times i$, temos:
+
+\begin{gather*}
+\begin{cases}
+\dfrac{bp}{N} = \dfrac{bpn}{Ni} -\dfrac{m}{I} \\
+\\
+\dfrac{bp'}{N} = \dfrac{bp'}{I} -\dfrac{a}{i} 
+\end{cases}
+\end{gather*}
+\\
+O que transforma o problema em um sistema linear com dois desconhecidos, 
+$I$ e $i$.
+\\\\
+Agora, irei apresentar o modelo que será usado para o desenvolvimento do 
+trabalho, feito com base no elaborado por Paul E. Parham e Edwin Michael 
+em 2010, que leva em consideração fatores como a chuva e temperatura 
+($R$ e $T$, respectivamente) $^{[9]}$. 
+\\\\
+Definindo as equações que serão utilizadas:
+\begin{gather*}
+\begin{cases}
+\dfrac{dS_H}{dt} = -ab_2\bigg(\dfrac{I_M}{N}\bigg)S_H\\
+\\
+\dfrac{dI_H}{dt} = ab_2\bigg(\dfrac{I_M}{N}\bigg)S_H-\gamma I_H\\
+\\
+\dfrac{dR_H}{dt} = \gamma I_H\\
+\\
+\dfrac{dS_M}{dt} = b - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu S_M\\
+\\
+\dfrac{dE_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_M - \mu E_M - ab_1\bigg(\dfrac{I_H}{N}\bigg)S_Ml(\tau_M)\\
+\\
+\dfrac{dI_M}{dt} = ab_1\bigg(\dfrac{I_H}{N}\bigg)S_Ml(\tau_M) -\mu I_M
+\end{cases}
+\end{gather*}
+\\\\
+É preciso comentar que o modelo original utilizava $I_M(t-\tau)$ em 
+$\dfrac{dI_H}{dt}$ e $I_H(t-\tau)$ em $\dfrac{dE_M}{dt}$ (na passagem 
+de $E$ para $I$) e $\dfrac{dI_M}{dt}$, respectivamente, mas como isso 
+faria com que o modelo fosse baseado em equações com atraso, foi 
+recomendado pelo orientador do Trabalho que essa diferença fosse 
+desconsiderada, e usasse apenas $t$ atual.
+\\\\
+Tendo as equações do modelo para a população de humanos e de mosquitos, 
+irei primeiro definir os parâmetros utilizados na modelagem e outras 
+funções necessárias, e depois as variáveis usadas:
+\\
+\begin{adjustwidth}{-0.5cm}{}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\raggedleft\begin{tabular}{|c | l | c|} 
+ \hline
+ \raisebox{-1ex}{\textbf{Parâmetro}} & \raisebox{-1ex}{\textbf{Definição}} & \raisebox{-1ex}{\textbf{Cálculo}}\\ 
+ \hline
+ $T(t)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Temperatura\rule[-2.5ex]{0pt}{0pt}} & $T_1 (1 + T_2 \cos(\omega_1t - \phi_1))$\\ 
+ \hline
+ $R(t)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Precipitação\rule[-2.5ex]{0pt}{0pt}} & $R_1 (1 + R_2 \cos(\omega_2t - \phi_2))$ \\
+ \hline
+ $b(R, T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Taxa de nascimento de mosquitos (/ dia)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{B_E  p_E(R)  p_L(R,T)  p_P(R)}{(\tau_E + \tau_L(T) + \tau_P)}$\\ 
+ \hline
+ $a(T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Taxa de picadas (/dia)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{(T - T_1)}{D_1}$ \\
+ \hline
+ $\mu(T)$ & \pbox{8cm}{\rule{0pt}{3ex}Taxa de mortalidade de mosquitos per capita (/ dia)\rule[-1.5ex]{0pt}{0pt}} & $-\log(p(T))$ \\
+ \hline
+ $\tau_M(T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Duração do ciclo de esporozoitos (dias)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{DD}{(T - T_{min})}$ \\
+ \hline
+ $\tau_L(T)$ & \pbox{8cm}{\rule{0pt}{4.5ex}Duração da fase de desenvolvimento das larvas (dias)\rule[-2.5ex]{0pt}{0pt}} & $\dfrac{1}{c_1T + c_2}$ \\
+ \hline
+ $p(T)$ & \pbox{8cm}{\rule{0pt}{3ex}Taxa diária de sobrevivência dos mosquitos \rule[-1.5ex]{0pt}{0pt}} & $e^{(-1 / (AT^2 + BT + C))}$ \\
+ \hline
+ $p_L(R)$ & \pbox{8cm}{\rule{0pt}{3ex}Probabilidade de sobrevivência das larvas dependente de chuva\rule[-1.5ex]{0pt}{0pt}} & $(\dfrac{4p_{ML}}{R_L^2})R(R_L - R)$ \\
+ \hline
+ $p_L(T)$ & \pbox{8cm}{\rule{0pt}{3ex}Probabilidade de sobrevivência das larvas dependente de temperatura\rule[-1.5ex]{0pt}{0pt}} & $e^{-(c_1T + c_2)}$ \\
+ \hline
+ $p_L(R, T)$ & \pbox{8cm}{\rule{0pt}{3ex}Probabilidade de sobrevivência das larvas dependente de temperatura e chuva\rule[-1.5ex]{0pt}{0pt}} & $p_L(R)p_L(T)$ \\
+ \hline
+ $l(\tau_M)(T)$ & \pbox{8cm}{\rule{0pt}{3ex}Probabilidade de sobrevivência de mosquitos durante o ciclo de esporozoitos (/ dia)\rule[-1.5ex]{0pt}{0pt}} & $p(T)^{\tau_M(T)}$ \\
+ \hline
+ $M(t)$ & \pbox{8cm}{\rule{0pt}{3ex}Número total de mosquitos\rule[-1.5ex]{0pt}{0pt}} & $S_M(t) + E_M(t) + I_M(t)$ \\
+ \hline
+ $N(t)$ & \pbox{8cm}{\rule{0pt}{3ex}Número total de humanos\rule[-1.5ex]{0pt}{0pt}} & $S_H(t) + I_H(t) + R_H(t)$ \\  
+ \hline
+\end{tabular}
+\captionof{table}{Parâmetros usados na modelagem}
+\end{center}
+\end{adjustwidth}
+
+\begin{adjustwidth}{-0.5cm}{}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\raggedleft\begin{tabular}{|c | c|} 
+ \hline
+ \textbf{Parâmetro} & \textbf{Definição}\\ 
+ \hline
+ $b_1$ & \makecell[l]{\rule{0pt}{3ex}Proporção de picadas de mosquitos suscetíveis \\ em humanos infectados que produzem infecção\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $b_2$ & \makecell[l]{\rule{0pt}{3ex}Proporção de picadas de mosquitos infectados \\ em humanos suscetíveis que produzem infecção\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\gamma$ & \makecell[l]{\rule{0pt}{3ex}1/Duração média da infecciosidade em humanos (dias$^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $T_1$ & \makecell[l]{\rule{0pt}{3ex}Temperatura média na ausência de sazonalidade ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $T_2$ & \makecell[l]{\rule{0pt}{3ex}Amplitude da variabilidade sazonal na temperatura\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $R_1$ & \makecell[l]{\rule{0pt}{3ex}Precipitação mensal média na ausência de \\ sazonalidade (mm)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $R_2$ & \makecell[l]{\rule{0pt}{3ex}Amplitude da variabilidade sazonal na precipitação\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\omega_1$ & \makecell[l]{\rule{0pt}{3ex}Frequência angular das oscilações sazonais na temperatura (meses$^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\omega_2$ & \makecell[l]{\rule{0pt}{3ex}Frequência angular das oscilações sazonais na precipitação (meses$^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\phi_1$ & \makecell[l]{\rule{0pt}{3ex}``Phase lag" da variabilidade da temperatura (defasagem de fase)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\phi_2$ & \makecell[l]{\rule{0pt}{3ex}``Phase lag" da variabilidade da precipitação (defasagem de fase)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $B_E$ & \makecell[l]{\rule{0pt}{3ex}Número de ovos colocados por adulto por oviposição\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $p_{ME}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade máxima de sobrevivência dos ovos\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $p_{ML}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade máxima de sobrevivência das larvas\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $p_{MP}$ & \makecell[l]{\rule{0pt}{3ex}Probabilidade máxima de sobrevivência das pupas\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $\tau_E$ & \makecell[l]{\rule{0pt}{3ex}Duração da fase de desenvolvimento dos ovos (dias)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $b_3^*$ & \makecell[l]{\rule{0pt}{3ex}Taxa de infecção em mosquitos expostos $(1/\tau_M(T))$\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+\end{tabular}
+\captionof{table}{Parâmetros usados na modelagem}
+\end{center}
+\end{adjustwidth}
+
+
+\begin{adjustwidth}{-0.5cm}{}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\raggedleft\begin{tabular}{|c | c|} 
+ \hline
+ \textbf{Parâmetro} & \textbf{Definição}\\ 
+ \hline
+  $\tau_P$ & \makecell[l]{\rule{0pt}{3ex}Duração da fase de desenvolvimento das pupas (dias)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $R_L$ & \makecell[l]{\rule{0pt}{3ex}Chuva limite até que os sítios de reprodução sejam eliminados, \\ removendo indivíduos de estágio imaturo (mm)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $T_{min}$ & \makecell[l]{\rule{0pt}{3ex}Temperatura mínima, abaixo dessa temperatura não há desenvolvimento \\ do parasita: 14.5 ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $DD$ & \makecell[l]{\rule{0pt}{3ex}``Degree-days" para desenvolvimento do parasita. Número de graus em \\ que a temperatura média diária excede a temperatura mínima \\ de desenvolvimento.
+ ``Sum of heat" para maturação: 105 $(^\circ C \ \text{dias})$ $^{[10], [15]}$\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $A$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C^2 \ \text{dias})^{-1}$\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $B$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C \ \text{dias})^{-1}$\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $C$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($\text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $D_1$ & \makecell[l]{\rule{0pt}{3ex}Constante: 36.5 ($^\circ C \ \text{dias}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $c_1$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C \ \text{dias})^{-1}$\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $c_2$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($\text{dias}^{-1}$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+ $T'^*$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de temperatura ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
+ \hline
+\end{tabular}
+\captionof{table}{Parâmetros usados na modelagem}
+\end{center}
+\end{adjustwidth}
+
+\vspace{1cm}
+Parâmetros marcados com $^*$ foram adicionados durante o desenvolvimento da modelagem para correção de imprecisões derivadas das equações originais do artigo de referência.
+\\\\
+Tendo as equações e parâmetros, a modelagem foi feita inicialmente 
+utilizando dados da zona rural de Manaus, no período de 2004 a 2008, 
+que foram selecionados devido à maior incidência de casos de malária causados 
+por $P. \ vivax$, sendo a espécie responsável pelo maior número de
+casos no Brasil $^{[11, 12]}$. Usando a função de incidência utilizada no projeto 
+Trajetorias $^{[5]}$, temos:
+\begin{gather*}
+    \text{Inc}(d, m, z, t_1, t_2) = \dfrac{\text{Casos}(d, m, z, t_1, t_2)}{\text{Pop}(m,z,(t_1+t_2)/2) \times 5 \ \text{anos}} \times 10^5,
+\end{gather*}
+onde $\text{casos}(d, m, z, t_1, t_2)$ é o número de casos da doença $d$ na zona $z$ do município $m$, e $t_1$ e $t_2$ são os anos iniciais e finais do intervalo, enquanto que $\text{pop}(m,z,(t_1+t_2)/2) \times 5 \ \text{anos}$ é a população na zona $z$ do município $m$ no meio do período multiplicado pelo total de anos de observação. Nesse caso, poderíamos indicar como:
+\begin{gather*}
+    \footnotesize{\text{Inc}(\text{Vivax}, \text{Manaus}, \text{Rural}, 2004, 2008) = \dfrac{\text{Casos}(\text{Vivax}, \text{Manaus}, \text{Rural}, 2004, 2008)}{\text{Pop}(\text{Manaus}, \text{Rural}, 2006) \times 5 \ \text{anos}} \times 10^5}  \\\\
+    184030.8 = \dfrac{78745}{5\text{Pop}} \times 10^5 \Rightarrow Pop \approx 8558
+\end{gather*}
+Usando dados da população total de Manaus nesse período, cuja incidência foi de 3106.4 e o número de casos foi de 262264, a população total do município foi estimada como sendo de 1688540 habitantes. Com isso, a população rural pôde ser considerada como aproximadamente 0.5$\%$ da população do município.
+\\\\
+Tendo estimado o tamanho porcentual da população rural na cidade, foi possível calcular essa população em cada um dos anos da análise através de uma interpolação linear feita com dados de séries históricas do IBGE $^{[13]}$:
+\\\\
+\begin{adjustwidth}{0cm}{}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|c | c|} 
+ \hline
+ \textbf{Ano} & \textbf{População rural estimada}\\ 
+ \hline
+$2004$ & $7717$ \\
+ \hline
+ $2005$ & $7889$ \\
+ \hline
+ $2006$ & $8061$ \\
+ \hline
+ $2007$ & $8233$ \\
+ \hline
+ $2008$ & $8492$ \\
+ \hline
+ $2009$ & $8751$ \\
+ \hline
+\end{tabular}
+\captionof{table}{População rural de Manaus de 2004 a 2009}
+\end{center}
+\end{adjustwidth}
+
+\vspace{1cm}
+Como haviam dados populacionais para os anos de 2000, 2007 e 2010, as interpolações foram feitas com diferentes pontos iniciais e finais, usando de 2000 a 2007 para 2004-2007, e de 2007 a 2010 para 2008-2009, de forma a utilizar corretamente a população de 2007.
+\\\\
+Descrevendo agora um pouco da teoria por trás dos fatores ambientais, segundo $^{[16]}$, 
+a remoção da copa das árvores permitiu a reemergência da malária 
+na América do Sul, já que em áreas desmatadas, 
+sem as copas cobrindo o solo, poças d'água sob luz solar atraem mosquitos 
+da espécie $Anopheles \ darlingi$, principal vetor relacionado à malária 
+humana na Amazônia $^{[17]}$, sendo que costumam ser menos encontrados em 
+florestas ainda intactas. Isso ocorre porque a luz e calor favorecem o 
+desenvolvimento de larvas e pupas, além de uma maior disponibilidade de 
+algas para alimentação das larvas $^{[18]}$. O aumento da temperatura 
+ambiente também favorece a capacidade vetorial dos mosquitos. O desmatamento 
+também atrai e aproxima humanos para que possam tomar parte em atividades 
+madeireiras, de agricultura e construção de rodovias, trazendo indíviduos 
+infectados com o $Plasmodium$ para uma área em que tanto o vetor quanto o 
+ambiente já foram modificados de forma a favorecer a sua transmissão. 
+Ainda, a agricultura também favorece a sedimentação dos rios, sendo 
+ambientes propícios para o estabelecimento de criadouros. Sendo assim, 
+pode ser considerada uma mudança adequada para o modelo para levar 
+em consideração o desmatamento, o aumento das probabilidades de 
+sobrevivência dos ovos, larvas e pupas, além de aumentar a proporção 
+de picadas que produzem infecção, devido ao aumento da densidade 
+populacional humana em áreas próximas aos criadouros dos mosquitos.

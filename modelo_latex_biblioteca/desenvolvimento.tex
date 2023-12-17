@@ -3,7 +3,7 @@
 Corresponde ao corpo do trabalho, contendo a exposição ordenada e pormemorizada
 do assunto. Constam aqui a revisão de literatura, metodologia adotada, os resultados e
 sua discussão. Divide-se em seções e subseções. \cite{pimenta_orfano_bahia_duarte_rios-velasquez_melo_pessoa_oliveira_campos_villegas_etal_2015}
-
+\\\\
 Para a elaboração do trabalho, serão usados dados populacionais 
 do dataset do Projeto Trajetórias e dados climáticos do Climate Data, 
 e serão abordados métodos de transmissão de doenças baseados em equações 
@@ -13,7 +13,7 @@ verificar como modificações no ecossistema irão interferir no modelo elaborad
 previamente. Os cálculos computacionais foram realizados em ambiente SageMath 9.2, 
 utilizando funções de integração numérica do Scipy para solução do método.
 \\\\
-Descrevendo primeiramente SIR $^{[6], [7]}$, que pode ser considerado a base de modelos que serão usados ao longo do projeto, este foi desenvolvido por W. O. Kermack e A. G. McKendrick em 1927, sendo um dos modelos mais usados para a modelagem de epidemias, levando em consideração três compartimentos:
+Descrevendo primeiramente SIR \cite{githubMODBIO, Prasad2022}, que pode ser considerado a base de modelos que serão usados ao longo do projeto, este foi desenvolvido por W. O. Kermack e A. G. McKendrick em 1927, sendo um dos modelos mais usados para a modelagem de epidemias, levando em consideração três compartimentos:
 
 \begin{align*}
     & S: \text{número de indivíduos suscetíveis} \\
@@ -66,7 +66,7 @@ $\dfrac{\beta}{\gamma}$, que podemos chamar de $R_0$.
 \\\\
 Como esse trabalho será focado principalmente na modelagem de malária, 
 irei agora apresentar um dos primeiros modelos desenvolvidos especialmente 
-para essa doença, por Sir Ronald Ross em 1911 $^{[8]}$, que usa duas EDOs 
+para essa doença, por Sir Ronald Ross em 1911 \cite{Bacaër2011}, que usa duas EDOs 
 distintas das apresentadas acima:
 
 \begin{gather*}
@@ -115,7 +115,7 @@ $I$ e $i$.
 Agora, irei apresentar o modelo que será usado para o desenvolvimento do 
 trabalho, feito com base no elaborado por Paul E. Parham e Edwin Michael 
 em 2010, que leva em consideração fatores como a chuva e temperatura 
-($R$ e $T$, respectivamente) $^{[9]}$. 
+($R$ e $T$, respectivamente) \cite{Parham2010}. 
 \\\\
 Definindo as equações que serão utilizadas:
 \begin{gather*}
@@ -246,7 +246,7 @@ funções necessárias, e depois as variáveis usadas:
  $T_{min}$ & \makecell[l]{\rule{0pt}{3ex}Temperatura mínima, abaixo dessa temperatura não há desenvolvimento \\ do parasita: 14.5 ($^\circ C$)\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $DD$ & \makecell[l]{\rule{0pt}{3ex}``Degree-days" para desenvolvimento do parasita. Número de graus em \\ que a temperatura média diária excede a temperatura mínima \\ de desenvolvimento.
- ``Sum of heat" para maturação: 105 $(^\circ C \ \text{dias})$ $^{[10], [15]}$\rule[-1.5ex]{0pt}{0pt}} \\
+ ``Sum of heat" para maturação: 105 $(^\circ C \ \text{dias})$ \rule[-1.5ex]{0pt}{0pt}} \\
  \hline
  $A$ & \makecell[l]{\rule{0pt}{3ex}Parâmetro empírico de sensibilidade ($^\circ C^2 \ \text{dias})^{-1}$\rule[-1.5ex]{0pt}{0pt}} \\
  \hline
@@ -268,14 +268,15 @@ funções necessárias, e depois as variáveis usadas:
 \end{adjustwidth}
 
 \vspace{1cm}
-Parâmetros marcados com $^*$ foram adicionados durante o desenvolvimento da modelagem para correção de imprecisões derivadas das equações originais do artigo de referência.
+Parâmetros marcados com $^*$ foram adicionados durante o desenvolvimento da modelagem para correção de imprecisões derivadas das equações originais do artigo de referência. 
+A definição de $DD$ foi retirada de \cite{McCord2016} e \cite{10665-41724}.
 \\\\
 Tendo as equações e parâmetros, a modelagem foi feita inicialmente 
 utilizando dados da zona rural de Manaus, no período de 2004 a 2008, 
 que foram selecionados devido à maior incidência de casos de malária causados 
 por $P. \ vivax$, sendo a espécie responsável pelo maior número de
-casos no Brasil $^{[11, 12]}$. Usando a função de incidência utilizada no projeto 
-Trajetorias $^{[5]}$, temos:
+casos no Brasil \cite{OliveiraFerreira2010, 10.3389/fpubh.2021.647754}. Usando a função de incidência utilizada no projeto 
+Trajetorias \cite{Rorato2023}, temos:
 \begin{gather*}
     \text{Inc}(d, m, z, t_1, t_2) = \dfrac{\text{Casos}(d, m, z, t_1, t_2)}{\text{Pop}(m,z,(t_1+t_2)/2) \times 5 \ \text{anos}} \times 10^5,
 \end{gather*}
@@ -286,7 +287,10 @@ onde $\text{casos}(d, m, z, t_1, t_2)$ é o número de casos da doença $d$ na z
 \end{gather*}
 Usando dados da população total de Manaus nesse período, cuja incidência foi de 3106.4 e o número de casos foi de 262264, a população total do município foi estimada como sendo de 1688540 habitantes. Com isso, a população rural pôde ser considerada como aproximadamente 0.5$\%$ da população do município.
 \\\\
-Tendo estimado o tamanho porcentual da população rural na cidade, foi possível calcular essa população em cada um dos anos da análise através de uma interpolação linear feita com dados de séries históricas do IBGE $^{[13]}$:
+Tendo estimado o tamanho porcentual da população rural na cidade, 
+foi possível calcular essa população em cada um dos anos da análise 
+através de uma interpolação linear feita com dados de séries históricas 
+do IBGE \cite{popIBGE}:
 \\\\
 \begin{adjustwidth}{0cm}{}
 \begin{center}
@@ -315,15 +319,16 @@ $2004$ & $7717$ \\
 \vspace{1cm}
 Como haviam dados populacionais para os anos de 2000, 2007 e 2010, as interpolações foram feitas com diferentes pontos iniciais e finais, usando de 2000 a 2007 para 2004-2007, e de 2007 a 2010 para 2008-2009, de forma a utilizar corretamente a população de 2007.
 \\\\
-Descrevendo agora um pouco da teoria por trás dos fatores ambientais, segundo $^{[16]}$, 
+Descrevendo agora um pouco da teoria por trás dos fatores ambientais, 
+segundo \cite{Norris2004}, 
 a remoção da copa das árvores permitiu a reemergência da malária 
 na América do Sul, já que em áreas desmatadas, 
 sem as copas cobrindo o solo, poças d'água sob luz solar atraem mosquitos 
 da espécie $Anopheles \ darlingi$, principal vetor relacionado à malária 
-humana na Amazônia $^{[17]}$, sendo que costumam ser menos encontrados em 
+humana na Amazônia \cite{infoAnopheles}, sendo que costumam ser menos encontrados em 
 florestas ainda intactas. Isso ocorre porque a luz e calor favorecem o 
 desenvolvimento de larvas e pupas, além de uma maior disponibilidade de 
-algas para alimentação das larvas $^{[18]}$. O aumento da temperatura 
+algas para alimentação das larvas \cite{article_alteracoesambientais}. O aumento da temperatura 
 ambiente também favorece a capacidade vetorial dos mosquitos. O desmatamento 
 também atrai e aproxima humanos para que possam tomar parte em atividades 
 madeireiras, de agricultura e construção de rodovias, trazendo indíviduos 

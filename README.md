@@ -19,4 +19,4 @@ Conteúdo:
 + TCC-Apresentação Final.pdf: Apresentação final do TCC, apresentada para a banca
 + Modelagem_para_Apresentação.ipynb: Códigos para geração dos resultados a serem incluídos nos slides de apresentação
 
-+ Repositório com conteúdo em inglês: [https://github.com/RaphaLevy/Undergraduate_Dissertation](https://github.com/RaphaLevy/Undergraduate_Dissertation)
+Repositório com conteúdo em inglês: [https://github.com/RaphaLevy/Undergraduate_Dissertation](https://github.com/RaphaLevy/Undergraduate_Dissertation)

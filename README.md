@@ -12,6 +12,7 @@ Conteúdo:
 + Modelagem: Pasta contendo arquivos de modelagem com referência de cálculo para R0, testes para equilíbrio da população de mosquitos e modelagem de R e T
 + Modelagem_com_Dinamica_Pop: Pasta contendo os resultados finais, com a inclusão de dinâmicas populacionais humanas no modelo
 + files: Pasta contendo arquivo .tex e todas as imagens utilizadas no corpo do TCC (Modelo de Projeto de TCC.pdf)
++ modelo_latex_biblioteca: Pasta contendo arquivos .tex e as imagens utilizadas no corpo do TCC, com formatação para envio à biblioteca 
 + old: Pasta contendo as modelagens com dados originais do artigo de referência, modelagens e testes iniciais e arquivos quebrados
 + Apresentação-Projeto de TCC.pdf: Apresentação inicial sobre tema e proposta do TCC, apresentada à turma 
 + Modelo de Projeto de TCC.pdf: Arquivo contendo o texto desenvolvido para o TCC
